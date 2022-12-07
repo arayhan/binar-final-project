@@ -1,4 +1,3 @@
-import { Button } from '@/components/atoms';
 import { ROUTES } from '@/configs/routes';
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
