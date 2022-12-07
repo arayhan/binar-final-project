@@ -3,8 +3,9 @@ import { AUTH_REQUEST_LOGIN, AUTH_REQUEST_LOGOUT, AUTH_RESPONSE_LOGIN } from './
 const initialState = {
 	user: null,
 
-	isAuthenticated: false,
+	error: null,
 
+	isAuthenticated: false,
 	isProcessingLogin: false
 };
 
@@ -19,9 +20,10 @@ export default function reducer(state = initialState, { type, payload }) {
 		case AUTH_RESPONSE_LOGIN:
 			return {
 				...state,
-				user: payload.data,
+				user: payload.response || null,
+				error: payload.error || null,
 				isProcessingLogin: false,
-				isAuthenticated: true
+				isAuthenticated: payload.success
 			};
 
 		case AUTH_REQUEST_LOGOUT:

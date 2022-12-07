@@ -37,8 +37,7 @@ export const MainHeader = () => {
 							>
 								<FaUserCircle size={18} />
 								<span>
-									<span>Welcome, </span>
-									<strong>{user?.email}</strong>
+									<span>Logout</span>
 								</span>
 							</button>
 						)}

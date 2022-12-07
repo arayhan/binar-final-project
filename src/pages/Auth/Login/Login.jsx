@@ -4,20 +4,21 @@ import { ACTION_AUTH } from '@/store/actions';
 import { loginSchema } from '@/utils/validation-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { GoogleLogin } from '@react-oauth/google';
+import Skeleton from 'react-loading-skeleton';
 import { Controller, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
 	const dispatch = useDispatch();
+
+	const { isProcessingLogin } = useSelector((state) => state.auth);
 
 	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(loginSchema),
 		defaultValues: { email: '', password: '' }
 	});
 
-	const handleLogin = (values) => {
-		dispatch(ACTION_AUTH.authLogin(values));
-	};
+	const handleLogin = (values) => dispatch(ACTION_AUTH.authLogin(values));
 
 	const handleGoogleLogin = (response) => {
 		console.log({ response });
@@ -38,14 +39,27 @@ const Login = () => {
 						name={'email'}
 						control={control}
 						render={({ field, fieldState: { error } }) => (
-							<InputText {...field} label="Email" placeholder="Masukkan email" error={error} />
+							<InputText
+								{...field}
+								label="Email"
+								placeholder="Masukkan email"
+								disabled={isProcessingLogin}
+								error={error}
+							/>
 						)}
 					/>
 					<Controller
 						name={'password'}
 						control={control}
 						render={({ field, fieldState: { error } }) => (
-							<InputText {...field} type="password" label="Password" placeholder="Masukkan password" error={error} />
+							<InputText
+								{...field}
+								type="password"
+								label="Password"
+								placeholder="Masukkan password"
+								disabled={isProcessingLogin}
+								error={error}
+							/>
 						)}
 					/>
 				</div>
@@ -58,20 +72,24 @@ const Login = () => {
 					className={'w-full px-4 py-3 rounded-md font-semibold'}
 					type="submit"
 					variant={'primary'}
+					disabled={isProcessingLogin}
 					text="Login"
 				/>
 
 				<div className="text-center opacity-70">atau</div>
 
-				<GoogleLogin
-					theme="outline"
-					logo_alignment="center"
-					text="Test"
-					onSuccess={handleGoogleLogin}
-					onError={() => {
-						console.log('Login Failed');
-					}}
-				/>
+				{isProcessingLogin && <Skeleton containerClassName="block" height={38} />}
+				{!isProcessingLogin && (
+					<GoogleLogin
+						theme="outline"
+						logo_alignment="center"
+						text="Test"
+						onSuccess={handleGoogleLogin}
+						onError={() => {
+							console.log('Login Failed');
+						}}
+					/>
+				)}
 			</div>
 		</form>
 	);
