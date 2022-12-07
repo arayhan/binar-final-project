@@ -5,8 +5,8 @@ import { MainHeaderLogo } from './MainHeaderLogo';
 
 export const MainHeader = () => {
 	return (
-		<div className="bg-white">
-			<div className="container flex items-center justify-between py-3">
+		<div className="bg-white shadow-md">
+			<div className="container flex items-center justify-between py-4">
 				<div>
 					<MainHeaderLogo />
 				</div>
