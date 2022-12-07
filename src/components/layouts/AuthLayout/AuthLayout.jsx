@@ -13,8 +13,10 @@ export const AuthLayout = () => {
 					<div className="text-xl opacity-70">Masuk dan nikmati benefit Terbangin dengan cepat dan aman.</div>
 				</div>
 			</div>
-			<div className="w-full container bg-white">
-				<Outlet />
+			<div className="w-full lg:w-10/12 lg:min-h-screen bg-secondary-100 flex items-center px-8 lg:px-20 py-20">
+				<div className="w-full bg-white shadow-md rounded-md">
+					<Outlet />
+				</div>
 			</div>
 		</div>
 	);
