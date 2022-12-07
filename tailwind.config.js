@@ -5,7 +5,7 @@ module.exports = {
 		extend: {
 			container: {
 				center: true,
-				padding: '1rem',
+				padding: '1rem'
 			},
 			colors: {
 				primary: {
@@ -18,7 +18,7 @@ module.exports = {
 					600: '#246a6e',
 					700: '#1b4f53',
 					800: '#123537',
-					900: '#091a1c',
+					900: '#091a1c'
 				},
 				secondary: {
 					100: '#f3f9fc',
@@ -30,18 +30,18 @@ module.exports = {
 					600: '#9ab2c0',
 					700: '#748690',
 					800: '#4d5960',
-					900: '#272d30',
-				},
+					900: '#272d30'
+				}
 			},
 			fontFamily: {
-				primary: ['"Inter"', 'sans-serif'],
-			},
-		},
+				primary: ['"Inter"', 'sans-serif']
+			}
+		}
 	},
 	plugins: [
 		require('@tailwindcss/forms'),
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/aspect-ratio'),
-		require('@tailwindcss/line-clamp'),
-	],
+		require('@tailwindcss/line-clamp')
+	]
 };
