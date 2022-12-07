@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Navigate, Outlet, Route, Routes as RoutesContainer } from 'react-router-dom';
 import { AuthLayout } from './components/layouts/AuthLayout/AuthLayout';
 import { MainLayout } from './components/layouts/MainLayout/MainLayout';
@@ -7,14 +8,14 @@ import Login from './pages/Auth/Login/Login';
 import Home from './pages/Home/Home';
 
 const AppRoute = () => {
-	const isLoggedIn = false;
+	const { isAuthenticated } = useSelector((state) => state.auth);
 
 	const ProtectedRoute = () => {
-		return !isLoggedIn ? <Navigate to="/login" replace /> : <Outlet />;
+		return !isAuthenticated ? <Navigate to="/login" replace /> : <Outlet />;
 	};
 
 	const AuthenticationRoute = () => {
-		return isLoggedIn ? <Navigate to="/" replace /> : <Outlet />;
+		return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
 	};
 
 	return (

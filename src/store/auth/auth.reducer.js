@@ -1,12 +1,15 @@
-import { AUTH_REQUEST_LOGIN, AUTH_RESPONSE_LOGIN } from './auth.types';
+import { AUTH_REQUEST_LOGIN, AUTH_REQUEST_LOGOUT, AUTH_RESPONSE_LOGIN } from './auth.types';
 
 const initialState = {
 	user: null,
+
+	isAuthenticated: false,
+
 	isProcessingLogin: false
 };
 
-export default function reducer(state = initialState, action) {
-	switch (action.type) {
+export default function reducer(state = initialState, { type, payload }) {
+	switch (type) {
 		case AUTH_REQUEST_LOGIN:
 			return {
 				...state,
@@ -16,9 +19,18 @@ export default function reducer(state = initialState, action) {
 		case AUTH_RESPONSE_LOGIN:
 			return {
 				...state,
+				user: payload.data,
 				isProcessingLogin: false,
-				user: action.payload.data
+				isAuthenticated: true
 			};
+
+		case AUTH_REQUEST_LOGOUT:
+			return {
+				...state,
+				user: null,
+				isAuthenticated: false
+			};
+
 		default:
 			return state;
 	}
