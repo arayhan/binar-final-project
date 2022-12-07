@@ -4,8 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import reportWebVitals from './reportWebVitals';
+import { PersistGate } from 'redux-persist/integration/react';
 import App from '@/App';
-import store from '@/store/store';
+import { store, persistor } from '@/store/store';
 
 import '@/styles/index.css';
 
@@ -14,9 +15,11 @@ root.render(
 	<GoogleOAuthProvider>
 		<React.StrictMode>
 			<Provider store={store}>
-				<BrowserRouter>
-					<App />
-				</BrowserRouter>
+				<PersistGate loading={null} persistor={persistor}>
+					<BrowserRouter>
+						<App />
+					</BrowserRouter>
+				</PersistGate>
 			</Provider>
 		</React.StrictMode>
 	</GoogleOAuthProvider>

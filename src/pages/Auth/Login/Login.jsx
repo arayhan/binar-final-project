@@ -1,18 +1,22 @@
 import { InputText } from '@/components/atoms';
 import { Button } from '@/components/atoms/Button/Button';
+import { ACTION_AUTH } from '@/store/actions';
 import { loginSchema } from '@/utils/validation-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { GoogleLogin } from '@react-oauth/google';
 import { Controller, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
+	const dispatch = useDispatch();
+
 	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(loginSchema),
 		defaultValues: { email: '', password: '' }
 	});
 
 	const handleLogin = (values) => {
-		console.log({ values });
+		dispatch(ACTION_AUTH.authLogin(values));
 	};
 
 	const handleGoogleLogin = (response) => {
@@ -25,7 +29,9 @@ const Login = () => {
 				<div className="text-3xl font-bold">Login</div>
 				<div className="opacity-70">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, nam.</div>
 			</div>
+
 			<hr />
+
 			<div className="space-y-6 px-10 py-6">
 				<div className="space-y-4">
 					<Controller
@@ -35,7 +41,6 @@ const Login = () => {
 							<InputText {...field} label="Email" placeholder="Masukkan email" error={error} />
 						)}
 					/>
-
 					<Controller
 						name={'password'}
 						control={control}
@@ -45,7 +50,9 @@ const Login = () => {
 					/>
 				</div>
 			</div>
+
 			<hr />
+
 			<div className="space-y-4 p-8">
 				<Button
 					className={'w-full px-4 py-3 rounded-md font-semibold'}
@@ -53,7 +60,9 @@ const Login = () => {
 					variant={'primary'}
 					text="Login"
 				/>
+
 				<div className="text-center opacity-70">atau</div>
+
 				<GoogleLogin
 					theme="outline"
 					logo_alignment="center"
