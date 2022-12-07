@@ -1,18 +1,4 @@
-# About
-
-React.js boilerplate create by Ahmed Rayhan Primadedas
-integrated with some features below
-
-## Features & Stacks
-
-- Tailwind CSS
-- Prettier
-- Absolute import
-- Zustand
-- Axios
-- React Hook Form
-
-## Getting Started with Create React App
+# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
