@@ -1,16 +1,14 @@
-import { applyMiddleware, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import rootReducer from "./reducers";
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
 
 // Initial state, the default state
 const initialState = {};
 
 // We will only can open redux devtools in development not in production
 const middleware =
-  process.env.NODE_ENV === "development"
-    ? composeWithDevTools(applyMiddleware(thunk))
-    : applyMiddleware(thunk);
+	process.env.NODE_ENV === 'development' ? composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk);
 
 // Create new store (temporary database) with reducers those we have
 // Add redux thunk to enable actions with async
