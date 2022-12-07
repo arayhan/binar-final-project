@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from '@/App';
 import { store, persistor } from '@/store/store';
 
+import 'react-loading-skeleton/dist/skeleton.css';
 import '@/styles/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
