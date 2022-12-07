@@ -7,6 +7,6 @@
 
 	html,
 	body {
-		@apply font-primary;
+		@apply text-[14px] font-primary font-light;
 	}
 }
