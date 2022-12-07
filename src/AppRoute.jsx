@@ -1,4 +1,5 @@
 import { Navigate, Outlet, Route, Routes as RoutesContainer } from 'react-router-dom';
+import { AuthLayout } from './components/layouts/AuthLayout/AuthLayout';
 import { MainLayout } from './components/layouts/MainLayout/MainLayout';
 import { ROUTES } from './configs/routes';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
@@ -18,15 +19,17 @@ const AppRoute = () => {
 
 	return (
 		<RoutesContainer>
-			<Route path={ROUTES.LOGIN.path} element={<AuthenticationRoute />}>
-				<Route path={ROUTES.LOGIN.path} element={<Login />} />
+			<Route element={<AuthenticationRoute />}>
+				<Route element={<AuthLayout />}>
+					<Route path={ROUTES.LOGIN.path} element={<Login />} />
+				</Route>
 			</Route>
 
-			<Route path={ROUTES.ADMIN.path} element={<ProtectedRoute />}>
+			<Route element={<ProtectedRoute />}>
 				<Route path={ROUTES.ADMIN.path} element={<Dashboard />} />
 			</Route>
 
-			<Route path={ROUTES.HOME.path} element={<MainLayout />}>
+			<Route element={<MainLayout />}>
 				<Route path={ROUTES.HOME.path} element={<Home />} />
 			</Route>
 		</RoutesContainer>
