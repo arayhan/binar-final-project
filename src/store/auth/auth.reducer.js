@@ -1,4 +1,10 @@
-import { AUTH_REQUEST_LOGIN, AUTH_REQUEST_LOGOUT, AUTH_RESPONSE_LOGIN } from './auth.types';
+import {
+	AUTH_REQUEST_LOGIN,
+	AUTH_REQUEST_REGISTER,
+	AUTH_REQUEST_LOGOUT,
+	AUTH_RESPONSE_LOGIN,
+	AUTH_RESPONSE_REGISTER
+} from './auth.types';
 
 const initialState = {
 	user: null,
@@ -6,7 +12,8 @@ const initialState = {
 	error: null,
 
 	isAuthenticated: false,
-	isProcessingLogin: false
+	isProcessingLogin: false,
+	isProcessingRegister: false
 };
 
 export default function reducer(state = initialState, { type, payload }) {
@@ -15,6 +22,12 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				isProcessingLogin: true
+			};
+
+		case AUTH_REQUEST_REGISTER:
+			return {
+				...state,
+				isProcessingRegister: true
 			};
 
 		case AUTH_RESPONSE_LOGIN:
@@ -26,6 +39,14 @@ export default function reducer(state = initialState, { type, payload }) {
 				isAuthenticated: payload.success
 			};
 
+		case AUTH_RESPONSE_REGISTER:
+			return {
+				...state,
+				user: payload.response || null,
+				error: payload.error || null,
+				isProcessingRegister: false,
+				isAuthenticated: payload.success
+			};
 		case AUTH_REQUEST_LOGOUT:
 			return {
 				...state,
