@@ -1,9 +1,10 @@
+import { BannerHome } from '@/components/molecules';
 import React from 'react';
 
 const Home = () => {
 	return (
 		<div>
-			<div className="p-20 text-white bg-primary">Project Setup Finished</div>
+			<BannerHome />
 		</div>
 	);
 };
