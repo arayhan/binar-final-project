@@ -14,7 +14,7 @@ import { ROUTES } from '@/configs/routes';
 const Register = () => {
 	const dispatch = useDispatch();
 
-	const { isProcessingRegister } = useSelector((state) => state.auth);
+	const { error, isProcessingRegister } = useSelector((state) => state.auth);
 
 	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(registerSchema),
@@ -29,9 +29,9 @@ const Register = () => {
 
 	useEffect(() => {
 		return () => {
-			dispatch(ACTION_AUTH.authClearError());
+			if (error) dispatch(ACTION_AUTH.authClearError());
 		};
-	}, [dispatch]);
+	}, [error, dispatch]);
 
 	return (
 		<form onSubmit={handleSubmit(handleRegister)}>

@@ -4,7 +4,9 @@ import {
 	AUTH_REQUEST_LOGOUT,
 	AUTH_RESPONSE_LOGIN,
 	AUTH_RESPONSE_REGISTER,
-	AUTH_CLEAR_ERROR
+	AUTH_CLEAR_ERROR,
+	AUTH_REQUEST_EMAIL_ACTIVATION,
+	AUTH_RESPONSE_EMAIL_ACTIVATION
 } from './auth.types';
 
 const initialState = {
@@ -14,7 +16,8 @@ const initialState = {
 
 	isAuthenticated: false,
 	isProcessingLogin: false,
-	isProcessingRegister: false
+	isProcessingRegister: false,
+	isProcessingEmailActivation: false
 };
 
 export default function reducer(state = initialState, { type, payload }) {
@@ -23,12 +26,6 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				isProcessingLogin: true
-			};
-
-		case AUTH_REQUEST_REGISTER:
-			return {
-				...state,
-				isProcessingRegister: true
 			};
 
 		case AUTH_RESPONSE_LOGIN:
@@ -40,6 +37,12 @@ export default function reducer(state = initialState, { type, payload }) {
 				isAuthenticated: payload.success
 			};
 
+		case AUTH_REQUEST_REGISTER:
+			return {
+				...state,
+				isProcessingRegister: true
+			};
+
 		case AUTH_RESPONSE_REGISTER:
 			return {
 				...state,
@@ -47,6 +50,19 @@ export default function reducer(state = initialState, { type, payload }) {
 				error: payload.error || null,
 				isProcessingRegister: false,
 				isAuthenticated: payload.success
+			};
+
+		case AUTH_REQUEST_EMAIL_ACTIVATION:
+			return {
+				...state,
+				isProcessingEmailActivation: true
+			};
+
+		case AUTH_RESPONSE_EMAIL_ACTIVATION:
+			return {
+				...state,
+				error: payload.error || null,
+				isProcessingEmailActivation: false
 			};
 
 		case AUTH_REQUEST_LOGOUT:

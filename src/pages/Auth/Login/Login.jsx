@@ -8,10 +8,13 @@ import Skeleton from 'react-loading-skeleton';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/configs/routes';
+import { queryStringToObject } from '@/utils/helpers';
 
 const Login = () => {
+	const navigate = useNavigate();
+	const location = useLocation();
 	const dispatch = useDispatch();
 
 	const { error, isProcessingLogin } = useSelector((state) => state.auth);
@@ -26,6 +29,19 @@ const Login = () => {
 	const handleGoogleLogin = (response) => {
 		console.log({ response });
 	};
+
+	useEffect(() => {
+		if (location.search?.indexOf('token') !== -1) {
+			const params = queryStringToObject(location.search);
+
+			dispatch(
+				ACTION_AUTH.authEmailActivation(params.token, () => {
+					notify.show('Aktivasi email berhasil', 'success');
+					navigate(ROUTES.LOGIN.path);
+				})
+			);
+		}
+	}, []);
 
 	useEffect(() => {
 		return () => {
