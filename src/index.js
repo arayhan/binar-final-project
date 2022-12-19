@@ -14,15 +14,13 @@ import '@/styles/index.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<GoogleOAuthProvider>
-		<React.StrictMode>
-			<Provider store={store}>
-				<PersistGate loading={null} persistor={persistor}>
-					<BrowserRouter>
-						<App />
-					</BrowserRouter>
-				</PersistGate>
-			</Provider>
-		</React.StrictMode>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</PersistGate>
+		</Provider>
 	</GoogleOAuthProvider>
 );
 
