@@ -91,7 +91,11 @@ const Login = () => {
 					{isProcessingLogin && <Skeleton containerClassName="block" height={38} />}
 					{!isProcessingLogin && (
 						<GoogleLogin
+							locale="id"
+							text="signin_with"
+							shape="rectangular"
 							theme="outline"
+							width="100%"
 							logo_alignment="center"
 							onSuccess={handleGoogleLogin}
 							onError={() => {

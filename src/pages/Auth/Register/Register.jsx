@@ -23,7 +23,7 @@ const Register = () => {
 
 	const handleRegister = (values) => dispatch(ACTION_AUTH.authRegister(values));
 
-	const handleGoogleLogin = (response) => {
+	const handleGoogleRegister = (response) => {
 		console.log({ response });
 	};
 
@@ -144,12 +144,15 @@ const Register = () => {
 					{isProcessingRegister && <Skeleton containerClassName="block" height={38} />}
 					{!isProcessingRegister && (
 						<GoogleLogin
+							locale="id"
+							text="signin_with"
+							shape="rectangular"
 							theme="outline"
+							width="100%"
 							logo_alignment="center"
-							text="signup_with"
-							onSuccess={handleGoogleLogin}
+							onSuccess={handleGoogleRegister}
 							onError={() => {
-								console.log('Login Failed');
+								console.log('Register Failed');
 							}}
 						/>
 					)}
