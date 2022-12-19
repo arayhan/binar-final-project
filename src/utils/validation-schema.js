@@ -12,3 +12,8 @@ export const registerSchema = yup.object().shape({
 	username: yup.string().required('Username wajib diisi'),
 	password: yup.string().required('Password wajib diisi')
 });
+
+export const profilSchema = yup.object().shape({
+	name: yup.string().required('Full Name'),
+	address: yup.string().required('City of Residence')
+});

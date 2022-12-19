@@ -2,5 +2,6 @@ export const ROUTES = {
 	HOME: { path: '/', name: 'Home' },
 	LOGIN: { path: '/login', name: 'Login' },
 	REGISTER: { path: '/register', name: 'Register' },
-	ADMIN: { path: '/admin', name: 'Admin' }
+	ADMIN: { path: '/admin', name: 'Admin' },
+	PROFILE: { path: '/profile/account', name: 'profile' }
 };
