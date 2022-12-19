@@ -3,7 +3,8 @@ import {
 	AUTH_REQUEST_REGISTER,
 	AUTH_REQUEST_LOGOUT,
 	AUTH_RESPONSE_LOGIN,
-	AUTH_RESPONSE_REGISTER
+	AUTH_RESPONSE_REGISTER,
+	AUTH_CLEAR_ERROR
 } from './auth.types';
 
 const initialState = {
@@ -47,11 +48,18 @@ export default function reducer(state = initialState, { type, payload }) {
 				isProcessingRegister: false,
 				isAuthenticated: payload.success
 			};
+
 		case AUTH_REQUEST_LOGOUT:
 			return {
 				...state,
 				user: null,
 				isAuthenticated: false
+			};
+
+		case AUTH_CLEAR_ERROR:
+			return {
+				...state,
+				error: null
 			};
 
 		default:

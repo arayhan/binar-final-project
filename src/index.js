@@ -7,13 +7,14 @@ import reportWebVitals from './reportWebVitals';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from '@/App';
 import { store, persistor } from '@/store/store';
+import { OAUTH_CLIENT_ID } from './utils/constants';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 import '@/styles/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<GoogleOAuthProvider>
+	<GoogleOAuthProvider clientId={OAUTH_CLIENT_ID}>
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
 				<BrowserRouter>

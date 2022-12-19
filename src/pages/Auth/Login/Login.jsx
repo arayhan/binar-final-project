@@ -7,11 +7,14 @@ import { GoogleLogin } from '@react-oauth/google';
 import Skeleton from 'react-loading-skeleton';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '@/configs/routes';
 
 const Login = () => {
 	const dispatch = useDispatch();
 
-	const { isProcessingLogin } = useSelector((state) => state.auth);
+	const { error, isProcessingLogin } = useSelector((state) => state.auth);
 
 	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(loginSchema),
@@ -23,6 +26,12 @@ const Login = () => {
 	const handleGoogleLogin = (response) => {
 		console.log({ response });
 	};
+
+	useEffect(() => {
+		return () => {
+			if (error) dispatch(ACTION_AUTH.authClearError());
+		};
+	}, [error, dispatch]);
 
 	return (
 		<form onSubmit={handleSubmit(handleLogin)}>
@@ -67,29 +76,37 @@ const Login = () => {
 
 			<hr />
 
-			<div className="space-y-4 p-8">
-				<Button
-					className={'w-full px-4 py-3 rounded-md font-semibold'}
-					type="submit"
-					variant={'primary'}
-					disabled={isProcessingLogin}
-					text="Login"
-				/>
-
-				<div className="text-center opacity-70">atau</div>
-
-				{isProcessingLogin && <Skeleton containerClassName="block" height={38} />}
-				{!isProcessingLogin && (
-					<GoogleLogin
-						theme="outline"
-						logo_alignment="center"
-						text="Test"
-						onSuccess={handleGoogleLogin}
-						onError={() => {
-							console.log('Login Failed');
-						}}
+			<div className="space-y-6 p-8">
+				<div className="space-y-3">
+					<Button
+						className={'w-full px-4 py-3 rounded-md font-semibold'}
+						type="submit"
+						variant={'primary'}
+						disabled={isProcessingLogin}
+						text="Login"
 					/>
-				)}
+
+					<div className="text-center opacity-70">atau</div>
+
+					{isProcessingLogin && <Skeleton containerClassName="block" height={38} />}
+					{!isProcessingLogin && (
+						<GoogleLogin
+							theme="outline"
+							logo_alignment="center"
+							onSuccess={handleGoogleLogin}
+							onError={() => {
+								console.log('Login Failed');
+							}}
+						/>
+					)}
+				</div>
+
+				<div className="text-center">
+					<span className="opacity-70">Belum punya akun?</span>{' '}
+					<Link className="text-primary hover:underline font-semibold" to={ROUTES.REGISTER.path}>
+						Daftar
+					</Link>
+				</div>
 			</div>
 		</form>
 	);

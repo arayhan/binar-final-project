@@ -5,7 +5,8 @@ import {
 	AUTH_REQUEST_REGISTER,
 	AUTH_REQUEST_LOGOUT,
 	AUTH_RESPONSE_LOGIN,
-	AUTH_RESPONSE_REGISTER
+	AUTH_RESPONSE_REGISTER,
+	AUTH_CLEAR_ERROR
 } from './auth.types';
 
 // ==================================
@@ -31,6 +32,10 @@ const responseRegister = ({ success, response, error }) => ({
 
 const requestLogout = () => ({
 	type: AUTH_REQUEST_LOGOUT
+});
+
+const clearError = () => ({
+	type: AUTH_CLEAR_ERROR
 });
 
 // ==================================
@@ -71,4 +76,8 @@ export const authRegister = (values) => async (dispatch) => {
 export const authLogout = (callback) => (dispatch) => {
 	dispatch(requestLogout());
 	callback();
+};
+
+export const authClearError = () => (dispatch) => {
+	dispatch(clearError());
 };

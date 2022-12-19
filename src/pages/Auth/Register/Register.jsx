@@ -7,6 +7,9 @@ import { GoogleLogin } from '@react-oauth/google';
 import Skeleton from 'react-loading-skeleton';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '@/configs/routes';
 
 const Register = () => {
 	const dispatch = useDispatch();
@@ -15,7 +18,7 @@ const Register = () => {
 
 	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(registerSchema),
-		defaultValues: { phone: '', email: '', name: '', username: '', password: '' }
+		defaultValues: { phone: '', email: '', name: '', username: '', password: '', confirmPassword: '' }
 	});
 
 	const handleRegister = (values) => dispatch(ACTION_AUTH.authRegister(values));
@@ -23,6 +26,12 @@ const Register = () => {
 	const handleGoogleLogin = (response) => {
 		console.log({ response });
 	};
+
+	useEffect(() => {
+		return () => {
+			dispatch(ACTION_AUTH.authClearError());
+		};
+	}, [dispatch]);
 
 	return (
 		<form onSubmit={handleSubmit(handleRegister)}>
@@ -101,34 +110,57 @@ const Register = () => {
 							/>
 						)}
 					/>
+					<Controller
+						name={'confirmPassword'}
+						control={control}
+						render={({ field, fieldState: { error } }) => (
+							<InputText
+								{...field}
+								type="password"
+								label="Password"
+								placeholder="Masukkan konfirmasi password"
+								disabled={isProcessingRegister}
+								error={error}
+							/>
+						)}
+					/>
 				</div>
 			</div>
 
 			<hr />
 
-			<div className="space-y-4 p-8">
-				<Button
-					className={'w-full px-4 py-3 rounded-md font-semibold'}
-					type="submit"
-					variant={'primary'}
-					disabled={isProcessingRegister}
-					text="Register"
-				/>
-
-				<div className="text-center opacity-70">atau</div>
-
-				{isProcessingRegister && <Skeleton containerClassName="block" height={38} />}
-				{!isProcessingRegister && (
-					<GoogleLogin
-						theme="outline"
-						logo_alignment="center"
-						text="Test"
-						onSuccess={handleGoogleLogin}
-						onError={() => {
-							console.log('Login Failed');
-						}}
+			<div className="space-y-6 p-8">
+				<div className="space-y-3">
+					<Button
+						className={'w-full px-4 py-3 rounded-md font-semibold'}
+						type="submit"
+						variant={'primary'}
+						disabled={isProcessingRegister}
+						text="Register"
 					/>
-				)}
+
+					<div className="text-center opacity-70">atau</div>
+
+					{isProcessingRegister && <Skeleton containerClassName="block" height={38} />}
+					{!isProcessingRegister && (
+						<GoogleLogin
+							theme="outline"
+							logo_alignment="center"
+							text="signup_with"
+							onSuccess={handleGoogleLogin}
+							onError={() => {
+								console.log('Login Failed');
+							}}
+						/>
+					)}
+				</div>
+
+				<div className="text-center">
+					<span className="opacity-70">Sudah punya akun?</span>{' '}
+					<Link className="text-primary hover:underline font-semibold" to={ROUTES.LOGIN.path}>
+						Login
+					</Link>
+				</div>
 			</div>
 		</form>
 	);

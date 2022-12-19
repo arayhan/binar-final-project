@@ -10,5 +10,9 @@ export const registerSchema = yup.object().shape({
 	email: yup.string().email('Email tidak valid').required('Email wajib diisi'),
 	name: yup.string().required('Nama wajib diisi'),
 	username: yup.string().required('Username wajib diisi'),
-	password: yup.string().required('Password wajib diisi')
+	password: yup.string().required('Password wajib diisi'),
+	confirmPassword: yup
+		.string()
+		.oneOf([yup.ref('password'), null], 'Password tidak sama')
+		.required('Konfirmasi password harus diisi')
 });
