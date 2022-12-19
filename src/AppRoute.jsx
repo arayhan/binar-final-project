@@ -24,17 +24,8 @@ const AppRoute = () => {
 			<Route element={<AuthenticationRoute />}>
 				<Route element={<AuthLayout />}>
 					<Route path={ROUTES.LOGIN.path} element={<Login />} />
-				</Route>
-			</Route>
-
-			<Route element={<AuthenticationRoute />}>
-				<Route element={<AuthLayout />}>
 					<Route path={ROUTES.REGISTER.path} element={<Register />} />
 				</Route>
-			</Route>
-
-			<Route element={<ProtectedRoute />}>
-				<Route path={ROUTES.ADMIN.path} element={<Dashboard />} />
 			</Route>
 
 			<Route element={<MainLayout />}>
