@@ -1,3 +1,4 @@
+import { APP_NAME } from '@/utils/constants';
 import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION } from '../apis';
 import { http } from '../http';
 import {
@@ -36,10 +37,13 @@ const requestEmailActivation = () => ({
 	type: AUTH_REQUEST_EMAIL_ACTIVATION
 });
 
-const responseEmailActivation = ({ success, response, error }) => ({
-	type: AUTH_RESPONSE_EMAIL_ACTIVATION,
-	payload: { success, response, error }
-});
+const responseEmailActivation = ({ success, response, error }) => {
+	console.log({ success, response, error });
+	return {
+		type: AUTH_RESPONSE_EMAIL_ACTIVATION,
+		payload: { success, response, error }
+	};
+};
 
 const requestLogout = () => ({
 	type: AUTH_REQUEST_LOGOUT
@@ -52,20 +56,22 @@ const clearError = () => ({
 // ==================================
 // ACTIONS
 // ==================================
-export const authLogin = (values) => async (dispatch) => {
+export const actionLogin = (values) => async (dispatch) => {
 	dispatch(requestLogin());
 
 	try {
 		const request = { email: values.email, password: values.password };
 		const response = await http.post(API_AUTH_LOGIN, request);
 
+		callback({ success: true });
 		dispatch(responseLogin({ success: true, response: response.data.data }));
 	} catch (error) {
+		callback({ success: false, message: `Login gagal, Mohon hubungi admin untuk tahapan lebih lanjut.` });
 		dispatch(responseLogin({ success: false, error: error.response.data || error }));
 	}
 };
 
-export const authRegister = (values) => async (dispatch) => {
+export const actionRegister = (values, callback) => async (dispatch) => {
 	dispatch(requestRegister());
 
 	try {
@@ -76,31 +82,38 @@ export const authRegister = (values) => async (dispatch) => {
 			username: values.username,
 			password: values.password
 		};
+
+		const message = `Terima kasih sudah mendaftar di ${APP_NAME}, Mohon cek email Anda terlebih dahulu untuk aktivasi email.`;
 		const response = await http.post(API_AUTH_REGISTER, request);
+
+		callback({ success: true, message });
 
 		dispatch(responseRegister({ success: true, response: response.data.data }));
 	} catch (error) {
+		const message = `Pendaftaran gagal, Mohon hubungi admin untuk tahapan lebih lanjut.`;
+
+		callback({ success: false, message });
 		dispatch(responseRegister({ success: false, error: error.response.data || error }));
 	}
 };
 
-export const authEmailActivation = (values, callback) => async (dispatch) => {
+export const actionEmailActivation = (params, callback) => async (dispatch) => {
 	dispatch(requestEmailActivation());
-
 	try {
-		const response = await http.get(`${API_AUTH_EMAIL_ACTIVATION}/${values.token}`);
-		callback();
+		const response = await http.get(`${API_AUTH_EMAIL_ACTIVATION}/${params.token}`);
 		dispatch(responseEmailActivation({ success: true, response: response.data.data }));
+		callback({ success: true, message: 'Aktivasi email berhasil' });
 	} catch (error) {
 		dispatch(responseEmailActivation({ success: false, error: error.response.data || error }));
+		callback({ success: false, message: 'Aktivasi email gagal' });
 	}
 };
 
-export const authLogout = (callback) => (dispatch) => {
+export const actionLogout = (callback) => (dispatch) => {
 	dispatch(requestLogout());
 	callback();
 };
 
-export const authClearError = () => (dispatch) => {
+export const actionClearError = () => (dispatch) => {
 	dispatch(clearError());
 };
