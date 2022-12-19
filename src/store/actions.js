@@ -1,1 +1,1 @@
-export * from './user/user.actions';
+export * as ACTION_AUTH from './auth/auth.actions';

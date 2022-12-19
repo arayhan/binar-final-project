@@ -1,4 +1,6 @@
+import { useSelector } from 'react-redux';
 import { Navigate, Outlet, Route, Routes as RoutesContainer } from 'react-router-dom';
+import { AuthLayout } from './components/layouts/AuthLayout/AuthLayout';
 import { MainLayout } from './components/layouts/MainLayout/MainLayout';
 import { ROUTES } from './configs/routes';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
@@ -6,27 +8,29 @@ import Login from './pages/Auth/Login/Login';
 import Home from './pages/Home/Home';
 
 const AppRoute = () => {
-	const isLoggedIn = false;
+	const { isAuthenticated } = useSelector((state) => state.auth);
 
 	const ProtectedRoute = () => {
-		return !isLoggedIn ? <Navigate to="/login" replace /> : <Outlet />;
+		return !isAuthenticated ? <Navigate to="/login" replace /> : <Outlet />;
 	};
 
 	const AuthenticationRoute = () => {
-		return isLoggedIn ? <Navigate to="/" replace /> : <Outlet />;
+		return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
 	};
 
 	return (
 		<RoutesContainer>
-			<Route path={ROUTES.LOGIN.path} element={<AuthenticationRoute />}>
-				<Route path={ROUTES.LOGIN.path} element={<Login />} />
+			<Route element={<AuthenticationRoute />}>
+				<Route element={<AuthLayout />}>
+					<Route path={ROUTES.LOGIN.path} element={<Login />} />
+				</Route>
 			</Route>
 
-			<Route path={ROUTES.ADMIN.path} element={<ProtectedRoute />}>
+			<Route element={<ProtectedRoute />}>
 				<Route path={ROUTES.ADMIN.path} element={<Dashboard />} />
 			</Route>
 
-			<Route path={ROUTES.HOME.path} element={<MainLayout />}>
+			<Route element={<MainLayout />}>
 				<Route path={ROUTES.HOME.path} element={<Home />} />
 			</Route>
 		</RoutesContainer>
