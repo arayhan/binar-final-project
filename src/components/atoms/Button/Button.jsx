@@ -18,11 +18,7 @@ export const Button = ({ className, disabled, linkTo, onClick, variant, children
 	};
 
 	return (
-		<button
-			className={`inline-block text-center transition-all ${className} ${variantClasses}`}
-			onClick={handleClick}
-			disabled={disabled}
-		>
+		<button className={`inline-block text-center transition-all ${className} ${variantClasses}`} onClick={handleClick} disabled={disabled}>
 			{children || text}
 		</button>
 	);
