@@ -3,7 +3,7 @@ import ReactSelect from 'react-select';
 import './InputSelect.css';
 
 export const InputSelect = forwardRef(
-	({ options, value, isLoading, isMulti, isSearchable, isClearable, disabled, onChange, placeholder, ...props }, ref) => {
+	({ options, value, isLoading, isMulti, isError, isSearchable, isClearable, disabled, onChange, placeholder, ...props }, ref) => {
 		return (
 			<ReactSelect
 				{...props}
@@ -20,6 +20,13 @@ export const InputSelect = forwardRef(
 				isDisabled={disabled}
 				isClearable={isClearable}
 				styles={{
+					control: (provided) => ({
+						...provided,
+						borderSize: '1px',
+						borderStyle: 'solid',
+						borderColor: isError ? '#F56565' : '#E2E8F0',
+						boxShadow: 'none'
+					}),
 					input: (provided) => ({
 						...provided,
 						'input:focus': {
