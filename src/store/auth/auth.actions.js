@@ -1,6 +1,7 @@
-import { APP_NAME } from '@/utils/constants';
-import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION, API_AUTH_LOGIN_WITH_GOOGLE } from '../apis';
+import { APP_NAME, STORE_KEY } from '@/utils/constants';
+import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION } from '../apis';
 import { http } from '../http';
+import store from 'store';
 import {
 	requestEmailActivation,
 	requestLogin,
@@ -19,6 +20,8 @@ export const actionLogin = (values, callback) => async (dispatch) => {
 		const request = { email: values.email, password: values.password };
 		const response = await http.post(API_AUTH_LOGIN, request);
 
+		store.set(STORE_KEY.TOKEN, response.data.data.token);
+
 		callback({ success: true });
 		dispatch(responseLogin({ success: true, data: response.data.data }));
 	} catch (error) {
@@ -36,6 +39,8 @@ export const actionLoginWithGoogle = (values) => async (dispatch) => {
 	try {
 		const request = { credential: values.credential };
 		const response = await http.post(API_AUTH_LOGIN_WITH_GOOGLE, request);
+
+		store.set(STORE_KEY.TOKEN, response.data.data.token);
 
 		callback({ success: true });
 		dispatch(responseLogin({ success: true, data: response.data.data }));
@@ -89,6 +94,7 @@ export const actionEmailActivation = (params, callback) => async (dispatch) => {
 };
 
 export const actionLogout = (callback) => (dispatch) => {
+	store.remove(STORE_KEY.TOKEN);
 	dispatch(requestLogout());
 	callback();
 };

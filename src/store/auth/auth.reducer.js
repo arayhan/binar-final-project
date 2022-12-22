@@ -1,3 +1,5 @@
+import store from 'store';
+import { STORE_KEY } from '@/utils/constants';
 import {
 	AUTH_REQUEST_LOGIN,
 	AUTH_REQUEST_LOGIN_WITH_GOOGLE,
@@ -10,7 +12,8 @@ import {
 } from './auth.types';
 
 const initialState = {
-	user: null,
+	user: store.get(STORE_KEY.USER_DATA) || null,
+	token: store.get(STORE_KEY.TOKEN) || null,
 
 	isAuthenticated: false,
 	isProcessingLogin: false,
@@ -37,6 +40,7 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				user: payload.data || null,
+				token: payload.data?.token || null,
 				isProcessingLogin: false,
 				isProcessingLoginWithGoogle: false,
 				isAuthenticated: payload.success

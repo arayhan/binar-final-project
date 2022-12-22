@@ -1,4 +1,4 @@
-import { ROUTES } from '@/configs/routes';
+import { PATH } from '@/configs/routes';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaChevronDown, FaUserCircle } from 'react-icons/fa';
 import { MainHeaderLogo } from './MainHeaderLogo';
@@ -13,7 +13,7 @@ export const MainHeader = () => {
 
 	const { actionLogout } = ACTION_AUTH;
 
-	const handleLogout = () => dispatch(actionLogout(() => navigate(ROUTES.LOGIN.path)));
+	const handleLogout = () => dispatch(actionLogout(() => navigate(PATH.LOGIN)));
 
 	return (
 		<div className="bg-white shadow-md">
