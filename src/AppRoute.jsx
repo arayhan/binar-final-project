@@ -5,6 +5,7 @@ import { MainLayout } from './components/layouts/MainLayout/MainLayout';
 import { ROUTES } from './configs/routes';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import Login from './pages/Auth/Login/Login';
+import Register from './pages/Auth/Register/Register';
 import Home from './pages/Home/Home';
 
 const AppRoute = () => {
@@ -23,11 +24,8 @@ const AppRoute = () => {
 			<Route element={<AuthenticationRoute />}>
 				<Route element={<AuthLayout />}>
 					<Route path={ROUTES.LOGIN.path} element={<Login />} />
+					<Route path={ROUTES.REGISTER.path} element={<Register />} />
 				</Route>
-			</Route>
-
-			<Route element={<ProtectedRoute />}>
-				<Route path={ROUTES.ADMIN.path} element={<Dashboard />} />
 			</Route>
 
 			<Route element={<MainLayout />}>
