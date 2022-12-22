@@ -36,10 +36,10 @@ export const CardFormBooking = () => {
 				<div className="text-gray-500 text-xl">Pilih destinasimu yuk!</div>
 			</div>
 
-			<div className="sm:w-1/2">
+			<div>
 				<div className="bg-gray-100 shadow-inner flex items-center p-2 rounded-full gap-2">
 					<button
-						className={`flex-1 text-center py-3 rounded-full font-semibold transition-all text-sm lg:text-base ${
+						className={`flex-1 text-center py-3 rounded-full font-semibold transition-all text-sm px-6 ${
 							isRoundTrip ? 'bg-primary text-white' : 'hover:bg-gray-200 text-gray-500'
 						}`}
 						onClick={() => setIsRoundTrip(true)}
@@ -47,7 +47,7 @@ export const CardFormBooking = () => {
 						ROUND TRIP
 					</button>
 					<button
-						className={`flex-1 text-center py-3 rounded-full font-semibold transition-all text-sm lg:text-base ${
+						className={`flex-1 text-center py-3 rounded-full font-semibold transition-all text-sm px-6 ${
 							!isRoundTrip ? 'bg-primary text-white' : 'hover:bg-gray-200 text-gray-500'
 						}`}
 						onClick={() => setIsRoundTrip(false)}
@@ -98,15 +98,18 @@ export const CardFormBooking = () => {
 						)}
 					/>
 				</div>
-				<div className="flex justify-end">
-					<button
-						className="flex items-center transition-all bg-primary hover:bg-primary-400 text-white px-5 py-3 rounded-md gap-2"
-						onClick={handleSubmit(handleSearchFlights)}
-					>
-						<BiSearch size={20} />
-						<span>Search Flights</span>
-					</button>
-				</div>
+			</div>
+
+			<hr />
+
+			<div className="flex justify-end">
+				<button
+					className="flex items-center transition-all bg-primary hover:bg-primary-400 text-white px-5 py-3 rounded-md gap-2"
+					onClick={handleSubmit(handleSearchFlights)}
+				>
+					<BiSearch size={20} />
+					<span>Search Flights</span>
+				</button>
 			</div>
 		</div>
 	);
