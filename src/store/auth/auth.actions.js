@@ -1,9 +1,10 @@
 import { APP_NAME } from '@/utils/constants';
-import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION } from '../apis';
+import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION, API_AUTH_LOGIN_WITH_GOOGLE } from '../apis';
 import { http } from '../http';
 import {
 	AUTH_REQUEST_LOGIN,
 	AUTH_RESPONSE_LOGIN,
+	AUTH_RESPONSE_LOGIN_WITH_GOOGLE,
 	AUTH_REQUEST_REGISTER,
 	AUTH_RESPONSE_REGISTER,
 	AUTH_REQUEST_EMAIL_ACTIVATION,
@@ -65,6 +66,10 @@ export const actionLogin = (values, callback) => async (dispatch) => {
 		callback({ success: false, message });
 		dispatch(responseLogin({ success: false, error: message }));
 	}
+};
+
+export const actionLoginWithGoogle = (userData) => async (dispatch) => {
+	dispatch(responseLogin({ success: true, response: userData }));
 };
 
 export const actionRegister = (values, callback) => async (dispatch) => {

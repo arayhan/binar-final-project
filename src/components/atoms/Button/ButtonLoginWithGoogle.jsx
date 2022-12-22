@@ -1,16 +1,19 @@
 import { ACTION_AUTH } from '@/store/actions';
 import { GoogleLogin } from '@react-oauth/google';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 export const ButtonLoginWithGoogle = () => {
+	const dispatch = useDispatch();
 	const { actionLoginWithGoogle } = ACTION_AUTH;
 
 	const handleGoogleLogin = (response) => {
-		dispatch(
-			actionLoginWithGoogle({ values: response }, ({ success, message }) => {
-				if (message) notify.show(message, success ? 'success' : 'error');
-			})
-		);
+		const credential = response.credential;
+
+		if (credential) {
+			const data = JSON.parse(atob(credential.split('.')[1]));
+			dispatch(actionLoginWithGoogle({ email: data.email }));
+		}
 	};
 
 	return (
