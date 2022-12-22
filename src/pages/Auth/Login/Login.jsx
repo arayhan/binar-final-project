@@ -8,7 +8,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/configs/routes';
+import { PATH } from '@/configs/routes';
 import { queryStringToObject } from '@/utils/helpers';
 import { notify } from 'react-notify-toast';
 
@@ -39,7 +39,7 @@ const Login = () => {
 			const { token } = queryStringToObject(location.search);
 			dispatch(
 				actionEmailActivation({ token }, ({ success, message }) => {
-					navigate(ROUTES.LOGIN.path);
+					navigate(PATH.LOGIN);
 					notify.show(message, success ? 'success' : 'error');
 				})
 			);
@@ -103,7 +103,7 @@ const Login = () => {
 
 						<div className="text-center">
 							<span className="opacity-70">Belum punya akun?</span>{' '}
-							<Link className="text-primary hover:underline font-semibold" to={ROUTES.REGISTER.path}>
+							<Link className="text-primary hover:underline font-semibold" to={PATH.REGISTER}>
 								Daftar
 							</Link>
 						</div>
@@ -112,7 +112,7 @@ const Login = () => {
 			</div>
 
 			<div className="py-4">
-				<Link className="text-primary hover:underline font-semibold" to={ROUTES.HOME.path}>
+				<Link className="text-primary hover:underline font-semibold" to={PATH.HOME}>
 					Kembali ke Beranda
 				</Link>
 			</div>

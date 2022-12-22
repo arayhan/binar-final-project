@@ -7,7 +7,7 @@ import Skeleton from 'react-loading-skeleton';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/configs/routes';
+import { PATH } from '@/configs/routes';
 import { notify } from 'react-notify-toast';
 
 const Register = () => {
@@ -25,7 +25,7 @@ const Register = () => {
 	const handleRegister = (values) => {
 		dispatch(
 			actionRegister(values, ({ success, message }) => {
-				if (success) navigate(ROUTES.LOGIN.path);
+				if (success) navigate(PATH.LOGIN);
 				notify.show(message, success ? 'success' : 'error');
 			})
 		);
@@ -123,7 +123,7 @@ const Register = () => {
 
 						<div className="text-center">
 							<span className="opacity-70">Sudah punya akun?</span>{' '}
-							<Link className="text-primary hover:underline font-semibold" to={ROUTES.LOGIN.path}>
+							<Link className="text-primary hover:underline font-semibold" to={PATH.LOGIN}>
 								Login
 							</Link>
 						</div>
@@ -132,7 +132,7 @@ const Register = () => {
 			</div>
 
 			<div className="py-4">
-				<Link className="text-primary hover:underline font-semibold" to={ROUTES.HOME.path}>
+				<Link className="text-primary hover:underline font-semibold" to={PATH.HOME}>
 					Kembali ke Beranda
 				</Link>
 			</div>
