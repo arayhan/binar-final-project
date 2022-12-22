@@ -14,12 +14,14 @@ export const InputSelectAirport = forwardRef(
 		const [options, setOptions] = useState([]);
 
 		useEffect(() => {
-			dispatch(actionGetAirportList(params ? { ...params } : {}));
+			if (airportList?.length === 0) dispatch(actionGetAirportList(params ? { ...params } : {}));
 		}, [params]);
 
 		useEffect(() => {
 			if (airportList?.length > 0) {
-				const mapAirport = airportList.map((airport) => ({ label: `${airport.city} (${airport.iata})`, value: airport.id }));
+				const mapAirport = airportList.map((airport) => ({ label: `${airport.city} (${airport.iata})`, value: airport.iata }));
+
+				onChange(mapAirport[0]);
 				setOptions(mapAirport);
 			}
 		}, [airportList]);
@@ -48,5 +50,6 @@ InputSelectAirport.defaultProps = {
 	name: 'airport',
 	params: {},
 	containerClassName: '',
+	onChange: () => {},
 	showLabel: true
 };

@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { searchFlightsSchema } from '@/utils/validation-schema';
 
 export const CardFormBooking = () => {
-	const { control, handleSubmit } = useForm({
+	const { control, setValue, setError, handleSubmit } = useForm({
 		defaultValues: {
 			iata_from: '',
 			iata_to: ''
@@ -56,12 +56,38 @@ export const CardFormBooking = () => {
 					<Controller
 						name="iata_from"
 						control={control}
-						render={({ field, fieldState: { error } }) => <InputSelectAirport {...field} error={error} placeholder="Origin" label="Dari" />}
+						render={({ field, fieldState: { error } }) => (
+							<InputSelectAirport
+								{...field}
+								error={error}
+								placeholder="Origin"
+								label="Dari"
+								onChange={(option) => {
+									setValue('iata_from', option?.value);
+									setError('iata_from', null);
+								}}
+							/>
+						)}
 					/>
 					<button className="absolute top-[53px] z-20 sm:static sm:mt-5 bg-secondary hover:bg-secondary-400 transition-all text-gray-700 cursor-pointer p-5 sm:p-4 rounded-full shadow-md text-lg active:opacity-80 outline-0">
 						<HiOutlineSwitchHorizontal />
 					</button>
-					<InputSelectAirport placeholder="Destinasi" label="Ke" />
+					<Controller
+						name="iata_to"
+						control={control}
+						render={({ field, fieldState: { error } }) => (
+							<InputSelectAirport
+								{...field}
+								error={error}
+								placeholder="Destinasi"
+								label="Ke"
+								onChange={(option) => {
+									setValue('iata_to', option?.value);
+									setError('iata_to', null);
+								}}
+							/>
+						)}
+					/>
 				</div>
 				<div className="flex justify-end">
 					<button

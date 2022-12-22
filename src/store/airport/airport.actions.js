@@ -1,3 +1,4 @@
+import { objectToQueryString } from '@/utils/helpers';
 import { API_AIRPORT_LIST } from '../apis';
 import { http } from '../http';
 import { REQUEST_GET_AIRPORT_LIST, RESPONSE_GET_AIRPORT_LIST } from './airport.types';
@@ -22,8 +23,9 @@ export const actionGetAirportList = (params) => async (dispatch) => {
 
 	try {
 		const defaultParams = { page: 0, limit: 0 };
-		const requestParams = params ? { ...defaultParams, ...params } : defaultParams;
-		const response = await http.get(API_AIRPORT_LIST, requestParams);
+		const requestParams = params ? objectToQueryString({ ...defaultParams, ...params }) : objectToQueryString(defaultParams);
+
+		const response = await http.get(API_AIRPORT_LIST + requestParams);
 
 		dispatch(responseGetAirportList({ success: true, data: response.data.data }));
 	} catch (error) {
