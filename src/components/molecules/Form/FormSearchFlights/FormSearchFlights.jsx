@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { HiOutlineSwitchHorizontal } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
@@ -6,7 +6,7 @@ import { InputSelectAirport } from '../../InputSelect/InputSelectAirport/InputSe
 import { yupResolver } from '@hookform/resolvers/yup';
 import { searchFlightsSchema } from '@/utils/validation-schema';
 
-export const CardFormBooking = () => {
+export const FormSearchFlights = () => {
 	const { control, getValues, setValue, setError, handleSubmit } = useForm({
 		defaultValues: {
 			iata_from: '',
@@ -28,14 +28,7 @@ export const CardFormBooking = () => {
 	const [isRoundTrip, setIsRoundTrip] = useState(false);
 
 	return (
-		<div className="bg-white rounded-lg shadow-md p-12 space-y-8">
-			<div className="space-y-3">
-				<div className="text-gray-700 text-4xl">
-					Hai, Mau di-<b className="font-bold">Terbangin</b> Ke Mana?
-				</div>
-				<div className="text-gray-500 text-xl">Pilih destinasimu yuk!</div>
-			</div>
-
+		<div className="space-y-8">
 			<div>
 				<div className="bg-gray-100 shadow-inner flex items-center p-2 rounded-full gap-2">
 					<button
