@@ -21,9 +21,9 @@ export const requestLoginWithGoogle = () => ({
 	type: AUTH_REQUEST_LOGIN_WITH_GOOGLE
 });
 
-export const responseLogin = ({ success, response, error }) => ({
+export const responseLogin = ({ success, data, error }) => ({
 	type: AUTH_RESPONSE_LOGIN,
-	payload: { success, response, error }
+	payload: { success, data, error }
 });
 
 export const requestRegister = () => ({

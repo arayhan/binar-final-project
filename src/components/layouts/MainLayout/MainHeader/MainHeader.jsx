@@ -35,7 +35,7 @@ export const MainHeader = () => {
 						{isAuthenticated && (
 							<button className="flex items-center gap-2 px-6 py-3 rounded-md hover:bg-gray-100 transition-all" onClick={handleLogout}>
 								<FaUserCircle className="text-primary" size={22} />
-								<span className="">{user ? user.name : `{{username}}`}</span>
+								<span className="">{user ? user.name || user.username : `{{username}}`}</span>
 								<FaChevronDown className="text-gray-500" size={10} />
 							</button>
 						)}

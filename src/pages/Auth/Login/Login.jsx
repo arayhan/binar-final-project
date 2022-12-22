@@ -11,6 +11,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '@/configs/routes';
 import { queryStringToObject } from '@/utils/helpers';
 import { notify } from 'react-notify-toast';
+import { LOGIN_METHODS } from '@/utils/constants';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Login = () => {
 
 	const handleLogin = (values) => {
 		dispatch(
-			actionLogin(values, ({ success, message }) => {
+			actionLogin(values, LOGIN_METHODS.EMAIL, ({ success, message }) => {
 				if (message) notify.show(message, success ? 'success' : 'error');
 			})
 		);

@@ -15,7 +15,7 @@ const initialState = {
 	user: store.get(STORE_KEY.USER_DATA) || null,
 	token: store.get(STORE_KEY.TOKEN) || null,
 
-	isAuthenticated: false,
+	isAuthenticated: !!store.get(STORE_KEY.TOKEN) || false,
 	isProcessingLogin: false,
 	isProcessingLoginWithGoogle: false,
 	isProcessingRegister: false,
