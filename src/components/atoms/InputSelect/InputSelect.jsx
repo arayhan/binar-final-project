@@ -10,7 +10,7 @@ export const InputSelect = forwardRef(({ options, value, loading, multi, searcha
 			value={options.filter(function (option) {
 				return option.value === value;
 			})}
-			className={`z-10 ${props.className}`}
+			className={`z-10 text-base ${props.className}`}
 			placeholder={placeholder}
 			onChange={onChange}
 			isMulti={multi}
