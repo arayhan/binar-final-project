@@ -13,7 +13,6 @@ import {
 
 const initialState = {
 	user: store.get(STORE_KEY.USER_DATA) || null,
-	token: store.get(STORE_KEY.TOKEN) || null,
 
 	isAuthenticated: !!store.get(STORE_KEY.TOKEN) || false,
 	isProcessingLogin: false,
@@ -40,7 +39,6 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				user: payload.data || null,
-				token: payload.data?.token || null,
 				isProcessingLogin: false,
 				isProcessingLoginWithGoogle: false,
 				isAuthenticated: payload.success
