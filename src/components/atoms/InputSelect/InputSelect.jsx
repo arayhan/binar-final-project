@@ -10,7 +10,7 @@ export const InputSelect = forwardRef(({ options, value, loading, multi, searcha
 			value={options.filter(function (option) {
 				return option.value === value;
 			})}
-			className={`z-10 text-base ${props.className}`}
+			className={`z-10 text-[1.1rem] ${props.className}`}
 			placeholder={placeholder}
 			onChange={onChange}
 			isMulti={multi}
@@ -26,7 +26,7 @@ export const InputSelect = forwardRef(({ options, value, loading, multi, searcha
 						zIndex: 20
 					}
 				}),
-				menu: (styles) => ({ ...styles, zIndex: 30 }),
+				menu: (styles) => ({ ...styles, zIndex: 30, fontSize: '1.1rem' }),
 				menuPortal: (styles) => ({ ...styles, zIndex: 30 })
 			}}
 			menuPortalTarget={document.body}
