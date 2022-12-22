@@ -9,9 +9,11 @@ export const MainHeader = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { user, isAuthenticated } = useSelector((state) => state.auth);
+	const { isAuthenticated } = useSelector((state) => state.auth);
 
-	const handleLogout = () => dispatch(ACTION_AUTH.authLogout(() => navigate(ROUTES.LOGIN.path)));
+	const { actionLogout } = ACTION_AUTH;
+
+	const handleLogout = () => dispatch(actionLogout(() => navigate(ROUTES.LOGIN.path)));
 
 	return (
 		<div className="bg-white shadow-md">

@@ -15,15 +15,15 @@ import '@/styles/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<GoogleOAuthProvider clientId={OAUTH_CLIENT_ID}>
-		<Provider store={store}>
-			<PersistGate loading={null} persistor={persistor}>
+	<Provider store={store}>
+		<PersistGate loading={null} persistor={persistor}>
+			<GoogleOAuthProvider clientId={OAUTH_CLIENT_ID}>
 				<BrowserRouter>
 					<App />
 				</BrowserRouter>
-			</PersistGate>
-		</Provider>
-	</GoogleOAuthProvider>
+			</GoogleOAuthProvider>
+		</PersistGate>
+	</Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

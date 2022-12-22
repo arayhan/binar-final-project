@@ -8,8 +8,7 @@ import {
 	AUTH_RESPONSE_REGISTER,
 	AUTH_REQUEST_EMAIL_ACTIVATION,
 	AUTH_RESPONSE_EMAIL_ACTIVATION,
-	AUTH_REQUEST_LOGOUT,
-	AUTH_CLEAR_ERROR
+	AUTH_REQUEST_LOGOUT
 } from './auth.types';
 
 // ==================================
@@ -38,7 +37,6 @@ const requestEmailActivation = () => ({
 });
 
 const responseEmailActivation = ({ success, response, error }) => {
-	console.log({ success, response, error });
 	return {
 		type: AUTH_RESPONSE_EMAIL_ACTIVATION,
 		payload: { success, response, error }
@@ -49,14 +47,10 @@ const requestLogout = () => ({
 	type: AUTH_REQUEST_LOGOUT
 });
 
-const clearError = () => ({
-	type: AUTH_CLEAR_ERROR
-});
-
 // ==================================
 // ACTIONS
 // ==================================
-export const actionLogin = (values) => async (dispatch) => {
+export const actionLogin = (values, callback) => async (dispatch) => {
 	dispatch(requestLogin());
 
 	try {
@@ -66,8 +60,10 @@ export const actionLogin = (values) => async (dispatch) => {
 		callback({ success: true });
 		dispatch(responseLogin({ success: true, response: response.data.data }));
 	} catch (error) {
-		callback({ success: false, message: `Login gagal, Mohon hubungi admin untuk tahapan lebih lanjut.` });
-		dispatch(responseLogin({ success: false, error: error.response.data || error }));
+		const message = error.response.data?.message || error.message;
+
+		callback({ success: false, message });
+		dispatch(responseLogin({ success: false, error: message }));
 	}
 };
 
@@ -87,33 +83,32 @@ export const actionRegister = (values, callback) => async (dispatch) => {
 		const response = await http.post(API_AUTH_REGISTER, request);
 
 		callback({ success: true, message });
-
 		dispatch(responseRegister({ success: true, response: response.data.data }));
 	} catch (error) {
-		const message = `Pendaftaran gagal, Mohon hubungi admin untuk tahapan lebih lanjut.`;
+		const message = error.response.data?.message || error.message;
 
 		callback({ success: false, message });
-		dispatch(responseRegister({ success: false, error: error.response.data || error }));
+		dispatch(responseRegister({ success: false, error: message }));
 	}
 };
 
 export const actionEmailActivation = (params, callback) => async (dispatch) => {
 	dispatch(requestEmailActivation());
+
 	try {
 		const response = await http.get(`${API_AUTH_EMAIL_ACTIVATION}/${params.token}`);
-		dispatch(responseEmailActivation({ success: true, response: response.data.data }));
+
 		callback({ success: true, message: 'Aktivasi email berhasil' });
+		dispatch(responseEmailActivation({ success: true, response: response.data.data }));
 	} catch (error) {
-		dispatch(responseEmailActivation({ success: false, error: error.response.data || error }));
+		const message = error.response.data?.message || error.message;
+
 		callback({ success: false, message: 'Aktivasi email gagal' });
+		dispatch(responseEmailActivation({ success: false, error: message }));
 	}
 };
 
 export const actionLogout = (callback) => (dispatch) => {
 	dispatch(requestLogout());
 	callback();
-};
-
-export const actionClearError = () => (dispatch) => {
-	dispatch(clearError());
 };
