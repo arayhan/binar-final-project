@@ -1,6 +1,7 @@
-import { APP_NAME } from '@/utils/constants';
+import { APP_NAME, STORE_KEY } from '@/utils/constants';
 import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION } from '../apis';
 import { http } from '../http';
+import store from 'store';
 import {
 	AUTH_REQUEST_LOGIN,
 	AUTH_RESPONSE_LOGIN,
@@ -56,6 +57,8 @@ export const actionLogin = (values, callback) => async (dispatch) => {
 	try {
 		const request = { email: values.email, password: values.password };
 		const response = await http.post(API_AUTH_LOGIN, request);
+
+		store.set(STORE_KEY.TOKEN, response.data.data.token);
 
 		callback({ success: true });
 		dispatch(responseLogin({ success: true, response: response.data.data }));
@@ -113,6 +116,7 @@ export const actionEmailActivation = (params, callback) => async (dispatch) => {
 };
 
 export const actionLogout = (callback) => (dispatch) => {
+	store.remove(STORE_KEY.TOKEN);
 	dispatch(requestLogout());
 	callback();
 };

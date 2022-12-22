@@ -10,6 +10,7 @@ import {
 
 const initialState = {
 	user: null,
+	token: null,
 
 	isAuthenticated: false,
 	isProcessingLogin: false,
@@ -29,6 +30,7 @@ export default function reducer(state = initialState, { type, payload }) {
 			return {
 				...state,
 				user: payload.response || null,
+				token: payload.response?.token || null,
 				isProcessingLogin: false,
 				isAuthenticated: payload.success
 			};
