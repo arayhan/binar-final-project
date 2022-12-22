@@ -14,8 +14,8 @@ export const InputSelectAirport = forwardRef(
 		const [options, setOptions] = useState([]);
 
 		useEffect(() => {
-			if (airportList?.length === 0) dispatch(actionGetAirportList(params ? { ...params } : {}));
-		}, [params]);
+			if (!airportList || airportList?.length === 0) dispatch(actionGetAirportList(params ? { ...params } : {}));
+		}, [airportList, params]);
 
 		useEffect(() => {
 			if (airportList?.length > 0) {
@@ -27,7 +27,7 @@ export const InputSelectAirport = forwardRef(
 		}, [airportList]);
 
 		return (
-			<div className={`w-full flex flex-col gap-1 ${containerClassName}`}>
+			<div className={`w-full flex flex-col gap-2 ${containerClassName}`}>
 				{showLabel && <InputLabel text={label} name={props.name} />}
 				<InputSelect
 					ref={ref}
@@ -36,10 +36,10 @@ export const InputSelectAirport = forwardRef(
 					disabled={disabled || fetchingAirportList}
 					onChange={onChange}
 					placeholder={placeholder}
-					className={className}
+					className={`${className} ${error ? 'border-red-500' : ''}'}`}
 					{...props}
 				/>
-				{error && <InputError message={error.message} />}
+				{error?.message && <InputError message={error.message} />}
 			</div>
 		);
 	}

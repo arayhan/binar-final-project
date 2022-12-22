@@ -19,5 +19,8 @@ export const registerSchema = yup.object().shape({
 
 export const searchFlightsSchema = yup.object().shape({
 	iata_from: yup.string().required('Origin wajib diisi'),
-	iata_to: yup.string().required('Destinasi wajib diisi')
+	iata_to: yup
+		.string()
+		.required('Destinasi wajib diisi')
+		.not([yup.ref('iata_from')], 'Departure and destination must differ')
 });

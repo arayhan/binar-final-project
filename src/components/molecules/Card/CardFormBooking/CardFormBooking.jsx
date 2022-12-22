@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { searchFlightsSchema } from '@/utils/validation-schema';
 
 export const CardFormBooking = () => {
-	const { control, setValue, setError, handleSubmit } = useForm({
+	const { control, getValues, setValue, setError, handleSubmit } = useForm({
 		defaultValues: {
 			iata_from: '',
 			iata_to: ''
@@ -19,15 +19,21 @@ export const CardFormBooking = () => {
 		console.log({ values });
 	};
 
+	const handleSwitchSelectedIATA = () => {
+		const { iata_from, iata_to } = getValues();
+		setValue('iata_from', iata_to);
+		setValue('iata_to', iata_from);
+	};
+
 	const [isRoundTrip, setIsRoundTrip] = useState(false);
 
 	return (
 		<div className="bg-white rounded-lg shadow-md p-12 space-y-8">
 			<div className="space-y-3">
-				<div className="text-gray-700 text-4xl lg:text-5xl">
+				<div className="text-gray-700 text-4xl">
 					Hai, Mau di-<b className="font-bold">Terbangin</b> Ke Mana?
 				</div>
-				<div className="text-gray-500 text-xl md:text-2xl">Pilih destinasimu yuk!</div>
+				<div className="text-gray-500 text-xl">Pilih destinasimu yuk!</div>
 			</div>
 
 			<div className="sm:w-1/2">
@@ -52,7 +58,7 @@ export const CardFormBooking = () => {
 			</div>
 
 			<div className="space-y-4">
-				<div className="relative flex flex-col sm:flex-row items-center justify-evenly gap-2 sm:gap-4">
+				<div className="relative flex flex-col sm:flex-row items-start justify-evenly gap-2 sm:gap-4">
 					<Controller
 						name="iata_from"
 						control={control}
@@ -69,7 +75,10 @@ export const CardFormBooking = () => {
 							/>
 						)}
 					/>
-					<button className="absolute top-[53px] z-20 sm:static sm:mt-5 bg-secondary hover:bg-secondary-400 transition-all text-gray-700 cursor-pointer p-5 sm:p-4 rounded-full shadow-md text-lg active:opacity-80 outline-0">
+					<button
+						className="absolute top-[60px] left-1/2 transform -translate-x-1/2 sm:translate-x-0 z-20 sm:static sm:mt-7 bg-secondary hover:bg-secondary-400 transition-all text-gray-700 cursor-pointer p-5 sm:p-4 rounded-full shadow-md text-lg active:opacity-80 outline-0"
+						onClick={handleSwitchSelectedIATA}
+					>
 						<HiOutlineSwitchHorizontal />
 					</button>
 					<Controller
