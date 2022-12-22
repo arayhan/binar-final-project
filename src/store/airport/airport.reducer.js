@@ -11,7 +11,7 @@ export default function reducer(state = initialState, { type, payload }) {
 		case REQUEST_GET_AIRPORT_LIST:
 			return { ...state, fetchingAirportList: true };
 		case RESPONSE_GET_AIRPORT_LIST:
-			return { ...state, airportList: payload.response, fetchingAirportList: false };
+			return { ...state, airportList: payload.data, fetchingAirportList: false };
 
 		default:
 			return state;

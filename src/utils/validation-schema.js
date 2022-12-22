@@ -16,3 +16,8 @@ export const registerSchema = yup.object().shape({
 		.oneOf([yup.ref('password'), null], 'Password tidak sama')
 		.required('Konfirmasi password harus diisi')
 });
+
+export const searchFlightsSchema = yup.object().shape({
+	iata_from: yup.string().required('Origin wajib diisi'),
+	iata_to: yup.string().required('Destinasi wajib diisi')
+});

@@ -1,0 +1,52 @@
+import { InputError, InputLabel, InputSelect } from '@/components/atoms';
+import { ACTION_AIRPORT } from '@/store/actions';
+import { useState, forwardRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+export const InputSelectAirport = forwardRef(
+	({ containerClassName, className, error, onChange, showLabel, disabled, label, placeholder, params, ...props }, ref) => {
+		const dispatch = useDispatch();
+
+		const { actionGetAirportList } = ACTION_AIRPORT;
+
+		const { airportList, fetchingAirportList } = useSelector((state) => state.airport);
+
+		const [options, setOptions] = useState([]);
+
+		useEffect(() => {
+			dispatch(actionGetAirportList(params ? { ...params } : {}));
+		}, [params]);
+
+		useEffect(() => {
+			if (airportList?.length > 0) {
+				const mapAirport = airportList.map((airport) => ({ label: `${airport.city} (${airport.iata})`, value: airport.id }));
+				setOptions(mapAirport);
+			}
+		}, [airportList]);
+
+		return (
+			<div className={`w-full flex flex-col gap-1 ${containerClassName}`}>
+				{showLabel && <InputLabel text={label} name={props.name} />}
+				<InputSelect
+					ref={ref}
+					options={options}
+					loading={fetchingAirportList}
+					disabled={disabled || fetchingAirportList}
+					onChange={onChange}
+					placeholder={placeholder}
+					className={className}
+					{...props}
+				/>
+				{error && <InputError message={error.message} />}
+			</div>
+		);
+	}
+);
+
+InputSelectAirport.displayName = 'InputSelectAirport';
+InputSelectAirport.defaultProps = {
+	name: 'airport',
+	params: {},
+	containerClassName: '',
+	showLabel: true
+};
