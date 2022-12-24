@@ -21,6 +21,9 @@
 			{
 				"endOfLine": "auto",
 				"trailingComma": "none"
+			},
+			{
+				"usePrettierrc": true
 			}
 		],
 		"react/jsx-props-no-spreading": "off",

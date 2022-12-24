@@ -1,4 +1,4 @@
-import { ROUTES } from '@/configs/routes';
+import { PATH } from '@/configs/routes';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { MainHeaderLogo } from './MainHeaderLogo';
@@ -9,9 +9,11 @@ export const MainHeader = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { user, isAuthenticated } = useSelector((state) => state.auth);
+	const { isAuthenticated } = useSelector((state) => state.auth);
 
-	const handleLogout = () => dispatch(ACTION_AUTH.authLogout(() => navigate(ROUTES.LOGIN.path)));
+	const { actionLogout } = ACTION_AUTH;
+
+	const handleLogout = () => dispatch(actionLogout(() => navigate(PATH.LOGIN)));
 
 	return (
 		<div className="bg-white shadow-md">
@@ -24,7 +26,7 @@ export const MainHeader = () => {
 						{!isAuthenticated && (
 							<Link
 								className="flex items-center space-x-2 border border-primary text-primary px-4 py-2 rounded-full hover:bg-primary hover:text-white"
-								to={ROUTES.LOGIN.path}
+								to={PATH.LOGIN}
 							>
 								<FaUserCircle size={18} />
 								<span>Masuk / Daftar</span>
