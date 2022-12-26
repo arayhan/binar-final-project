@@ -50,7 +50,7 @@ const Flight = () => {
 							<div className="flex items-center opacity-70 space-x-1">
 								{params?.date_departure && <span>{moment(params.date_departure).format('dddd, DD MMMM YYYY')}</span>}
 								{params?.passengers && <BsDot />}
-								{params?.passengers && <span>{params.date_departure}</span>}
+								{params?.passengers && <span>{params.passengers} Passenger(s)</span>}
 								{params?.seat_class && <BsDot />}
 								{params?.seat_class && <span className="capitalize">{params.seat_class}</span>}
 							</div>
