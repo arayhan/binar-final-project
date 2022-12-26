@@ -3,13 +3,14 @@ import { http } from '../http';
 import { requestFlightList, responseFlightList } from './flight.types';
 import { objectToQueryString } from '@/utils/helpers';
 
-export const actionGetFlightList = (values, callback) => async (dispatch) => {
+export const actionGetFlightList = (params, callback) => async (dispatch) => {
+	console.log({ params });
 	dispatch(requestFlightList());
 
 	try {
 		const defaultParams = {};
-		const params = { iata_from: values.iata_from, iata_to: values.iata_to, date: values.date_departure };
-		const queryParams = objectToQueryString({ ...params, ...defaultParams });
+		const objectParams = { iata_from: params.iata_from, iata_to: params.iata_to, date: params.date_departure };
+		const queryParams = objectToQueryString({ ...objectParams, ...defaultParams });
 		const response = await http.get(API_FLIGHT_LIST + queryParams);
 
 		callback({ success: true });
