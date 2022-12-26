@@ -5,7 +5,8 @@ import { BiSearch } from 'react-icons/bi';
 import { InputSelectAirport } from '../../InputSelect/InputSelectAirport/InputSelectAirport';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { searchFlightsSchema } from '@/utils/validation-schema';
-import { InputDate } from '@/components/atoms';
+import { InputDate, InputText } from '@/components/atoms';
+import { InputSelectSeatClass } from '../../InputSelect/InputSelectSeatClass/InputSelectSeatClass';
 
 export const FormSearchFlights = () => {
 	const { control, getValues, setValue, setError, handleSubmit } = useForm({
@@ -13,7 +14,9 @@ export const FormSearchFlights = () => {
 			iata_from: '',
 			iata_to: '',
 			date_departure: '',
-			date_arrival: ''
+			date_arrival: '',
+			passengers: 1,
+			seat_class: 'economy'
 		},
 		resolver: yupResolver(searchFlightsSchema)
 	});
@@ -110,16 +113,44 @@ export const FormSearchFlights = () => {
 						)}
 					/>
 
+					{isRoundTrip && (
+						<Controller
+							name="date_arrival"
+							control={control}
+							render={({ field, fieldState: { error } }) => (
+								<InputDate
+									{...field}
+									error={error}
+									placeholder="Tanggal Kepulangan"
+									label="Tanggal Kepulangan"
+									minDate={getValues('date_departure')}
+								/>
+							)}
+						/>
+					)}
+				</div>
+
+				<div className="grid sm:grid-cols-2 gap-4">
 					<Controller
-						name="date_arrival"
+						name="passengers"
 						control={control}
 						render={({ field, fieldState: { error } }) => (
-							<InputDate
+							<InputText {...field} error={error} placeholder="Passengers" label="Passengers" type="number" min={1} max={5} />
+						)}
+					/>
+
+					<Controller
+						name="seat_class"
+						control={control}
+						render={({ field, fieldState: { error } }) => (
+							<InputSelectSeatClass
 								{...field}
 								error={error}
-								placeholder="Tanggal Kepulangan"
-								label="Tanggal Kepulangan"
-								minDate={getValues('date_departure')}
+								label="Seat Class"
+								onChange={(option) => {
+									setValue('seat_class', option?.value);
+									setError('seat_class', null);
+								}}
 							/>
 						)}
 					/>
