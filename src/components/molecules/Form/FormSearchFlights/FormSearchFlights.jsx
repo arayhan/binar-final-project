@@ -5,21 +5,36 @@ import { BiSearch } from 'react-icons/bi';
 import { InputSelectAirport } from '../../InputSelect/InputSelectAirport/InputSelectAirport';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { searchFlightsSchema } from '@/utils/validation-schema';
-import { InputDate } from '@/components/atoms';
+import { InputDate, InputText } from '@/components/atoms';
+import { InputSelectSeatClass } from '../../InputSelect/InputSelectSeatClass/InputSelectSeatClass';
+import { useDispatch } from 'react-redux';
+import { ACTION_FLIGHT } from '@/store/actions';
+import moment from 'moment/moment';
+import { notify } from 'react-notify-toast';
 
 export const FormSearchFlights = () => {
+	const dispatch = useDispatch();
+
+	const { actionGetFlightList } = ACTION_FLIGHT;
+
 	const { control, getValues, setValue, setError, handleSubmit } = useForm({
 		defaultValues: {
 			iata_from: '',
 			iata_to: '',
 			date_departure: '',
-			date_arrival: ''
+			date_arrival: '',
+			passengers: 1,
+			seat_class: 'economy'
 		},
 		resolver: yupResolver(searchFlightsSchema)
 	});
 
 	const handleSearchFlights = (values) => {
-		console.log({ values });
+		dispatch(
+			actionGetFlightList(values, ({ success, message }) => {
+				if (message) notify.show(message, success ? 'success' : 'error');
+			})
+		);
 	};
 
 	const handleSwitchSelectedIATA = () => {
@@ -104,22 +119,51 @@ export const FormSearchFlights = () => {
 								{...field}
 								placeholder="Tanggal Keberangkatan"
 								label="Tanggal Keberangkatan"
+								minDate={moment().format('YYYY-MM-DD')}
 								maxDate={getValues('date_arrival')}
 								error={error}
 							/>
 						)}
 					/>
 
+					{isRoundTrip && (
+						<Controller
+							name="date_arrival"
+							control={control}
+							render={({ field, fieldState: { error } }) => (
+								<InputDate
+									{...field}
+									error={error}
+									placeholder="Tanggal Kepulangan"
+									label="Tanggal Kepulangan"
+									minDate={getValues('date_departure')}
+								/>
+							)}
+						/>
+					)}
+				</div>
+
+				<div className="grid sm:grid-cols-2 gap-4">
 					<Controller
-						name="date_arrival"
+						name="passengers"
 						control={control}
 						render={({ field, fieldState: { error } }) => (
-							<InputDate
+							<InputText {...field} error={error} placeholder="Passengers" label="Passengers" type="number" min={1} max={5} />
+						)}
+					/>
+
+					<Controller
+						name="seat_class"
+						control={control}
+						render={({ field, fieldState: { error } }) => (
+							<InputSelectSeatClass
 								{...field}
 								error={error}
-								placeholder="Tanggal Kepulangan"
-								label="Tanggal Kepulangan"
-								minDate={getValues('date_departure')}
+								label="Seat Class"
+								onChange={(option) => {
+									setValue('seat_class', option?.value);
+									setError('seat_class', null);
+								}}
 							/>
 						)}
 					/>
