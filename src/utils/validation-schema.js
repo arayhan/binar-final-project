@@ -22,5 +22,6 @@ export const searchFlightsSchema = yup.object().shape({
 	iata_to: yup
 		.string()
 		.required('Destinasi wajib diisi')
-		.not([yup.ref('iata_from')], 'Departure and destination must differ')
+		.not([yup.ref('iata_from')], 'Departure and destination must differ'),
+	date_departure: yup.string().required('Tanggal Keberangkatan wajib diisi')
 });

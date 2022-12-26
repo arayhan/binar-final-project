@@ -7,8 +7,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { searchFlightsSchema } from '@/utils/validation-schema';
 import { InputDate, InputText } from '@/components/atoms';
 import { InputSelectSeatClass } from '../../InputSelect/InputSelectSeatClass/InputSelectSeatClass';
+import { useDispatch } from 'react-redux';
+import { ACTION_FLIGHT } from '@/store/actions';
+import moment from 'moment/moment';
+import { notify } from 'react-notify-toast';
 
 export const FormSearchFlights = () => {
+	const dispatch = useDispatch();
+
+	const { actionGetFlightList } = ACTION_FLIGHT;
+
 	const { control, getValues, setValue, setError, handleSubmit } = useForm({
 		defaultValues: {
 			iata_from: '',
@@ -22,7 +30,11 @@ export const FormSearchFlights = () => {
 	});
 
 	const handleSearchFlights = (values) => {
-		console.log({ values });
+		dispatch(
+			actionGetFlightList(values, ({ success, message }) => {
+				if (message) notify.show(message, success ? 'success' : 'error');
+			})
+		);
 	};
 
 	const handleSwitchSelectedIATA = () => {
@@ -107,6 +119,7 @@ export const FormSearchFlights = () => {
 								{...field}
 								placeholder="Tanggal Keberangkatan"
 								label="Tanggal Keberangkatan"
+								minDate={moment().format('YYYY-MM-DD')}
 								maxDate={getValues('date_arrival')}
 								error={error}
 							/>
