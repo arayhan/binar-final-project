@@ -7,15 +7,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { searchFlightsSchema } from '@/utils/validation-schema';
 import { InputDate, InputText } from '@/components/atoms';
 import { InputSelectSeatClass } from '../../InputSelect/InputSelectSeatClass/InputSelectSeatClass';
-import { useDispatch } from 'react-redux';
-import { ACTION_FLIGHT } from '@/store/actions';
 import moment from 'moment/moment';
-import { notify } from 'react-notify-toast';
+import { useNavigate } from 'react-router';
+import { objectToQueryString } from '@/utils/helpers';
+import { PATH } from '@/configs/routes';
 
 export const FormSearchFlights = () => {
-	const dispatch = useDispatch();
-
-	const { actionGetFlightList } = ACTION_FLIGHT;
+	const navigate = useNavigate();
 
 	const { control, getValues, setValue, setError, handleSubmit } = useForm({
 		defaultValues: {
@@ -30,11 +28,8 @@ export const FormSearchFlights = () => {
 	});
 
 	const handleSearchFlights = (values) => {
-		dispatch(
-			actionGetFlightList(values, ({ success, message }) => {
-				if (message) notify.show(message, success ? 'success' : 'error');
-			})
-		);
+		const queryParams = objectToQueryString(values);
+		navigate(PATH.FLIGHT + queryParams);
 	};
 
 	const handleSwitchSelectedIATA = () => {
