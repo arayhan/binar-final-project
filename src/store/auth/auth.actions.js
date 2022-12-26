@@ -1,9 +1,17 @@
 import { APP_NAME } from '@/utils/constants';
+<<<<<<< HEAD
 import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION } from '../apis';
+=======
+import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION, API_AUTH_LOGIN_WITH_GOOGLE } from '../apis';
+>>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
 import { http } from '../http';
 import {
 	AUTH_REQUEST_LOGIN,
 	AUTH_RESPONSE_LOGIN,
+<<<<<<< HEAD
+=======
+	AUTH_RESPONSE_LOGIN_WITH_GOOGLE,
+>>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
 	AUTH_REQUEST_REGISTER,
 	AUTH_RESPONSE_REGISTER,
 	AUTH_REQUEST_EMAIL_ACTIVATION,

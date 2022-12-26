@@ -26,6 +26,7 @@ const AppRoute = () => {
 
 	return (
 		<RoutesContainer>
+<<<<<<< HEAD
 			<Route element={<ProtectedRoute />}>
 				<Route path={PATH.ADMIN} element={<Dashboard />} />
 			</Route>
@@ -45,6 +46,15 @@ const AppRoute = () => {
 				<Route path={ROUTES.PROFILE.path} element={<ProfileSidebar />} />
 			</Route>
 
+=======
+			<Route element={<AuthenticationRoute />}>
+				<Route element={<AuthLayout />}>
+					<Route path={ROUTES.LOGIN.path} element={<Login />} />
+					<Route path={ROUTES.REGISTER.path} element={<Register />} />
+				</Route>
+			</Route>
+
+>>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
 			<Route element={<MainLayout />}>
 				<Route path={PATH.HOME} element={<Home />} />
 				<Route path={PATH.PROFILE} element={<ProfileLayout />}>
