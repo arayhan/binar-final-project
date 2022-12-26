@@ -1,16 +1,19 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { HiOutlineSwitchHorizontal } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
 import { InputSelectAirport } from '../../InputSelect/InputSelectAirport/InputSelectAirport';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { searchFlightsSchema } from '@/utils/validation-schema';
+import { InputDate } from '@/components/atoms';
 
 export const FormSearchFlights = () => {
 	const { control, getValues, setValue, setError, handleSubmit } = useForm({
 		defaultValues: {
 			iata_from: '',
-			iata_to: ''
+			iata_to: '',
+			date_departure: '',
+			date_arrival: ''
 		},
 		resolver: yupResolver(searchFlightsSchema)
 	});
@@ -87,6 +90,36 @@ export const FormSearchFlights = () => {
 									setValue('iata_to', option?.value);
 									setError('iata_to', null);
 								}}
+							/>
+						)}
+					/>
+				</div>
+
+				<div className="grid sm:grid-cols-2 gap-4">
+					<Controller
+						name="date_departure"
+						control={control}
+						render={({ field, fieldState: { error } }) => (
+							<InputDate
+								{...field}
+								placeholder="Tanggal Keberangkatan"
+								label="Tanggal Keberangkatan"
+								maxDate={getValues('date_arrival')}
+								error={error}
+							/>
+						)}
+					/>
+
+					<Controller
+						name="date_arrival"
+						control={control}
+						render={({ field, fieldState: { error } }) => (
+							<InputDate
+								{...field}
+								error={error}
+								placeholder="Tanggal Kepulangan"
+								label="Tanggal Kepulangan"
+								minDate={getValues('date_departure')}
 							/>
 						)}
 					/>
