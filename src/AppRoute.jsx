@@ -2,10 +2,13 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet, Route, Routes as RoutesContainer } from 'react-router-dom';
 import { AuthLayout } from './components/layouts/AuthLayout/AuthLayout';
 import { MainLayout } from './components/layouts/MainLayout/MainLayout';
+import { ProfileLayout } from './components/layouts/ProfileLayout/ProfileLayout';
 import { ROUTES } from './configs/routes';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import Login from './pages/Auth/Login/Login';
+import Register from './pages/Auth/Register/Register';
 import Home from './pages/Home/Home';
+import ProfileSidebar from './pages/Profile/ProfileSidebar';
 
 const AppRoute = () => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
@@ -23,11 +26,16 @@ const AppRoute = () => {
 			<Route element={<AuthenticationRoute />}>
 				<Route element={<AuthLayout />}>
 					<Route path={ROUTES.LOGIN.path} element={<Login />} />
+					<Route path={ROUTES.REGISTER.path} element={<Register />} />
 				</Route>
 			</Route>
 
 			<Route element={<ProtectedRoute />}>
 				<Route path={ROUTES.ADMIN.path} element={<Dashboard />} />
+			</Route>
+
+			<Route element={<ProfileLayout />}>
+				<Route path={ROUTES.PROFILE.path} element={<ProfileSidebar />} />
 			</Route>
 
 			<Route element={<MainLayout />}>
