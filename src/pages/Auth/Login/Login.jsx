@@ -30,6 +30,7 @@ const Login = () => {
 	const handleLogin = (values) => {
 		dispatch(
 			actionLogin(values, LOGIN_METHODS.EMAIL, ({ success, message }) => {
+				if (success) window.location.href = '/';
 				if (message) notify.show(message, success ? 'success' : 'error');
 			})
 		);
