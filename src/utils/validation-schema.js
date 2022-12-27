@@ -15,12 +15,9 @@ export const registerSchema = yup.object().shape({
 		.string()
 		.oneOf([yup.ref('password'), null], 'Password tidak sama')
 		.required('Konfirmasi password harus diisi')
-<<<<<<< HEAD
 });
 
 export const profilSchema = yup.object().shape({
-	name: yup.string().required('Full Name'),
-	address: yup.string().required('City of Residence')
-=======
->>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
+	name: yup.string().required(''),
+	address: yup.string().required('')
 });
