@@ -32,7 +32,9 @@ const Login = () => {
 					<Controller
 						name={'name'}
 						control={control}
-						render={({ field, fieldState: { error } }) => <InputText {...field} label="Full Name" placeholder="" error={error} />}
+						render={({ field, fieldState: { error } }) => (
+							<InputText {...field} label="Full Name" placeholder="" error={error} />
+						)}
 					/>
 					<Selected />
 					<Controller
@@ -45,7 +47,7 @@ const Login = () => {
 				</div>
 
 				<div className="flex justify-end space-x-2">
-					<Button className={'px-4 py-3 rounded-md font-semibold'} type="submit" variant={'cancelled'} text="Cancelled" />
+					<Button className={'px-4 py-3 rounded-md font-semibold'} type="submit" variant={'info'} text="Cancelled" />
 					<Button className={'px-4 py-3 rounded-md font-semibold'} type="submit" variant={'info'} text="Save" />
 				</div>
 			</div>

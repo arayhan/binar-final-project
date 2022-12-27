@@ -7,12 +7,8 @@ import Skeleton from 'react-loading-skeleton';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import { PATH } from '@/configs/routes';
-=======
 import { ROUTES } from '@/configs/routes';
-import { notify } from 'react-notify-toast';
->>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
 
 const Register = () => {
 	const navigate = useNavigate();
@@ -29,11 +25,8 @@ const Register = () => {
 	const handleRegister = (values) => {
 		dispatch(
 			actionRegister(values, ({ success, message }) => {
-<<<<<<< HEAD
 				if (success) navigate(PATH.LOGIN);
-=======
 				if (success) navigate(ROUTES.LOGIN.path);
->>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
 				notify.show(message, success ? 'success' : 'error');
 			})
 		);
@@ -131,11 +124,8 @@ const Register = () => {
 
 						<div className="text-center">
 							<span className="opacity-70">Sudah punya akun?</span>{' '}
-<<<<<<< HEAD
-							<Link className="text-primary hover:underline font-semibold" to={PATH.LOGIN}>
-=======
+							<Link className="text-primary hover:underline font-semibold" to={PATH.LOGIN}></Link>
 							<Link className="text-primary hover:underline font-semibold" to={ROUTES.LOGIN.path}>
->>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
 								Login
 							</Link>
 						</div>
@@ -144,11 +134,8 @@ const Register = () => {
 			</div>
 
 			<div className="py-4">
-<<<<<<< HEAD
-				<Link className="text-primary hover:underline font-semibold" to={PATH.HOME}>
-=======
+				<Link className="text-primary hover:underline font-semibold" to={PATH.HOME}></Link>
 				<Link className="text-primary hover:underline font-semibold" to={ROUTES.HOME.path}>
->>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
 					Kembali ke Beranda
 				</Link>
 			</div>

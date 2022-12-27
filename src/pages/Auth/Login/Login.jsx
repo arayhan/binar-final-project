@@ -1,5 +1,4 @@
 import { ButtonLoginWithGoogle, InputText } from '@/components/atoms';
-import { ButtonLoginWithGoogle, InputText } from '@/components/atoms';
 import { Button } from '@/components/atoms/Button/Button';
 import { ACTION_AUTH } from '@/store/actions';
 import { loginSchema } from '@/utils/validation-schema';
@@ -81,18 +80,21 @@ const Login = () => {
 
 							<div className="text-center opacity-70">atau</div>
 
-				{isProcessingLogin && <Skeleton containerClassName="block" height={38} />}
-				{!isProcessingLogin && (
-					<GoogleLogin
-						theme="outline"
-						logo_alignment="center"
-						text="Test"
-						onSuccess={handleGoogleLogin}
-						onError={() => {
-							console.log('Login Failed');
-						}}
-					/>
-				)}
+							{isProcessingLogin && <Skeleton containerClassName="block" height={38} />}
+							{!isProcessingLogin && (
+								<GoogleLogin
+									theme="outline"
+									logo_alignment="center"
+									text="Test"
+									onSuccess={handleGoogleLogin}
+									onError={() => {
+										console.log('Login Failed');
+									}}
+								/>
+							)}
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	);

@@ -21,3 +21,8 @@ export const profilSchema = yup.object().shape({
 	name: yup.string().required(''),
 	address: yup.string().required('')
 });
+
+export const profilSchema = yup.object().shape({
+	name: yup.string().required('Full Name'),
+	address: yup.string().required('City of Residence')
+});

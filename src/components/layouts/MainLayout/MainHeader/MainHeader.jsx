@@ -13,11 +13,7 @@ export const MainHeader = () => {
 
 	const { actionLogout } = ACTION_AUTH;
 
-<<<<<<< HEAD
 	const handleLogout = () => dispatch(actionLogout(() => navigate(PATH.LOGIN)));
-=======
-	const handleLogout = () => dispatch(actionLogout(() => navigate(ROUTES.LOGIN.path)));
->>>>>>> f815a059df4c28e5fbbeb520b2e0ef557757d6b5
 
 	return (
 		<div className="bg-white shadow-md">
