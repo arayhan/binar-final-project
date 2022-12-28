@@ -1,3 +1,4 @@
+import { PATH } from '@/configs/routes';
 import { ACTION_FLIGHT } from '@/store/actions';
 import { formatRupiah, queryStringToObject } from '@/utils/helpers';
 import moment from 'moment';
@@ -9,10 +10,10 @@ import { MdEventSeat } from 'react-icons/md';
 import Skeleton from 'react-loading-skeleton';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
 const Flight = () => {
+	const navigate = useNavigate();
 	const location = useLocation();
 	const dispatch = useDispatch();
 
@@ -22,6 +23,10 @@ const Flight = () => {
 	const [params, setParams] = useState({});
 
 	const { actionGetFlightList } = ACTION_FLIGHT;
+
+	const handleSelectFlight = (flightItem) => {
+		navigate(`${PATH.BOOKING}/${flightItem.id}`);
+	};
 
 	useEffect(() => {
 		const _params = queryStringToObject(location.search);
@@ -79,9 +84,14 @@ const Flight = () => {
 												<div key={flight.id} className="bg-white p-6 rounded-md shadow-md space-y-8">
 													<div className="flex items-start justify-between">
 														<div className="flex items-center space-x-4">
-															<span className="bg-secondary rounded-full p-3">
-																<CgAirplane size={28} />
-															</span>
+															{flight.airplane.airline?.logo && (
+																<img className="w-20" src={flight.airplane.airline?.logo} alt={flight.airplane.airline.name} />
+															)}
+															{!flight.airplane.airline?.logo && (
+																<span className="bg-secondary rounded-full p-3">
+																	<CgAirplane size={28} />
+																</span>
+															)}
 															<div>
 																<div className="text-2xl">{flight.airplane.airline.name}</div>
 																<div className="opacity-70">{flight.airplane.name}</div>
@@ -127,9 +137,12 @@ const Flight = () => {
 															<span>/</span>
 															<span>pax</span>
 														</div>
-														<Link className="flex items-center py-2 px-6 bg-primary hover:bg-primary-400 text-white rounded-md" to={'/'}>
+														<button
+															className="flex items-center py-2 px-6 bg-primary hover:bg-primary-400 text-white rounded-md"
+															onClick={() => handleSelectFlight(flightItem)}
+														>
 															Pilih Penerbangan
-														</Link>
+														</button>
 													</div>
 												</div>
 											))}
