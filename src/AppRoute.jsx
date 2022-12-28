@@ -6,6 +6,7 @@ import { PATH } from './configs/routes';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
+import Booking from './pages/Booking/Booking';
 import Flight from './pages/Flight/Flight';
 import Home from './pages/Home/Home';
 
@@ -36,6 +37,8 @@ const AppRoute = () => {
 			<Route element={<MainLayout />}>
 				<Route path={PATH.HOME} element={<Home />} />
 				<Route path={PATH.FLIGHT} element={<Flight />} />
+				<Route path={PATH.BOOKING} element={<Booking />} />
+				<Route path={`${PATH.BOOKING}/:bookingID`} element={<Booking />} />
 			</Route>
 		</RoutesContainer>
 	);

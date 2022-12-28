@@ -1,5 +1,5 @@
 import { PATH } from '@/configs/routes';
-import { ACTION_FLIGHT } from '@/store/actions';
+import { ACTION_BOOKING, ACTION_FLIGHT } from '@/store/actions';
 import { formatRupiah, queryStringToObject } from '@/utils/helpers';
 import moment from 'moment';
 import { Fragment } from 'react';
@@ -22,9 +22,21 @@ const Flight = () => {
 	const [error, setError] = useState(null);
 	const [params, setParams] = useState({});
 
+	const { actionSaveBookingTempData } = ACTION_BOOKING;
 	const { actionGetFlightList } = ACTION_FLIGHT;
 
 	const handleSelectFlight = (flightItem) => {
+		const _params = queryStringToObject(location.search);
+		const tempData = {
+			iata_from: _params?.iata_from || null,
+			iata_to: _params?.iata_to || null,
+			date_departure: _params?.date_departure || null,
+			date_arrival: _params?.date_arrival || null,
+			passengers: _params?.passengers || null,
+			seat_class: _params?.seat_class || null
+		};
+
+		dispatch(actionSaveBookingTempData(tempData));
 		navigate(`${PATH.BOOKING}/${flightItem.id}`);
 	};
 
@@ -139,7 +151,7 @@ const Flight = () => {
 														</div>
 														<button
 															className="flex items-center py-2 px-6 bg-primary hover:bg-primary-400 text-white rounded-md"
-															onClick={() => handleSelectFlight(flightItem)}
+															onClick={() => handleSelectFlight(flight)}
 														>
 															Pilih Penerbangan
 														</button>

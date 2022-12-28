@@ -7,6 +7,11 @@ export const LOGIN_METHODS = {
 	GOOGLE: 'GOOGLE'
 };
 
+export const PERSON_TITLE = {
+	MR: 'Mr',
+	MRS: 'Mrs'
+};
+
 export const STORE_KEY = {
 	USER_DATA: 'USER_DATA',
 	TOKEN: 'TOKEN'
