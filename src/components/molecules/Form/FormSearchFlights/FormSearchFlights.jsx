@@ -115,7 +115,6 @@ export const FormSearchFlights = () => {
 								placeholder="Tanggal Keberangkatan"
 								label="Tanggal Keberangkatan"
 								minDate={moment().format('YYYY-MM-DD')}
-								maxDate={getValues('date_arrival')}
 								error={error}
 							/>
 						)}

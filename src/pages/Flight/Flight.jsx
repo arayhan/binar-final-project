@@ -77,13 +77,20 @@ const Flight = () => {
 										{flightList?.length > 0 &&
 											flightList?.map((flight) => (
 												<div key={flight.id} className="bg-white p-6 rounded-md shadow-md space-y-8">
-													<div className="flex items-center space-x-4">
-														<span className="bg-secondary rounded-full p-3">
-															<CgAirplane size={28} />
-														</span>
+													<div className="flex items-start justify-between">
+														<div className="flex items-center space-x-4">
+															<span className="bg-secondary rounded-full p-3">
+																<CgAirplane size={28} />
+															</span>
+															<div>
+																<div className="text-2xl">{flight.airplane.airline.name}</div>
+																<div className="opacity-70">{flight.airplane.name}</div>
+															</div>
+														</div>
+
 														<div>
-															<div className="text-2xl">{flight.airplane.airline.name}</div>
-															<div className="opacity-70">{flight.airplane.name}</div>
+															<span>Flight Code : </span>
+															<span className="font-semibold">{flight.flightCode || '-'}</span>
 														</div>
 													</div>
 
