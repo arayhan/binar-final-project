@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const queryStringToObject = (queryString) => {
 	const pairs = queryString.substring(1).split('&');
 
@@ -49,4 +51,10 @@ export const formatRupiah = (angka) => {
 
 	rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 	return 'Rp. ' + rupiah;
+};
+
+export const setMaxDateOfBirth = (maxYear = 17) => {
+	const date = new Date();
+	date.setFullYear(date.getFullYear() - maxYear);
+	return moment(date).format('YYYY-MM-DD');
 };
