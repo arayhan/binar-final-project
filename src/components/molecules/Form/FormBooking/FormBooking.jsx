@@ -1,4 +1,5 @@
-import { InputDate, InputLabel, InputText, InputUpload } from '@/components/atoms';
+import { Button, InputDate, InputLabel, InputText, InputUpload } from '@/components/atoms';
+import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { setMaxDateOfBirth } from '@/utils/helpers';
 import { bookingSchema } from '@/utils/validation-schema';
@@ -6,46 +7,48 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { BsPlus } from 'react-icons/bs';
 import { notify } from 'react-notify-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { InputSelectPersonTitle } from '../../InputSelect/InputSelectPersonTitle/InputSelectPersonTitle';
+
+const DEFAULT_VALUE = {
+	title: undefined,
+	passenger_name: '',
+	phone: '',
+	nik: '',
+	dob: '',
+	seat: '',
+	visa: '',
+	passport: '',
+	izin: ''
+};
 
 export const FormBooking = ({ bookingID }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const DEFAULT_VALUE = {
-		title: undefined,
-		passenger_name: '',
-		phone: '',
-		nik: '',
-		dob: '',
-		seat: '',
-		visa: '',
-		passport: '',
-		izin: ''
-	};
-
 	const { actionCreateTransaction } = ACTION_TRANSACTION;
 
 	const { control, handleSubmit, setValue, setError } = useForm({
-		defaultValues: { details: [{ ...DEFAULT_VALUE }] },
+		defaultValues: { detail: [{ ...DEFAULT_VALUE }] },
 		resolver: yupResolver(bookingSchema)
 	});
 
-	const { append, fields, remove } = useFieldArray({ name: 'details', control });
+	const { append, fields, remove } = useFieldArray({ name: 'detail', control });
+
+	const { processingCreateTransaction } = useSelector((state) => state.transaction);
 
 	const handleSubmitBooking = (values) => {
 		const request = {
-			booking_id: bookingID,
-			pax: values.details.length,
-			details: values.details
+			product_id: Number(bookingID),
+			pax: values.detail.length,
+			detail: values.detail
 		};
 
 		dispatch(
 			actionCreateTransaction(request, ({ success, message, response }) => {
-				notify.show(message, success ? 'success' : 'error');
 				if (success) navigate(`${PATH.PAYMENT}/${response.payment_id}`);
+				notify.show(message, success ? 'success' : 'error');
 			})
 		);
 	};
@@ -58,13 +61,15 @@ export const FormBooking = ({ bookingID }) => {
 					<div className="text-gray-500">(5 Passengers Maximum)</div>
 				</div>
 				{fields.length < 5 && (
-					<button
-						className="bg-primary hover:bg-primary-400 transition-all text-white px-4 py-3 space-x-2 rounded-md flex items-center justify-center"
+					<Button
+						variant="primary"
+						disabled={processingCreateTransaction}
+						className="px-4 py-3 space-x-2 rounded-md flex items-center justify-center"
 						onClick={() => append({ ...DEFAULT_VALUE })}
 					>
 						<BsPlus size={20} />
 						<span>Add Person</span>
-					</button>
+					</Button>
 				)}
 			</div>
 
@@ -89,7 +94,7 @@ export const FormBooking = ({ bookingID }) => {
 
 							<div className="grid md:grid-cols-2 gap-x-8 gap-y-6 items-start">
 								<Controller
-									name={`details[${index}].title`}
+									name={`detail[${index}].title`}
 									control={control}
 									render={({ field, fieldState }) => (
 										<InputSelectPersonTitle
@@ -97,46 +102,65 @@ export const FormBooking = ({ bookingID }) => {
 											{...fieldState}
 											label="Title"
 											placeholder="Select Title"
+											disabled={processingCreateTransaction}
 											onChange={(option) => {
-												setValue(`details[${index}].title`, option.value);
-												setError(`details[${index}].title`, null);
+												setValue(`detail[${index}].title`, option.value);
+												setError(`detail[${index}].title`, null);
 											}}
 										/>
 									)}
 								/>
 
 								<Controller
-									name={`details[${index}].passenger_name`}
+									name={`detail[${index}].passenger_name`}
 									control={control}
 									render={({ field, fieldState: { error } }) => (
-										<InputText {...field} label="Nama Lengkap" helper="Sesuai KTP/SIM/Paspor" error={error} />
+										<InputText
+											{...field}
+											label="Nama Lengkap"
+											helper="Sesuai KTP/SIM/Paspor"
+											disabled={processingCreateTransaction}
+											error={error}
+										/>
 									)}
 								/>
 
 								<Controller
-									name={`details[${index}].phone`}
-									control={control}
-									render={({ field, fieldState: { error } }) => <InputText {...field} label="Nomor Handphone" error={error} prefix="+62" />}
-								/>
-
-								<Controller
-									name={`details[${index}].nik`}
-									control={control}
-									render={({ field, fieldState: { error } }) => <InputText {...field} label="NIK" error={error} />}
-								/>
-
-								<Controller
-									name={`details[${index}].dob`}
+									name={`detail[${index}].phone`}
 									control={control}
 									render={({ field, fieldState: { error } }) => (
-										<InputDate {...field} label="Tanggal Lahir" maxDate={setMaxDateOfBirth(17)} error={error} />
+										<InputText {...field} label="Nomor Handphone" disabled={processingCreateTransaction} error={error} prefix="+62" />
 									)}
 								/>
 
 								<Controller
-									name={`details[${index}].seat`}
+									name={`detail[${index}].nik`}
 									control={control}
-									render={({ field, fieldState: { error } }) => <InputText {...field} label="Pilih Nomor Kursi" error={error} />}
+									render={({ field, fieldState: { error } }) => (
+										<InputText {...field} label="NIK" disabled={processingCreateTransaction} error={error} />
+									)}
+								/>
+
+								<Controller
+									name={`detail[${index}].dob`}
+									control={control}
+									render={({ field, fieldState: { error } }) => (
+										<InputDate
+											{...field}
+											label="Tanggal Lahir"
+											maxDate={setMaxDateOfBirth(17)}
+											disabled={processingCreateTransaction}
+											error={error}
+										/>
+									)}
+								/>
+
+								<Controller
+									name={`detail[${index}].seat`}
+									control={control}
+									render={({ field, fieldState: { error } }) => (
+										<InputText {...field} label="Pilih Nomor Kursi" disabled={processingCreateTransaction} error={error} />
+									)}
 								/>
 							</div>
 
@@ -145,46 +169,49 @@ export const FormBooking = ({ bookingID }) => {
 								<div className="p-4 border rounded-md space-y-4">
 									<div className="grid md:grid-cols-3 gap-4">
 										<Controller
-											name={`details[${index}].visa`}
+											name={`detail[${index}].visa`}
 											control={control}
 											render={({ field, fieldState: { error } }) => (
 												<InputUpload
 													{...field}
 													label="Upload Visa"
 													onUploaded={(fileURL) => {
-														setValue(`details[${index}].visa`, fileURL);
-														setError(`details[${index}].visa`, null);
+														setValue(`detail[${index}].visa`, fileURL);
+														setError(`detail[${index}].visa`, null);
 													}}
+													disabled={processingCreateTransaction}
 													error={error}
 												/>
 											)}
 										/>
 										<Controller
-											name={`details[${index}].passport`}
+											name={`detail[${index}].passport`}
 											control={control}
 											render={({ field, fieldState: { error } }) => (
 												<InputUpload
 													{...field}
 													label="Upload Passport"
 													onUploaded={(fileURL) => {
-														setValue(`details[${index}].passport`, fileURL);
-														setError(`details[${index}].passport`, null);
+														setValue(`detail[${index}].passport`, fileURL);
+														setError(`detail[${index}].passport`, null);
 													}}
+													disabled={processingCreateTransaction}
 													error={error}
 												/>
 											)}
 										/>
 										<Controller
-											name={`details[${index}].izin`}
+											name={`detail[${index}].izin`}
 											control={control}
 											render={({ field, fieldState: { error } }) => (
 												<InputUpload
 													{...field}
 													label="Upload Izin"
 													onUploaded={(fileURL) => {
-														setValue(`details[${index}].izin`, fileURL);
-														setError(`details[${index}].izin`, null);
+														setValue(`detail[${index}].izin`, fileURL);
+														setError(`detail[${index}].izin`, null);
 													}}
+													disabled={processingCreateTransaction}
 													error={error}
 												/>
 											)}

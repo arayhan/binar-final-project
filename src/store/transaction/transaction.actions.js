@@ -33,7 +33,7 @@ export const actionCreateTransaction = (request, callback) => async (dispatch) =
 	try {
 		const response = await http.post(API_TRANSACTION, request);
 
-		callback({ success: true, message: 'Transaksi berhasil dibuat', response: response.data });
+		callback({ success: true, message: 'Transaksi berhasil dibuat', response: response.data.data });
 		dispatch(responseCreateTransaction({ success: true, data: response.data.data }));
 	} catch (error) {
 		const message = error.response?.data?.message || error.message;

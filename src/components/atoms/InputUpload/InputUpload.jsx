@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { forwardRef } from 'react';
 import { BiPlusCircle } from 'react-icons/bi';
 
-export const InputUpload = forwardRef(({ name, error, label, containerClassName, onUploaded }, ref) => {
+export const InputUpload = forwardRef(({ name, error, label, disabled, containerClassName, onUploaded }, ref) => {
 	const [uploadedFileURL, setUploadedFileURL] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 
@@ -20,9 +20,9 @@ export const InputUpload = forwardRef(({ name, error, label, containerClassName,
 			<InputLabel text={label} />
 			{!uploadedFileURL && (
 				<button
-					className={`inline-block border ${
-						error ? 'border-red-500' : ''
-					} border-dashed rounded-md w-full text-center hover:bg-gray-100 hover:cursor-pointer`}
+					className={`inline-block border ${error ? 'border-red-500' : ''} border-dashed rounded-md w-full text-center ${
+						disabled ? 'opacity-50' : 'hover:cursor-pointer hover:bg-gray-100'
+					}`}
 					onClick={() => setShowModal(true)}
 				>
 					<div className="flex flex-col items-center justify-center p-8 space-y-4">
@@ -40,7 +40,7 @@ export const InputUpload = forwardRef(({ name, error, label, containerClassName,
 						<img src={uploadedFileURL} alt="" />
 					</div>
 					<div className="flex justify-center">
-						<Button variant="primary" text="Ubah File" onClick={() => setShowModal(true)} />
+						<Button disabled={disabled} variant="primary" text="Ubah File" onClick={() => setShowModal(true)} />
 					</div>
 				</div>
 			)}
