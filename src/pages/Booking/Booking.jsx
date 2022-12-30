@@ -1,9 +1,26 @@
 import { FormBooking } from '@/components/molecules';
-import { Fragment } from 'react';
+import { PATH } from '@/configs/routes';
+import { Fragment, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { notify } from 'react-notify-toast';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Booking = () => {
+	const navigate = useNavigate();
+	const params = useParams();
+
+	const { bookingID } = params;
+
 	const fetching = false;
+
+	const handleRedirectToSearchFlight = () => {
+		notify.show('Kode booking tidak ditemukan', 'error');
+		navigate(PATH.FLIGHT);
+	};
+
+	useEffect(() => {
+		if (!bookingID) handleRedirectToSearchFlight();
+	}, [bookingID]);
 
 	return (
 		<div>

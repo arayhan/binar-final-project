@@ -1,21 +1,22 @@
 import { API_UPLOAD_DOCUMENT } from '../apis';
 import { http } from '../http';
-import { requestSaveTransactionTempData, requestUploadDocument } from './transaction.types';
+import { requestSaveTransactionTempData, requestUploadDocument, responseUploadDocument } from './transaction.types';
 
 export const actionSaveTransactionTempData = (data) => async (dispatch) => dispatch(requestSaveTransactionTempData(data));
 
-export const actionUploadDocument = (data) => async (dispatch) => {
+export const actionUploadDocument = (formData, callback) => async (dispatch) => {
 	dispatch(requestUploadDocument());
 
 	try {
-		const request = { document: data };
+		const request = formData;
 		const response = await http.post(API_UPLOAD_DOCUMENT, request);
-		console.log({ response });
-		// dispatch(requestUploadDocument(response.data));
+
+		callback({ success: true, message: 'Upload document success', response: response.data });
+		dispatch(responseUploadDocument({ success: true, data: response.data.data }));
 	} catch (error) {
 		const message = error.response?.data?.message || error.message;
 
 		callback({ success: false, message });
-		dispatch(responseFlightList({ success: false, error: message }));
+		dispatch(responseUploadDocument({ success: false, error: message }));
 	}
 };

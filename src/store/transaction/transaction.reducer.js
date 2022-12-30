@@ -1,4 +1,4 @@
-import { REQUEST_SAVE_TRANSACTION_TEMP_DATA, REQUEST_UPLOAD_DOCUMENT } from './transaction.types';
+import { REQUEST_SAVE_TRANSACTION_TEMP_DATA, REQUEST_UPLOAD_DOCUMENT, RESPONSE_UPLOAD_DOCUMENT } from './transaction.types';
 
 const initialState = {
 	transactionTempData: null,
@@ -16,7 +16,14 @@ export default function reducer(state = initialState, { type, payload }) {
 
 		case REQUEST_UPLOAD_DOCUMENT:
 			return {
-				...state
+				...state,
+				processingUploadDocument: true
+			};
+
+		case RESPONSE_UPLOAD_DOCUMENT:
+			return {
+				...state,
+				processingUploadDocument: false
 			};
 
 		default:

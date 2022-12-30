@@ -3,14 +3,16 @@ import { ACTION_TRANSACTION } from '@/store/actions';
 import { useRef, useState } from 'react';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { notify } from 'react-notify-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const ModalUploadVisa = ({ onClose }) => {
+export const ModalUploadVisa = ({ onClose, onUploaded }) => {
 	const dispatch = useDispatch();
 
 	const uploadVisaRef = useRef();
 
 	const { actionUploadDocument } = ACTION_TRANSACTION;
+
+	const { processingUploadDocument } = useSelector((state) => state.transaction);
 
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [selectedFileFormData, setSelectedFileFormData] = useState(null);
@@ -19,8 +21,9 @@ export const ModalUploadVisa = ({ onClose }) => {
 	const handleUploadFile = () => {
 		if (selectedFileFormData) {
 			dispatch(
-				actionUploadDocument(selectedFileFormData, ({ success, message }) => {
-					if (!success) notify.show(message, 'error');
+				actionUploadDocument(selectedFileFormData, ({ success, message, response }) => {
+					notify.show(message, success ? 'success' : 'error');
+					if (success) onUploaded(response.url);
 				})
 			);
 		}
@@ -48,7 +51,13 @@ export const ModalUploadVisa = ({ onClose }) => {
 	};
 
 	return (
-		<Modal title="Upload Visa" description="Pastikan file yang Anda input valid" onClose={onClose} onSubmit={handleUploadFile}>
+		<Modal
+			title="Upload Visa"
+			description="Pastikan file yang Anda input valid"
+			isLoading={processingUploadDocument}
+			onClose={onClose}
+			onSubmit={handleUploadFile}
+		>
 			{error && (
 				<div className="text-red-500 text-sm mb-3 flex items-center space-x-3 justify-start bg-red-50 p-2 rounded-md">
 					<div className="w-4">
@@ -86,7 +95,7 @@ export const ModalUploadVisa = ({ onClose }) => {
 					</div>
 				)}
 
-				<input className="hidden" id="visa" name="visa" type="file" accept="image/*" onChange={handleChangeFile} />
+				<input className="hidden" id="visa" name="document" type="file" accept="image/*" onChange={handleChangeFile} />
 			</form>
 		</Modal>
 	);

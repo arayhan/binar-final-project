@@ -1,6 +1,5 @@
 import { InputDate, InputLabel, InputText } from '@/components/atoms';
 import { setMaxDateOfBirth } from '@/utils/helpers';
-import moment from 'moment';
 import { useForm, Controller } from 'react-hook-form';
 import { BsPlus } from 'react-icons/bs';
 import { InputSelectPersonTitle } from '../../InputSelect/InputSelectPersonTitle/InputSelectPersonTitle';
