@@ -4,7 +4,6 @@ import { requestFlightList, responseFlightList } from './flight.types';
 import { objectToQueryString } from '@/utils/helpers';
 
 export const actionGetFlightList = (params, callback) => async (dispatch) => {
-	console.log({ params });
 	dispatch(requestFlightList());
 
 	try {
