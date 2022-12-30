@@ -8,3 +8,4 @@ export const API_AIRPORT_LIST = '/airport';
 export const API_FLIGHT_LIST = '/product';
 
 export const API_UPLOAD_DOCUMENT = '/transaction/upload';
+export const API_TRANSACTION = '/transaction';

@@ -1,12 +1,19 @@
 import { InputDate, InputLabel, InputText, InputUpload } from '@/components/atoms';
+import { ACTION_TRANSACTION } from '@/store/actions';
 import { setMaxDateOfBirth } from '@/utils/helpers';
 import { bookingSchema } from '@/utils/validation-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { BsPlus } from 'react-icons/bs';
+import { notify } from 'react-notify-toast';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { InputSelectPersonTitle } from '../../InputSelect/InputSelectPersonTitle/InputSelectPersonTitle';
 
 export const FormBooking = ({ bookingID }) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const DEFAULT_VALUE = {
 		title: undefined,
 		passenger_name: '',
@@ -18,6 +25,8 @@ export const FormBooking = ({ bookingID }) => {
 		passport: '',
 		izin: ''
 	};
+
+	const { actionCreateTransaction } = ACTION_TRANSACTION;
 
 	const { control, handleSubmit, setValue, setError } = useForm({
 		defaultValues: { details: [{ ...DEFAULT_VALUE }] },
@@ -33,7 +42,12 @@ export const FormBooking = ({ bookingID }) => {
 			details: values.details
 		};
 
-		console.log({ request });
+		dispatch(
+			actionCreateTransaction(request, ({ success, message, response }) => {
+				notify.show(message, success ? 'success' : 'error');
+				if (success) navigate(`${PATH.PAYMENT}/${response.payment_id}`);
+			})
+		);
 	};
 
 	return (
@@ -137,7 +151,10 @@ export const FormBooking = ({ bookingID }) => {
 												<InputUpload
 													{...field}
 													label="Upload Visa"
-													onUploaded={(fileURL) => setValue(`details[${index}].visa`, fileURL)}
+													onUploaded={(fileURL) => {
+														setValue(`details[${index}].visa`, fileURL);
+														setError(`details[${index}].visa`, null);
+													}}
 													error={error}
 												/>
 											)}
@@ -149,7 +166,10 @@ export const FormBooking = ({ bookingID }) => {
 												<InputUpload
 													{...field}
 													label="Upload Passport"
-													onUploaded={(fileURL) => setValue(`details[${index}].passport`, fileURL)}
+													onUploaded={(fileURL) => {
+														setValue(`details[${index}].passport`, fileURL);
+														setError(`details[${index}].passport`, null);
+													}}
 													error={error}
 												/>
 											)}
@@ -161,7 +181,10 @@ export const FormBooking = ({ bookingID }) => {
 												<InputUpload
 													{...field}
 													label="Upload Izin"
-													onUploaded={(fileURL) => setValue(`details[${index}].izin`, fileURL)}
+													onUploaded={(fileURL) => {
+														setValue(`details[${index}].izin`, fileURL);
+														setError(`details[${index}].izin`, null);
+													}}
 													error={error}
 												/>
 											)}

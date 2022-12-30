@@ -12,6 +12,16 @@ export const PERSON_TITLE = {
 	MRS: 'Mrs'
 };
 
+export const STATUS_TRANSACTION = {
+	UNPAID: 'unpaid',
+	PENDING: 'pending',
+	SETTLEMENT: 'settlement',
+	CANCEL: 'cancel',
+	EXPIRE: 'expire',
+	REFUND: 'refund',
+	FRAUD: 'fraud'
+};
+
 export const STORE_KEY = {
 	USER_DATA: 'USER_DATA',
 	TOKEN: 'TOKEN'

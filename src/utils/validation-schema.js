@@ -31,8 +31,14 @@ export const bookingSchema = yup.object().shape({
 		yup.object().shape({
 			title: yup.string().required('Title harus diisi'),
 			passenger_name: yup.string().required('Nama lengkap harus diisi'),
-			phone: yup.string().required('Nomor handphone harus diisi'),
-			nik: yup.string().required('NIK harus diisi'),
+			phone: yup
+				.string()
+				.matches(/^[0-9]*$/, 'Nomor handphone tidak valid')
+				.required('Nomor handphone harus diisi'),
+			nik: yup
+				.string()
+				.matches(/^\d{16}$/, 'NIK tidak valid')
+				.required('NIK harus diisi'),
 			dob: yup.string().required('Tanggal lahir harus diisi'),
 			seat: yup.string().required('Nomor kursi harus diisi'),
 			visa: yup.string().required('Visa harus diisi'),
