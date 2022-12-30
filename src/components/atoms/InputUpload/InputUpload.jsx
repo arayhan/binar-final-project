@@ -1,9 +1,9 @@
-import { Button, InputLabel, ModalUpload } from '@/components/atoms';
+import { Button, InputError, InputLabel, ModalUpload } from '@/components/atoms';
 import { useState } from 'react';
 import { forwardRef } from 'react';
 import { BiPlusCircle } from 'react-icons/bi';
 
-export const InputUpload = forwardRef(({ name, label, containerClassName, onUploaded }, ref) => {
+export const InputUpload = forwardRef(({ name, error, label, containerClassName, onUploaded }, ref) => {
 	const [uploadedFileURL, setUploadedFileURL] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 
@@ -20,7 +20,9 @@ export const InputUpload = forwardRef(({ name, label, containerClassName, onUplo
 			<InputLabel text={label} />
 			{!uploadedFileURL && (
 				<button
-					className="inline-block border border-dashed rounded-md w-full text-center hover:bg-gray-100 hover:cursor-pointer"
+					className={`inline-block border ${
+						error ? 'border-red-500' : ''
+					} border-dashed rounded-md w-full text-center hover:bg-gray-100 hover:cursor-pointer`}
 					onClick={() => setShowModal(true)}
 				>
 					<div className="flex flex-col items-center justify-center p-8 space-y-4">
@@ -42,6 +44,8 @@ export const InputUpload = forwardRef(({ name, label, containerClassName, onUplo
 					</div>
 				</div>
 			)}
+
+			{error && <InputError message={error.message} />}
 		</div>
 	);
 });

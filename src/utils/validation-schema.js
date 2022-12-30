@@ -25,3 +25,19 @@ export const searchFlightsSchema = yup.object().shape({
 		.not([yup.ref('iata_from')], 'Departure and destination must differ'),
 	date_departure: yup.string().required('Tanggal Keberangkatan wajib diisi')
 });
+
+export const bookingSchema = yup.object().shape({
+	details: yup.array().of(
+		yup.object().shape({
+			title: yup.string().required('Title harus diisi'),
+			passenger_name: yup.string().required('Nama lengkap harus diisi'),
+			phone: yup.string().required('Nomor handphone harus diisi'),
+			nik: yup.string().required('NIK harus diisi'),
+			dob: yup.string().required('Tanggal lahir harus diisi'),
+			seat: yup.string().required('Nomor kursi harus diisi'),
+			visa: yup.string().required('Visa harus diisi'),
+			passport: yup.string().required('Passport harus diisi'),
+			izin: yup.string().required('Izin harus diisi')
+		})
+	)
+});

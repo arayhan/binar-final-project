@@ -22,6 +22,7 @@ export const InputSelectPersonTitle = forwardRef(
 					disabled={disabled}
 					onChange={onChange}
 					placeholder={placeholder}
+					isError={error}
 					className={`${className} ${error ? 'border-red-500' : ''}'}`}
 					{...props}
 				/>
