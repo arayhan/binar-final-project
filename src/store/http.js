@@ -5,7 +5,7 @@ import store from 'store';
 const getHeaders = () => {
 	const token = store.get(STORE_KEY.TOKEN);
 	const headers = { 'Content-Type': 'application/json' };
-	return token ? { ...headers, Authorization: `Bearer ${token}` } : headers;
+	return token ? { ...headers, Authorization: token } : headers;
 };
 
 const http = axios.create({
