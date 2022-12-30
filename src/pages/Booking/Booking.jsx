@@ -37,9 +37,11 @@ const Booking = () => {
 			</div>
 
 			<div className="bg-gray-100">
-				<div className="container max-w-screen-lg py-20">
-					{!bookingID && <SkeletonBody />}
-					{bookingID && <FormBooking bookingID={bookingID} />}
+				<div className="container py-20">
+					<div className="max-w-screen-lg mx-auto">
+						{!bookingID && <SkeletonBody />}
+						{bookingID && <FormBooking bookingID={bookingID} />}
+					</div>
 				</div>
 			</div>
 		</div>
