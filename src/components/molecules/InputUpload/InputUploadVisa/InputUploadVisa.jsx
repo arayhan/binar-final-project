@@ -1,22 +1,22 @@
-import { Button, InputLabel } from '@/components/atoms';
+import { Button, InputLabel, ModalUpload } from '@/components/atoms';
 import { useState } from 'react';
 import { forwardRef } from 'react';
 import { BiPlusCircle } from 'react-icons/bi';
 import { FaCcVisa } from 'react-icons/fa';
-import { ModalUploadVisa } from '../../Modal/ModalUploadVisa/ModalUploadVisa';
 
-export const InputUploadVisa = forwardRef(({ containerClassName }, ref) => {
+export const InputUploadVisa = forwardRef(({ containerClassName, onUploaded }, ref) => {
 	const [uploadedFileURL, setUploadedFileURL] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 
 	const handleUploadedFile = (fileURL) => {
 		setShowModal(false);
 		setUploadedFileURL(fileURL);
+		onUploaded(fileURL);
 	};
 
 	return (
 		<div ref={ref} className={`space-y-2 ${containerClassName}`}>
-			{showModal && <ModalUploadVisa onClose={() => setShowModal(false)} onUploaded={handleUploadedFile} />}
+			{showModal && <ModalUpload name="visa" onClose={() => setShowModal(false)} onUploaded={handleUploadedFile} />}
 			{!uploadedFileURL && (
 				<button
 					className="inline-block border border-dashed rounded-md w-full text-center hover:bg-gray-100 hover:cursor-pointer"
@@ -47,3 +47,6 @@ export const InputUploadVisa = forwardRef(({ containerClassName }, ref) => {
 });
 
 InputUploadVisa.displayName = 'InputUploadVisa';
+InputUploadVisa.defaultProps = {
+	onUploaded: () => {}
+};

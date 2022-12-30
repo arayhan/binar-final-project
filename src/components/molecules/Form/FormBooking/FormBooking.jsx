@@ -102,7 +102,7 @@ export const FormBooking = () => {
 							<InputLabel text="Upload Dokumen" />
 							<div className="p-4 border rounded-md space-y-4">
 								<div className="grid md:grid-cols-3">
-									<InputUploadVisa label="Upload Visa" helper="" />
+									<InputUploadVisa label="Upload Visa" helper="" onUploaded={(fileURL) => setValue('visa', fileURL)} />
 								</div>
 							</div>
 						</div>
