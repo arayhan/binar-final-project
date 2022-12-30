@@ -1,9 +1,10 @@
-import { InputDate, InputText } from '@/components/atoms';
+import { InputDate, InputLabel, InputText } from '@/components/atoms';
 import { setMaxDateOfBirth } from '@/utils/helpers';
 import moment from 'moment';
 import { useForm, Controller } from 'react-hook-form';
 import { BsPlus } from 'react-icons/bs';
 import { InputSelectPersonTitle } from '../../InputSelect/InputSelectPersonTitle/InputSelectPersonTitle';
+import { InputUploadVisa } from '../../InputUpload/InputUploadVisa/InputUploadVisa';
 
 export const FormBooking = () => {
 	const { control, handleSubmit, setValue, setError } = useForm({
@@ -51,7 +52,7 @@ export const FormBooking = () => {
 							<div>Avoid any mistake, because some airlines don&apos;t allow name corrections after booking.</div>
 						</div>
 
-						<div className="grid md:grid-cols-2 gap-8 items-end">
+						<div className="grid md:grid-cols-2 gap-x-8 gap-y-6 items-end">
 							<Controller
 								name="title"
 								control={control}
@@ -96,6 +97,15 @@ export const FormBooking = () => {
 									<InputDate {...field} label="Tanggal Lahir" maxDate={setMaxDateOfBirth(17)} error={error} />
 								)}
 							/>
+						</div>
+
+						<div className="space-y-3">
+							<InputLabel text="Upload Dokumen" />
+							<div className="p-4 border rounded-md space-y-4">
+								<div className="grid md:grid-cols-3">
+									<InputUploadVisa label="Upload Visa" helper="" />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

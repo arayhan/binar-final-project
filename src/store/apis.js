@@ -6,3 +6,5 @@ export const API_AUTH_EMAIL_ACTIVATION = '/auth/verify';
 export const API_AIRPORT_LIST = '/airport';
 
 export const API_FLIGHT_LIST = '/product';
+
+export const API_UPLOAD_DOCUMENT = '/transaction/upload';

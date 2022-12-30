@@ -1,5 +1,5 @@
 import { PATH } from '@/configs/routes';
-import { ACTION_BOOKING, ACTION_FLIGHT } from '@/store/actions';
+import { ACTION_TRANSACTION, ACTION_FLIGHT } from '@/store/actions';
 import { formatRupiah, queryStringToObject } from '@/utils/helpers';
 import moment from 'moment';
 import { Fragment } from 'react';
@@ -22,7 +22,7 @@ const Flight = () => {
 	const [error, setError] = useState(null);
 	const [params, setParams] = useState({});
 
-	const { actionSaveBookingTempData } = ACTION_BOOKING;
+	const { actionSaveBookingTempData } = ACTION_TRANSACTION;
 	const { actionGetFlightList } = ACTION_FLIGHT;
 
 	const handleSelectFlight = (flightItem) => {
