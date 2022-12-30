@@ -70,7 +70,7 @@ export const ModalUpload = ({ name, onClose, onUploaded }) => {
 				{!selectedFile && (
 					<label
 						className="inline-block border border-dashed rounded-md w-full text-center hover:bg-gray-100 hover:cursor-pointer"
-						htmlFor="file"
+						htmlFor={name}
 					>
 						<div className="flex flex-col items-center justify-center p-8 space-y-4">
 							<div className="flex items-center space-x-2">

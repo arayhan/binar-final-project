@@ -7,7 +7,5 @@ export * from './Form/FormSearchFlights/FormSearchFlights';
 
 export * from './InputSelect/InputSelectPersonTitle/InputSelectPersonTitle';
 
-export * from './InputUpload/InputUploadVisa/InputUploadVisa';
-
 export * from './Section/SectionFeatures/SectionFeatures';
 export * from './Section/SectionInspiration/SectionInspiration';

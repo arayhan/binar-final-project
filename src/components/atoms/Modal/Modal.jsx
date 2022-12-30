@@ -28,7 +28,7 @@ export const Modal = ({
 				<hr />
 				<div className="p-6">
 					{isLoading && (
-						<div className="flex items-center justify-center">
+						<div className="flex items-center justify-center py-8">
 							<BiLoaderAlt className="animate-spin" />
 						</div>
 					)}

@@ -3,13 +3,13 @@
 // ==================================
 export const REQUEST_UPLOAD_DOCUMENT = 'REQUEST_UPLOAD_DOCUMENT';
 export const RESPONSE_UPLOAD_DOCUMENT = 'RESPONSE_UPLOAD_DOCUMENT';
-export const REQUEST_SAVE_TRANSACTION_TEMP_DATA = 'REQUEST_SAVE_TRANSACTION_TEMP_DATA';
+export const SET_TRANSACTION_TEMP_DATA = 'SET_TRANSACTION_TEMP_DATA';
 
 // ==================================
 // DISPATCHERS
 // ==================================
-export const requestSaveTransactionTempData = (data) => ({
-	type: REQUEST_SAVE_TRANSACTION_TEMP_DATA,
+export const setTransactionTempData = (data) => ({
+	type: SET_TRANSACTION_TEMP_DATA,
 	payload: { data }
 });
 

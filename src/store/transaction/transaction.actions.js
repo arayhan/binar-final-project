@@ -1,8 +1,8 @@
 import { API_UPLOAD_DOCUMENT } from '../apis';
 import { http } from '../http';
-import { requestSaveTransactionTempData, requestUploadDocument, responseUploadDocument } from './transaction.types';
+import { requestUploadDocument, responseUploadDocument, setTransactionTempData } from './transaction.types';
 
-export const actionSaveTransactionTempData = (data) => async (dispatch) => dispatch(requestSaveTransactionTempData(data));
+export const actionSetTransactionTempData = (data) => async (dispatch) => dispatch(setTransactionTempData(data));
 
 export const actionUploadDocument = (formData, callback) => async (dispatch) => {
 	dispatch(requestUploadDocument());
