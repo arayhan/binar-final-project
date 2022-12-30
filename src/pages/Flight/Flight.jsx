@@ -22,7 +22,7 @@ const Flight = () => {
 	const [error, setError] = useState(null);
 	const [params, setParams] = useState({});
 
-	const { actionSaveBookingTempData } = ACTION_TRANSACTION;
+	const { actionSaveTransactionTempData } = ACTION_TRANSACTION;
 	const { actionGetFlightList } = ACTION_FLIGHT;
 
 	const handleSelectFlight = (flightItem) => {
@@ -36,7 +36,7 @@ const Flight = () => {
 			seat_class: _params?.seat_class || null
 		};
 
-		dispatch(actionSaveBookingTempData(tempData));
+		dispatch(actionSaveTransactionTempData(tempData));
 		navigate(`${PATH.BOOKING}/${flightItem.id}`);
 	};
 
