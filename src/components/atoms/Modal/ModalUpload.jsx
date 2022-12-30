@@ -5,10 +5,10 @@ import { RiErrorWarningFill } from 'react-icons/ri';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
 
-export const ModalUploadVisa = ({ onClose, onUploaded }) => {
+export const ModalUpload = ({ name, onClose, onUploaded }) => {
 	const dispatch = useDispatch();
 
-	const uploadVisaRef = useRef();
+	const formUploadRef = useRef();
 
 	const { actionUploadDocument } = ACTION_TRANSACTION;
 
@@ -30,7 +30,7 @@ export const ModalUploadVisa = ({ onClose, onUploaded }) => {
 	};
 
 	const handleChangeFile = (event) => {
-		const formEl = uploadVisaRef.current;
+		const formEl = formUploadRef.current;
 		const formData = new FormData(formEl);
 		const file = event.target.files[0];
 
@@ -52,7 +52,7 @@ export const ModalUploadVisa = ({ onClose, onUploaded }) => {
 
 	return (
 		<Modal
-			title="Upload Visa"
+			title="Upload File"
 			description="Pastikan file yang Anda input valid"
 			isLoading={processingUploadDocument}
 			onClose={onClose}
@@ -66,11 +66,11 @@ export const ModalUploadVisa = ({ onClose, onUploaded }) => {
 					<span>{error}</span>
 				</div>
 			)}
-			<form ref={uploadVisaRef} className="space-y-4">
+			<form ref={formUploadRef} className="space-y-4">
 				{!selectedFile && (
 					<label
 						className="inline-block border border-dashed rounded-md w-full text-center hover:bg-gray-100 hover:cursor-pointer"
-						htmlFor="visa"
+						htmlFor="file"
 					>
 						<div className="flex flex-col items-center justify-center p-8 space-y-4">
 							<div className="flex items-center space-x-2">
@@ -84,19 +84,23 @@ export const ModalUploadVisa = ({ onClose, onUploaded }) => {
 					<div className="flex flex-col items-center w-full space-y-4">
 						<figure className="flex flex-col items-center justify-center text-center rounded-md border border-gray-100 overflow-hidden">
 							<div className="overflow-y-scroll max-h-80 w-full border-b border-gray-100">
-								<img className="w-full" src={URL.createObjectURL(selectedFile)} alt="visa" />
+								<img className="w-full" src={URL.createObjectURL(selectedFile)} alt="file" />
 							</div>
 							<figcaption className="w-full text-primary text-sm p-2">{selectedFile.name}</figcaption>
 						</figure>
 
-						<label className="inline-block bg-primary px-5 py-2 rounded-md text-white hover:bg-primary-400 cursor-pointer" htmlFor="visa">
+						<label className="inline-block bg-primary px-5 py-2 rounded-md text-white hover:bg-primary-400 cursor-pointer" htmlFor="file">
 							Ubah File
 						</label>
 					</div>
 				)}
 
-				<input className="hidden" id="visa" name="document" type="file" accept="image/*" onChange={handleChangeFile} />
+				<input className="hidden" id={name} name="document" type="file" accept="image/*" onChange={handleChangeFile} />
 			</form>
 		</Modal>
 	);
+};
+
+ModalUpload.defaultProps = {
+	name: 'file'
 };

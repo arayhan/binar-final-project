@@ -8,3 +8,4 @@ export * from './InputText/InputText';
 export * from './InputUpload/InputUpload';
 export * from './InputSelect/InputSelect';
 export * from './Modal/Modal';
+export * from './Modal/ModalUpload';
