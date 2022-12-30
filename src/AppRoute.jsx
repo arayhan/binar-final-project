@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Navigate, Outlet, Route, Routes as RoutesContainer } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes as RoutesContainer, useLocation } from 'react-router-dom';
 import { AuthLayout } from './components/layouts/AuthLayout/AuthLayout';
 import { MainLayout } from './components/layouts/MainLayout/MainLayout';
 import { PATH } from './configs/routes';
@@ -11,10 +11,13 @@ import Flight from './pages/Flight/Flight';
 import Home from './pages/Home/Home';
 
 const AppRoute = () => {
+	const location = useLocation();
 	const { isAuthenticated } = useSelector((state) => state.auth);
 
 	const ProtectedRoute = () => {
-		return !isAuthenticated ? <Navigate to="/login" replace /> : <Outlet />;
+		const { pathname } = location;
+		const queryParam = `redirect=${pathname}`;
+		return !isAuthenticated ? <Navigate to={`${PATH.LOGIN}?${queryParam}`} /> : <Outlet />;
 	};
 
 	const AuthenticationRoute = () => {
@@ -37,8 +40,10 @@ const AppRoute = () => {
 			<Route element={<MainLayout />}>
 				<Route path={PATH.HOME} element={<Home />} />
 				<Route path={PATH.FLIGHT} element={<Flight />} />
-				<Route path={PATH.BOOKING} element={<Booking />} />
-				<Route path={`${PATH.BOOKING}/:bookingID`} element={<Booking />} />
+				<Route element={<ProtectedRoute />}>
+					<Route path={PATH.BOOKING} element={<Booking />} />
+					<Route path={`${PATH.BOOKING}/:bookingID`} element={<Booking />} />
+				</Route>
 			</Route>
 		</RoutesContainer>
 	);

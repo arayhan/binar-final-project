@@ -30,8 +30,12 @@ const Login = () => {
 	const handleLogin = (values) => {
 		dispatch(
 			actionLogin(values, LOGIN_METHODS.EMAIL, ({ success, message }) => {
-				if (success) window.location.href = '/';
 				if (message) notify.show(message, success ? 'success' : 'error');
+				if (success) {
+					const queryParams = location.search ? queryStringToObject(location.search) : null;
+					const redirect = queryParams?.redirect || PATH.HOME;
+					window.location.href = redirect;
+				}
 			})
 		);
 	};
