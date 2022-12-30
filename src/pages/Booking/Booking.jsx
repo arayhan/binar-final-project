@@ -38,7 +38,8 @@ const Booking = () => {
 
 			<div className="bg-gray-100">
 				<div className="container max-w-screen-lg py-20">
-					<FormBooking />
+					{!bookingID && <SkeletonBody />}
+					{bookingID && <FormBooking bookingID={bookingID} />}
 				</div>
 			</div>
 		</div>
@@ -49,6 +50,13 @@ const SkeletonBanner = () => (
 	<div className="flex flex-col space-y-3 opacity-30">
 		<Skeleton inline className="w-1/2" height={28} />
 		<Skeleton inline className="w-1/3" />
+	</div>
+);
+
+const SkeletonBody = () => (
+	<div>
+		<Skeleton baseColor="#ddd" className="w-1/2" height={28} />
+		<Skeleton baseColor="#ddd" height={120} />
 	</div>
 );
 

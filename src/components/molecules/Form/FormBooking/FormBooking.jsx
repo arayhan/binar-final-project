@@ -4,9 +4,10 @@ import { useForm, Controller } from 'react-hook-form';
 import { BsPlus } from 'react-icons/bs';
 import { InputSelectPersonTitle } from '../../InputSelect/InputSelectPersonTitle/InputSelectPersonTitle';
 
-export const FormBooking = () => {
+export const FormBooking = ({ bookingID }) => {
 	const { control, handleSubmit, setValue, setError } = useForm({
 		defaultValues: {
+			product_id: bookingID,
 			title: undefined,
 			passenger_name: '',
 			phone: '',
