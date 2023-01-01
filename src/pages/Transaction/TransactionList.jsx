@@ -45,28 +45,36 @@ const TransactionList = () => {
 
 			<div className="bg-gray-100">
 				<div className="container py-20 pb-36">
-					{fetchingTransactionList && <TransactionListItemSkeleton />}
-					{!fetchingTransactionList && transactionList?.length === 0 && (
-						<div className="w-full bg-white px-8 py-20 rounded-md flex flex-col items-center justify-center space-y-5">
-							<img src={require('@/images/icons/popup_error.svg').default} alt="" />
-							<div className="font-semibold">No transaction created yet</div>
-							<Button variant="primary" text="Mari terbangin sekarang!" linkTo={PATH.FLIGHT} />
-						</div>
-					)}
-					{!fetchingTransactionList && transactionList?.length > 0 && (
-						<div className="space-y-4">
-							{transactionList.map((transaction) => (
-								<TransactionListItem
-									key={transaction.id}
-									amount={transaction.total}
-									title={transaction.payment_id}
-									date={transaction.createdAt}
-									status={transaction.status}
-									transactionID={transaction.payment_id}
-								/>
-							))}
-						</div>
-					)}
+					<div className="max-w-screen-lg mx-auto">
+						{fetchingTransactionList && (
+							<div className="space-y-4">
+								<TransactionListItemSkeleton />
+								<TransactionListItemSkeleton />
+								<TransactionListItemSkeleton />
+							</div>
+						)}
+						{!fetchingTransactionList && transactionList?.length === 0 && (
+							<div className="w-full bg-white px-8 py-20 rounded-md flex flex-col items-center justify-center space-y-5">
+								<img src={require('@/images/icons/popup_error.svg').default} alt="" />
+								<div className="font-semibold">No transaction created yet</div>
+								<Button variant="primary" text="Mari terbangin sekarang!" linkTo={PATH.FLIGHT} />
+							</div>
+						)}
+						{!fetchingTransactionList && transactionList?.length > 0 && (
+							<div className="space-y-4">
+								{transactionList.map((transaction) => (
+									<TransactionListItem
+										key={transaction.id}
+										amount={transaction.total}
+										title={transaction.payment_id}
+										date={transaction.createdAt}
+										status={transaction.status}
+										transactionID={transaction.payment_id}
+									/>
+								))}
+							</div>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>

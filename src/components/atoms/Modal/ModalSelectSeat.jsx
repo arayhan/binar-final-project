@@ -6,7 +6,7 @@ import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from './Modal';
 
-export const ModalSelectSeat = ({ value, bookingID, onClose, onSubmit }) => {
+export const ModalSelectSeat = ({ value, flightID, onClose, onSubmit, isPreview }) => {
 	const dispatch = useDispatch();
 
 	const { actionGetFlightItem } = ACTION_FLIGHT;
@@ -42,11 +42,11 @@ export const ModalSelectSeat = ({ value, bookingID, onClose, onSubmit }) => {
 
 	useEffect(() => {
 		dispatch(
-			actionGetFlightItem(bookingID, ({ success, message }) => {
+			actionGetFlightItem(flightID, ({ success, message }) => {
 				if (!success) notify.show(message, 'error');
 			})
 		);
-	}, [bookingID, dispatch]);
+	}, [flightID, dispatch]);
 
 	return (
 		<Modal
@@ -54,8 +54,9 @@ export const ModalSelectSeat = ({ value, bookingID, onClose, onSubmit }) => {
 			description="Yuk amankan tempatmu! 😁"
 			isLoading={fetchingFlightItem}
 			onClose={onClose}
-			onSubmit={() => onSubmit(selectedSeat)}
-			submitButtonText="Pilih"
+			onSubmit={() => (isPreview ? onClose() : onSubmit(selectedSeat))}
+			submitButtonText={isPreview ? 'OK' : 'Pilih'}
+			hideCancelButton={isPreview}
 		>
 			<div className="flex flex-col md:flex-row gap-8">
 				<div className="border rounded-md flex justify-center max-h-80 md:max-h-[70vh] overflow-y-scroll md:w-8/12">
@@ -70,12 +71,12 @@ export const ModalSelectSeat = ({ value, bookingID, onClose, onSubmit }) => {
 												key={seat}
 												className={`${
 													selectedSeat === seat
-														? 'bg-slate-600'
+														? 'bg-slate-600 outline-2 outline-double outline-slate-500 outline-offset-2'
 														: availableSeats.includes(seat)
 														? 'bg-green-600 hover:bg-green-500'
 														: 'bg-red-600'
 												} p-3 rounded-md text-sm text-white transition-all font-semibold`}
-												onClick={() => handleChangeSeat(seat)}
+												onClick={() => !isPreview && handleChangeSeat(seat)}
 											>
 												{seat}
 											</button>
@@ -99,7 +100,7 @@ export const ModalSelectSeat = ({ value, bookingID, onClose, onSubmit }) => {
 									<div>Available</div>
 								</div>
 								<div className="flex items-center space-x-3">
-									<div className="bg-slate-600 p-2 rounded-md text-xs text-white" />
+									<div className="bg-slate-600 outline-1 outline-double outline-slate-500 outline-offset-1 p-2 rounded-md text-xs text-white" />
 									<div>Tempat dudukmu</div>
 								</div>
 							</div>

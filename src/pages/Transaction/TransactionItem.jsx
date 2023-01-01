@@ -1,9 +1,10 @@
-import { Button, TablePriceList } from '@/components/atoms';
+import { Button, ModalSelectSeat, TablePriceList } from '@/components/atoms';
 import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { TRANSACTION_STATUS } from '@/utils/constants';
 import { formatRupiah, queryStringToObject } from '@/utils/helpers';
 import moment from 'moment';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
@@ -23,6 +24,8 @@ const TransactionItem = () => {
 	const { actionGetTransactionItem } = ACTION_TRANSACTION;
 
 	const { transactionItem, fetchingTransactionItem } = useSelector((state) => state.transaction);
+
+	const [showSeatPreviewModal, setShowSeatPreviewModal] = useState(false);
 
 	const handleRedirectToPaymentLink = (paymentLink) => {
 		window.open(paymentLink, '_blank');
@@ -130,17 +133,6 @@ const TransactionItem = () => {
 													</div>
 												</div>
 											</div>
-
-											<div className="w-full bg-white p-8 rounded-md">
-												<div className="text-center text-sm mb-6">Lakukan pembayaran pada link berikut :</div>
-												<Button
-													variant="primary"
-													className="w-full px-6 py-3 rounded-md"
-													onClick={() => handleRedirectToPaymentLink(transactionItem.payment_link)}
-												>
-													Bayar Sekarang
-												</Button>
-											</div>
 										</>
 									)}
 
@@ -181,23 +173,23 @@ const TransactionItem = () => {
 										<div className="font-semibold text-lg">Detail Pemesanan</div>
 
 										<div className="space-y-5">
-											<table className="w-full text-sm">
+											<table className="w-full">
 												<tbody>
 													<tr>
 														<td>Flight Code</td>
-														<td className="font-semibold text-right">{transactionItem?.product?.flightCode || '-'}</td>
+														<td className="font-semibold text-right py-[3px]">{transactionItem?.product?.flightCode || '-'}</td>
 													</tr>
 													<tr>
 														<td>Gate</td>
-														<td className="font-semibold text-right">{transactionItem?.product?.gate || '-'}</td>
+														<td className="font-semibold text-right py-[3px]">{transactionItem?.product?.gate || '-'}</td>
 													</tr>
 													<tr>
 														<td>Nomor Tagihan</td>
-														<td className="font-semibold text-right">{transactionItem?.payment_id || '-'}</td>
+														<td className="font-semibold text-right py-[3px]">{transactionItem?.payment_id || '-'}</td>
 													</tr>
 													<tr>
 														<td>Tanggal Pembelian</td>
-														<td className="font-semibold text-right">
+														<td className="font-semibold text-right py-[3px]">
 															{transactionItem?.createdAt ? moment(transactionItem.createdAt).format('DD MMMM YYYY') : '-'}
 														</td>
 													</tr>
@@ -207,17 +199,17 @@ const TransactionItem = () => {
 											<hr />
 
 											{transactionItem?.bookingDetail?.map((passenger) => (
-												<table key={passenger.id} className="w-full text-sm">
+												<table key={passenger.id} className="w-full">
 													<tbody>
 														<tr>
 															<td>Name</td>
-															<td className="font-semibold text-right">
+															<td className="font-semibold text-right py-[3px]">
 																{passenger.title} {passenger.passenger_name}
 															</td>
 														</tr>
 														<tr>
 															<td>Checked In</td>
-															<td className="font-semibold text-right">
+															<td className="font-semibold text-right py-[3px]">
 																<div className={`inline-block p-3 my-3 ${passenger.isCheckIn ? 'bg-green-100' : 'bg-red-100'} rounded-md`}>
 																	{passenger.isCheckIn ? '✅ SUDAH CHECK IN' : '❌ BELUM CHECK IN'}
 																</div>
@@ -225,19 +217,34 @@ const TransactionItem = () => {
 														</tr>
 														<tr>
 															<td>Phone</td>
-															<td className="font-semibold text-right">{passenger.phone}</td>
+															<td className="font-semibold text-right py-[3px]">{passenger.phone}</td>
 														</tr>
 														<tr>
 															<td>NIK</td>
-															<td className="font-semibold text-right">{passenger.nik}</td>
+															<td className="font-semibold text-right py-[3px]">{passenger.nik}</td>
 														</tr>
 														<tr>
 															<td>Seat</td>
-															<td className="font-semibold text-right">{passenger.seat}</td>
+															<td className="font-semibold text-right py-[3px]">
+																<div className="flex items-center justify-end gap-4">
+																	{showSeatPreviewModal && (
+																		<ModalSelectSeat
+																			flightID={transactionItem.product_id}
+																			value={showSeatPreviewModal}
+																			onClose={() => setShowSeatPreviewModal(false)}
+																			isPreview
+																		/>
+																	)}
+																	<span>{passenger.seat}</span>
+																	<Button variant="primary" onClick={() => setShowSeatPreviewModal(passenger.seat)}>
+																		Lihat Posisi Kursi
+																	</Button>
+																</div>
+															</td>
 														</tr>
 														<tr>
 															<td>Ticket Num</td>
-															<td className="font-semibold text-right">{passenger.ticketNum}</td>
+															<td className="font-semibold text-right py-[3px]">{passenger.ticketNum}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -268,13 +275,13 @@ const TransactionItem = () => {
 
 							{!fetchingTransactionItem && transactionItem && transactionItem.status === TRANSACTION_STATUS.UNPAID.value && (
 								<div
-									className="fixed bottom-0 left-1/2 transform -translate-x-1/2 max-w-screen-md w-full bg-white p-5"
+									className="fixed bottom-3 left-1/2 transform -translate-x-1/2 max-w-screen-md w-full bg-white p-5 rounded-md"
 									style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.15)' }}
 								>
-									<div className="text-sm text-center mb-3">Selesaikan transkasimu melalui link berikut</div>
+									<div className="text-center mb-3">Selesaikan transkasimu melalui link berikut</div>
 									<Button
 										variant="primary"
-										className="w-full px-6 py-3 rounded-md"
+										className="w-full px-6 py-3 rounded-md text-lg"
 										onClick={() => handleRedirectToPaymentLink(transactionItem.payment_link)}
 									>
 										Bayar Sekarang

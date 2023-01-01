@@ -163,6 +163,7 @@ export const FormBooking = ({ bookingID }) => {
 									render={({ field, fieldState: { error } }) => (
 										<InputSeat
 											{...field}
+											flightID={bookingID}
 											label="Pilih Nomor Kursi"
 											disabled={processingCreateTransaction || fetchingFlightItem}
 											error={error}

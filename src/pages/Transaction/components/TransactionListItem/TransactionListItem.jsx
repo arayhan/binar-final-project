@@ -10,24 +10,24 @@ export const TransactionListItem = ({ title, date, transactionID, amount, status
 	return (
 		<Link to={`${PATH.TRANSACTION}/${transactionID}`} className="rounded-md shadow-md bg-white flex flex-col p-6 space-y-3 hover:bg-gray-50">
 			<div className="flex justify-between">
-				<div className="text-blue-500">{amount > 0 ? formatRupiah(amount) : 'GRATIS'}</div>
+				<div className="text-gray-500 text-sm">Dibuat pada : {moment(date).format('DD MMMM YYYY')}</div>
 			</div>
 
 			<div className="font-semibold text-xl">{title}</div>
-			<div className="text-sm text-gray-500 font-semibold pb-3">Invoice Number : {transactionID}</div>
+			<div className="text-sm text-gray-500 font-semibold pb-3">ID Transaksi : {transactionID}</div>
 			<div className="flex justify-between">
-				<div className="text-gray-500 text-sm">{moment(date).format('DD MMMM YYYY')}</div>
+				<div className="text-primary-500 text-lg font-semibold">{amount > 0 ? formatRupiah(amount) : 'GRATIS'}</div>
 
 				{TRANSACTION_STATUS_OPTIONS.map((option) => {
 					let statusClassName = 'text-green-500';
 
 					if (status === TRANSACTION_STATUS.CANCEL.value || status === TRANSACTION_STATUS.EXPIRE.value) {
 						statusClassName = 'text-red-500';
-					} else if (status === TRANSACTION_STATUS.PENDING.value) {
+					} else if (status === TRANSACTION_STATUS.UNPAID.value) {
 						statusClassName = 'text-yellow-500';
 					}
 
-					return option.value === status && <div className={`text-right text-base font-semibold ${statusClassName}`}>{option.label}</div>;
+					return option.value === status && <div className={`text-right text-lg font-semibold ${statusClassName}`}>{option.label}</div>;
 				})}
 			</div>
 		</Link>

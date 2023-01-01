@@ -18,7 +18,7 @@ export const Modal = ({
 	};
 
 	return (
-		<div className="fixed top-0 left-0 w-full h-screen z-10 p-4 flex items-center justify-center">
+		<div className="text-left fixed top-0 left-0 w-full h-screen z-10 p-4 flex items-center justify-center">
 			<div className="absolute left-0 top-0 w-full h-full bg-black opacity-50" onClick={handleClose} />
 			<div className="relative w-full max-w-screen-md bg-white rounded-md">
 				<div className="px-6 py-4">
@@ -35,7 +35,7 @@ export const Modal = ({
 					{!isLoading && children}
 				</div>
 				<hr />
-				<div className="px-6 py-4 flex items-center justify-between gap-4">
+				<div className={`px-6 py-4 flex items-center gap-4 ${hideCancelButton ? 'justify-end' : 'justify-between'}`}>
 					{!hideCancelButton && <Button variant="danger" disabled={isLoading} text={cancelButtonText || 'Cancel'} onClick={handleClose} />}
 					{!hideSubmitButton && <Button variant="primary" disabled={isLoading} text={submitButtonText || 'Submit'} onClick={onSubmit} />}
 				</div>
