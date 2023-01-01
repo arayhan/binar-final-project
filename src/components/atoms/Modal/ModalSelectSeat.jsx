@@ -58,7 +58,7 @@ export const ModalSelectSeat = ({ value, bookingID, onClose, onSubmit }) => {
 			submitButtonText="Pilih"
 		>
 			<div className="flex flex-col md:flex-row gap-8">
-				<div className="border rounded-md flex justify-center max-h-[70vh] overflow-y-scroll w-8/12">
+				<div className="border rounded-md flex justify-center max-h-80 md:max-h-[70vh] overflow-y-scroll md:w-8/12">
 					<div className="p-8 flex flex-col gap-4">
 						{seatOptions &&
 							seatOptions.map((row) => (
