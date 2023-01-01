@@ -41,9 +41,9 @@ export const bookingSchema = yup.object().shape({
 				.required('NIK harus diisi'),
 			dob: yup.string().required('Tanggal lahir harus diisi'),
 			seat: yup.string().required('Nomor kursi harus diisi'),
-			visa: yup.string().required('Visa harus diisi'),
-			passport: yup.string().required('Passport harus diisi'),
-			izin: yup.string().required('Izin harus diisi')
+			visa: yup.mixed().required('Visa harus diisi'),
+			passport: yup.mixed().required('Passport harus diisi'),
+			izin: yup.mixed().required('Izin harus diisi')
 		})
 	)
 });

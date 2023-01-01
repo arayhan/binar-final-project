@@ -53,6 +53,9 @@ export const formatRupiah = (angka) => {
 	return 'Rp. ' + rupiah;
 };
 
+export const isPDF = (file) => file.type.indexOf('pdf') > -1;
+export const isImage = (file) => file.type.indexOf('image') > -1;
+
 export const setMaxDateOfBirth = (maxYear = 17) => {
 	const date = new Date();
 	date.setFullYear(date.getFullYear() - maxYear);

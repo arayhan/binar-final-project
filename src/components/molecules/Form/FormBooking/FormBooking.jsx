@@ -18,9 +18,9 @@ const DEFAULT_VALUE = {
 	nik: '',
 	dob: '',
 	seat: '',
-	visa: '',
-	passport: '',
-	izin: ''
+	visa: undefined,
+	passport: undefined,
+	izin: undefined
 };
 
 export const FormBooking = ({ bookingID }) => {
@@ -45,12 +45,14 @@ export const FormBooking = ({ bookingID }) => {
 			detail: values.detail
 		};
 
-		dispatch(
-			actionCreateTransaction(request, ({ success, message, response }) => {
-				if (success) navigate(`${PATH.TRANSACTION}/${response.id}`);
-				notify.show(message, success ? 'success' : 'error');
-			})
-		);
+		console.log({ values, request });
+
+		// dispatch(
+		// 	actionCreateTransaction(request, ({ success, message, response }) => {
+		// 		if (success) navigate(`${PATH.TRANSACTION}/${response.id}`);
+		// 		notify.show(message, success ? 'success' : 'error');
+		// 	})
+		// );
 	};
 
 	return (
@@ -175,9 +177,9 @@ export const FormBooking = ({ bookingID }) => {
 												<InputUpload
 													{...field}
 													label="Upload Visa"
-													onUploaded={(fileURL) => {
-														setValue(`detail[${index}].visa`, fileURL);
-														setError(`detail[${index}].visa`, null);
+													onChange={({ file, formData }) => {
+														setValue(`detail[${index}].visa`, file ? { file, formData } : undefined);
+														if (file) setError(`detail[${index}].visa`, null);
 													}}
 													disabled={processingCreateTransaction}
 													error={error}
@@ -191,9 +193,9 @@ export const FormBooking = ({ bookingID }) => {
 												<InputUpload
 													{...field}
 													label="Upload Passport"
-													onUploaded={(fileURL) => {
-														setValue(`detail[${index}].passport`, fileURL);
-														setError(`detail[${index}].passport`, null);
+													onChange={({ file, formData }) => {
+														setValue(`detail[${index}].passport`, file ? { file, formData } : undefined);
+														if (file) setError(`detail[${index}].passport`, null);
 													}}
 													disabled={processingCreateTransaction}
 													error={error}
@@ -207,9 +209,9 @@ export const FormBooking = ({ bookingID }) => {
 												<InputUpload
 													{...field}
 													label="Upload Izin"
-													onUploaded={(fileURL) => {
-														setValue(`detail[${index}].izin`, fileURL);
-														setError(`detail[${index}].izin`, null);
+													onChange={({ file, formData }) => {
+														setValue(`detail[${index}].izin`, file ? { file, formData } : undefined);
+														if (file) setError(`detail[${index}].izin`, null);
 													}}
 													disabled={processingCreateTransaction}
 													error={error}
