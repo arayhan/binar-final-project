@@ -212,7 +212,9 @@ const TransactionItem = () => {
 
 											<hr />
 
-											{transactionItem.status === TRANSACTION_STATUS.SETTLEMENT.value &&
+											{transactionItem.status !== TRANSACTION_STATUS.EXPIRE.value &&
+												transactionItem.status !== TRANSACTION_STATUS.CANCEL.value &&
+												transactionItem.status !== TRANSACTION_STATUS.FRAUD.value &&
 												transactionItem?.bookingDetail?.map((passenger) => (
 													<Fragment key={passenger.id}>
 														<table className="w-full">

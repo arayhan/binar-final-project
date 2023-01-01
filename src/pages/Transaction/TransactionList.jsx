@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { Fragment } from 'react';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router';
 import { TransactionListItem, TransactionListItemSkeleton } from './components/TransactionListItem/TransactionListItem';
 
 const TransactionList = ({ isShowBanner }) => {
