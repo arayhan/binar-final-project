@@ -29,8 +29,21 @@ const TransactionItem = () => {
 
 	const handleGenerateETicket = () => {
 		dispatch(
-			actionGenerateETicketPDF(transactionID, ({ success, message }) => {
+			actionGenerateETicketPDF(transactionID, ({ success, message, response }) => {
 				notify.show(message, success ? 'success' : 'error');
+				if (success) {
+					console.log({ success, response });
+					window.open(response.url, '_blank');
+					fetchTransactionItem();
+				}
+			})
+		);
+	};
+
+	const fetchTransactionItem = () => {
+		dispatch(
+			actionGetTransactionItem(transactionID, ({ success, message }) => {
+				if (!success) notify.show(message, 'error');
 			})
 		);
 	};
@@ -49,11 +62,7 @@ const TransactionItem = () => {
 			const { order_id } = queryStringToObject(location.search);
 			navigate(`${PATH.TRANSACTION}/${order_id}`, true);
 		} else if (transactionID) {
-			dispatch(
-				actionGetTransactionItem(transactionID, ({ success, message }) => {
-					if (!success) notify.show(message, 'error');
-				})
-			);
+			fetchTransactionItem();
 		}
 	}, [transactionID, location]);
 

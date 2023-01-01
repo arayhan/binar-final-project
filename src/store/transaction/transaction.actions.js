@@ -92,7 +92,7 @@ export const actionGenerateETicketPDF = (transactionID, callback) => async (disp
 	try {
 		const response = await http.get(`${API_ETICKET}/${transactionID}`);
 
-		callback({ success: response.data.status, message: response.data.message, response: response.data.data });
+		callback({ success: response.data.status, message: 'E-Ticket Berhasil Dibuat', response: response.data });
 		dispatch(responseGenerateETicketPDF({ success: true, data: response.data.data }));
 	} catch (error) {
 		const message = error.response?.data?.message || error.message;
