@@ -89,7 +89,7 @@ const TransactionItem = () => {
 							</div>
 
 							{fetchingTransactionItem && (
-								<div className="w-full bg-white px-8 py-20 rounded-md flex flex-col items-center justify-center space-y-3">
+								<div className="w-full bg-white px-8 py-48 rounded-md flex flex-col items-center justify-center space-y-3">
 									<BiLoaderAlt className="animate-spin text-primary" size={24} />
 									<div>Loading transaction data...</div>
 								</div>
@@ -185,19 +185,19 @@ const TransactionItem = () => {
 												<tbody>
 													<tr>
 														<td>Flight Code</td>
-														<td className="font-semibold">{transactionItem?.product?.flightCode || '-'}</td>
+														<td className="font-semibold text-right">{transactionItem?.product?.flightCode || '-'}</td>
 													</tr>
 													<tr>
 														<td>Gate</td>
-														<td className="font-semibold">{transactionItem?.product?.gate || '-'}</td>
+														<td className="font-semibold text-right">{transactionItem?.product?.gate || '-'}</td>
 													</tr>
 													<tr>
 														<td>Nomor Tagihan</td>
-														<td className="font-semibold">{transactionItem?.payment_id || '-'}</td>
+														<td className="font-semibold text-right">{transactionItem?.payment_id || '-'}</td>
 													</tr>
 													<tr>
 														<td>Tanggal Pembelian</td>
-														<td className="font-semibold">
+														<td className="font-semibold text-right">
 															{transactionItem?.createdAt ? moment(transactionItem.createdAt).format('DD MMMM YYYY') : '-'}
 														</td>
 													</tr>
@@ -211,29 +211,33 @@ const TransactionItem = () => {
 													<tbody>
 														<tr>
 															<td>Name</td>
-															<td className="font-semibold">
+															<td className="font-semibold text-right">
 																{passenger.title} {passenger.passenger_name}
 															</td>
 														</tr>
 														<tr>
 															<td>Checked In</td>
-															<td className="font-semibold">{passenger.isCheckIn ? '✅' : '❌'}</td>
+															<td className="font-semibold text-right">
+																<div className={`inline-block p-3 my-3 ${passenger.isCheckIn ? 'bg-green-100' : 'bg-red-100'} rounded-md`}>
+																	{passenger.isCheckIn ? '✅ SUDAH CHECK IN' : '❌ BELUM CHECK IN'}
+																</div>
+															</td>
 														</tr>
 														<tr>
 															<td>Phone</td>
-															<td className="font-semibold">{passenger.phone}</td>
+															<td className="font-semibold text-right">{passenger.phone}</td>
 														</tr>
 														<tr>
 															<td>NIK</td>
-															<td className="font-semibold">{passenger.nik}</td>
+															<td className="font-semibold text-right">{passenger.nik}</td>
 														</tr>
 														<tr>
 															<td>Seat</td>
-															<td className="font-semibold">{passenger.seat}</td>
+															<td className="font-semibold text-right">{passenger.seat}</td>
 														</tr>
 														<tr>
 															<td>Ticket Num</td>
-															<td className="font-semibold">{passenger.ticketNum}</td>
+															<td className="font-semibold text-right">{passenger.ticketNum}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -247,12 +251,12 @@ const TransactionItem = () => {
 												]}
 											/>
 
-											{transactionItem.eticket && (
+											{transactionItem.status === TRANSACTION_STATUS.SETTLEMENT.value && (
 												<>
 													<hr />
 													<div className="mt-6 space-y-3">
-														<Button className="w-full" variant="secondary">
-															Lihat E-Tiket
+														<Button className="w-full py-3 rounded-md font-semibold text-opacity-50" variant="secondary">
+															Lihat E-Tiket Saya
 														</Button>
 													</div>
 												</>
