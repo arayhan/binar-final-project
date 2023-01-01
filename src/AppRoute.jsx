@@ -45,6 +45,7 @@ const AppRoute = () => {
 					<Route path={PATH.BOOKING} element={<Booking />} />
 					<Route path={`${PATH.BOOKING}/:bookingID`} element={<Booking />} />
 					<Route path={PATH.TRANSACTION} element={<TransactionItem />} />
+					<Route path={`${PATH.TRANSACTION}/detail`} element={<TransactionItem />} />
 					<Route path={`${PATH.TRANSACTION}/:transactionID`} element={<TransactionItem />} />
 				</Route>
 			</Route>

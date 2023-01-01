@@ -1,47 +1,46 @@
-import { Button } from '@/components/atoms';
+import { Button, TablePriceList } from '@/components/atoms';
+import Backdrop from '@/components/atoms/Backdrop/Backdrop';
 import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { TRANSACTION_STATUS } from '@/utils/constants';
-import { formatRupiah } from '@/utils/helpers';
+import { formatRupiah, queryStringToObject } from '@/utils/helpers';
 import moment from 'moment';
-import React from 'react';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
-import { BiLoaderAlt } from 'react-icons/bi';
+import { BiLoaderAlt, BiZoomIn } from 'react-icons/bi';
 import Skeleton from 'react-loading-skeleton';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import TransactionPipe from './components/TransactionPipe/TransactionPipe';
 
 const TransactionItem = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const params = useParams();
+	const location = useLocation();
 
 	const { transactionID } = params;
 	const { actionGetTransactionItem } = ACTION_TRANSACTION;
 
 	const { transactionItem, fetchingTransactionItem } = useSelector((state) => state.transaction);
 
-	const handleRedirectToSearchFlight = () => {
-		notify.show('Kode transaksi tidak ditemukan', 'error');
-		navigate(PATH.FLIGHT);
-	};
-
 	const handleRedirectToPaymentLink = (paymentLink) => {
 		window.open(paymentLink, '_blank');
 	};
 
 	useEffect(() => {
-		if (transactionID)
+		if (location.search && !transactionID) {
+			const { order_id } = queryStringToObject(location.search);
+			navigate(`${PATH.TRANSACTION}/${order_id}`, true);
+		} else if (transactionID) {
 			dispatch(
 				actionGetTransactionItem(transactionID, ({ success, message }) => {
 					if (!success) notify.show(message, 'error');
 				})
 			);
-		else handleRedirectToSearchFlight();
-	}, [transactionID]);
+		}
+	}, [transactionID, location]);
 
 	return (
 		<div>
@@ -74,6 +73,16 @@ const TransactionItem = () => {
 												{transactionItem?.createdAt && (
 													<div className="text-gray-500">{moment(transactionItem.createdAt).format('DD MMMM YYYY')}</div>
 												)}
+											</Fragment>
+										)}
+									</div>
+									<div>
+										<div className="font-semibold mb-1 text-sm">Status</div>
+										{fetchingTransactionItem && <Skeleton className="w-full h-5" />}
+										{!fetchingTransactionItem && transactionItem && (
+											<Fragment>
+												{!transactionItem?.status && <div>-</div>}
+												{transactionItem?.status && <div className="text-gray-500 uppercase">{transactionItem.status}</div>}
 											</Fragment>
 										)}
 									</div>
@@ -151,6 +160,106 @@ const TransactionItem = () => {
 											<span className="text-sm text-gray-500">Mohon tunggu, sedang proses konfirmasi sistem.</span>
 										</div>
 									)}
+
+									{(transactionItem.status === TRANSACTION_STATUS.EXPIRE.value ||
+										transactionItem.status === TRANSACTION_STATUS.CANCEL.value ||
+										transactionItem.status === TRANSACTION_STATUS.FRAUD.value) && (
+										<div className="w-full bg-white rounded-md flex flex-col items-center px-24 py-8">
+											<img className="mb-6 w-32" src={require('@/images/icons/popup_error.svg').default} alt="Pembayaran gagal" />
+											<div className="mb-3 font-semibold">
+												{transactionItem.status === TRANSACTION_STATUS.CANCEL.value && 'Pembayaran telah dibatalkan'}
+												{transactionItem.status === TRANSACTION_STATUS.EXPIRE.value && 'Mohon Maaf, Waktu Pembayaran Anda Sudah Habis'}
+											</div>
+											{transactionItem.status !== TRANSACTION_STATUS.CANCEL.value && (
+												<span className="text-sm text-gray-500 text-center">
+													Jika Anda merasa sudah melakukan transfer, harap hubungi customer service kami
+												</span>
+											)}
+										</div>
+									)}
+
+									<div className="w-full bg-white p-8 rounded-md space-y-3">
+										<div className="font-semibold text-lg">Detail Pemesanan</div>
+
+										<div className="space-y-5">
+											<table className="w-full text-sm">
+												<tbody>
+													<tr>
+														<td>Flight Code</td>
+														<td className="font-semibold">{transactionItem?.product?.flightCode || '-'}</td>
+													</tr>
+													<tr>
+														<td>Gate</td>
+														<td className="font-semibold">{transactionItem?.product?.gate || '-'}</td>
+													</tr>
+													<tr>
+														<td>Nomor Tagihan</td>
+														<td className="font-semibold">{transactionItem?.payment_id || '-'}</td>
+													</tr>
+													<tr>
+														<td>Tanggal Pembelian</td>
+														<td className="font-semibold">
+															{transactionItem?.createdAt ? moment(transactionItem.createdAt).format('DD MMMM YYYY') : '-'}
+														</td>
+													</tr>
+												</tbody>
+											</table>
+
+											<hr />
+
+											{transactionItem?.bookingDetail?.map((passenger) => (
+												<table key={passenger.id} className="w-full text-sm">
+													<tbody>
+														<tr>
+															<td>Name</td>
+															<td className="font-semibold">
+																{passenger.title} {passenger.passenger_name}
+															</td>
+														</tr>
+														<tr>
+															<td>Checked In</td>
+															<td className="font-semibold">{passenger.isCheckIn ? '✅' : '❌'}</td>
+														</tr>
+														<tr>
+															<td>Phone</td>
+															<td className="font-semibold">{passenger.phone}</td>
+														</tr>
+														<tr>
+															<td>NIK</td>
+															<td className="font-semibold">{passenger.nik}</td>
+														</tr>
+														<tr>
+															<td>Seat</td>
+															<td className="font-semibold">{passenger.seat}</td>
+														</tr>
+														<tr>
+															<td>Ticket Num</td>
+															<td className="font-semibold">{passenger.ticketNum}</td>
+														</tr>
+													</tbody>
+												</table>
+											))}
+
+											<hr />
+
+											<TablePriceList
+												items={[
+													{ title: `${transactionItem.product.iata_from} - ${transactionItem.product.iata_to}`, value: transactionItem.total }
+												]}
+											/>
+
+											{transactionItem.eticket && (
+												<>
+													<hr />
+													<div className="mt-6 space-y-3">
+														<Button className="w-full" variant="secondary">
+															Lihat E-Tiket
+														</Button>
+													</div>
+												</>
+											)}
+										</div>
+									</div>
 								</div>
 							)}
 
