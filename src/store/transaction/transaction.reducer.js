@@ -7,7 +7,9 @@ import {
 	REQUEST_GET_TRANSACTION_ITEM,
 	RESPONSE_GET_TRANSACTION_ITEM,
 	RESPONSE_GET_TRANSACTION_LIST,
-	REQUEST_GET_TRANSACTION_LIST
+	REQUEST_GET_TRANSACTION_LIST,
+	REQUEST_GENERATE_ETICKET_PDF,
+	RESPONSE_GENERATE_ETICKET_PDF
 } from './transaction.types';
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
 	fetchingTransactionItem: false,
 
 	processingUploadDocument: false,
+	processingGenerateETicketPDF: false,
 	processingCreateTransaction: false
 };
 
@@ -67,6 +70,18 @@ export default function reducer(state = initialState, { type, payload }) {
 				...state,
 				fetchingTransactionItem: false,
 				transactionItem: payload.data || null
+			};
+
+		case REQUEST_GENERATE_ETICKET_PDF:
+			return {
+				...state,
+				processingGenerateETicketPDF: true
+			};
+
+		case RESPONSE_GENERATE_ETICKET_PDF:
+			return {
+				...state,
+				processingGenerateETicketPDF: false
 			};
 
 		case REQUEST_CREATE_TRANSACTION:

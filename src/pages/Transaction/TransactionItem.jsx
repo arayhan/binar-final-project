@@ -1,4 +1,4 @@
-import { Button, ModalSelectSeat, TablePriceList } from '@/components/atoms';
+import { Button, FullPageLoader, ModalSelectSeat, TablePriceList } from '@/components/atoms';
 import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { TRANSACTION_STATUS } from '@/utils/constants';
@@ -21,11 +21,24 @@ const TransactionItem = () => {
 	const location = useLocation();
 
 	const { transactionID } = params;
-	const { actionGetTransactionItem } = ACTION_TRANSACTION;
+	const { actionGetTransactionItem, actionGenerateETicketPDF } = ACTION_TRANSACTION;
 
-	const { transactionItem, fetchingTransactionItem } = useSelector((state) => state.transaction);
+	const { transactionItem, fetchingTransactionItem, processingGenerateETicketPDF } = useSelector((state) => state.transaction);
 
 	const [showSeatPreviewModal, setShowSeatPreviewModal] = useState(false);
+
+	const handleGenerateETicket = () => {
+		dispatch(
+			actionGenerateETicketPDF(transactionID, ({ success, message }) => {
+				notify.show(message, success ? 'success' : 'error');
+			})
+		);
+	};
+
+	const handleGetETicket = () => {
+		if (transactionItem.eticket) window.open(transactionItem.eticket, '_blank');
+		else handleGenerateETicket();
+	};
 
 	const handleRedirectToPaymentLink = (paymentLink) => {
 		window.open(paymentLink, '_blank');
@@ -46,6 +59,7 @@ const TransactionItem = () => {
 
 	return (
 		<div>
+			{processingGenerateETicketPDF && <FullPageLoader text={'Generating Your E-Ticket...'} />}
 			<div className="bg-primary">
 				<div className="container py-32 text-white space-y-3">
 					<Fragment>
@@ -200,8 +214,8 @@ const TransactionItem = () => {
 
 											{transactionItem.status === TRANSACTION_STATUS.SETTLEMENT.value &&
 												transactionItem?.bookingDetail?.map((passenger) => (
-													<>
-														<table key={passenger.id} className="w-full">
+													<Fragment key={passenger.id}>
+														<table className="w-full">
 															<tbody>
 																<tr>
 																	<td>Name</td>
@@ -251,7 +265,7 @@ const TransactionItem = () => {
 															</tbody>
 														</table>
 														<hr />
-													</>
+													</Fragment>
 												))}
 
 											<TablePriceList
@@ -264,7 +278,11 @@ const TransactionItem = () => {
 												<>
 													<hr />
 													<div className="mt-6 space-y-3">
-														<Button className="w-full py-3 rounded-md font-semibold text-opacity-50" variant="secondary">
+														<Button
+															className="w-full py-3 rounded-md font-semibold text-opacity-50"
+															variant="secondary"
+															onClick={handleGetETicket}
+														>
 															Lihat E-Tiket Saya
 														</Button>
 													</div>

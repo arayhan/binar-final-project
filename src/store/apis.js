@@ -7,5 +7,7 @@ export const API_AIRPORT_LIST = '/airport';
 
 export const API_FLIGHT = '/product';
 
-export const API_UPLOAD_DOCUMENT = '/transaction/upload';
 export const API_TRANSACTION = '/transaction';
+export const API_UPLOAD_DOCUMENT = '/transaction/upload';
+
+export const API_ETICKET = '/eticket';
