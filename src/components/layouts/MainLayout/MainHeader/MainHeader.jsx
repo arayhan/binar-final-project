@@ -5,7 +5,7 @@ import { GoSignOut } from 'react-icons/go';
 import { MainHeaderLogo } from './MainHeaderLogo';
 import { useDispatch, useSelector } from 'react-redux';
 import { ACTION_AUTH } from '@/store/actions';
-import { RiHomeLine } from 'react-icons/ri';
+import { RiBillLine, RiHomeLine, RiUser3Line } from 'react-icons/ri';
 import { useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 
@@ -63,11 +63,19 @@ export const MainHeader = () => {
 							<div className="absolute right-0 bottom-0 transform translate-y-full w-48 bg-white rounded-sm shadow-lg overflow-hidden">
 								<div className="flex flex-col divide-y text-xs md:text-sm">
 									<button className={dropdownItemClasses} onClick={() => navigate('/')}>
-										<RiHomeLine />
+										<RiHomeLine size={18} />
 										<span>Home</span>
 									</button>
+									<button className={dropdownItemClasses} onClick={() => navigate('/')}>
+										<RiUser3Line size={18} />
+										<span>Profil</span>
+									</button>
+									<button className={dropdownItemClasses} onClick={() => navigate('/')}>
+										<RiBillLine size={18} />
+										<span>List Transaksi</span>
+									</button>
 									<button className={dropdownItemClasses} onClick={handleLogout}>
-										<GoSignOut />
+										<GoSignOut size={18} />
 										<span>Logout</span>
 									</button>
 								</div>
