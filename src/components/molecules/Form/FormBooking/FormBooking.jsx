@@ -1,10 +1,11 @@
-import { Button, InputDate, InputLabel, InputSeat, InputText, InputUploadDirectWithModal } from '@/components/atoms';
+import { Button, FullPageLoader, InputDate, InputLabel, InputSeat, InputText, InputUploadDirectWithModal } from '@/components/atoms';
 import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { setMaxDateOfBirth } from '@/utils/helpers';
 import { bookingSchema } from '@/utils/validation-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { BiLoaderAlt } from 'react-icons/bi';
 import { BsPlus } from 'react-icons/bs';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -55,7 +56,8 @@ export const FormBooking = ({ bookingID }) => {
 	};
 
 	return (
-		<div className="space-y-8">
+		<div className="relative space-y-8">
+			{processingCreateTransaction && <FullPageLoader text="Membuatkan Transaksimu..." />}
 			<div className="flex items-center justify-between">
 				<div className="flex items-center space-x-1">
 					<div className="text-2xl">Passengers</div>

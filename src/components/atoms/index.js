@@ -1,6 +1,7 @@
 export * from './Alert/Alert';
 export * from './Button/Button';
 export * from './Button/ButtonLoginWithGoogle';
+export * from './FullPageLoader/FullPageLoader';
 export * from './InputDate/InputDate';
 export * from './InputError/InputError';
 export * from './InputLabel/InputLabel';
