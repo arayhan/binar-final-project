@@ -26,3 +26,5 @@ export const STORE_KEY = {
 	USER_DATA: 'USER_DATA',
 	TOKEN: 'TOKEN'
 };
+
+export const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');

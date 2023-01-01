@@ -160,7 +160,16 @@ export const FormBooking = ({ bookingID }) => {
 									name={`detail[${index}].seat`}
 									control={control}
 									render={({ field, fieldState: { error } }) => (
-										<InputSeat {...field} label="Pilih Nomor Kursi" disabled={processingCreateTransaction || fetchingFlightItem} error={error} />
+										<InputSeat
+											{...field}
+											label="Pilih Nomor Kursi"
+											disabled={processingCreateTransaction || fetchingFlightItem}
+											error={error}
+											onChange={(seat) => {
+												setValue(`detail[${index}].seat`, seat);
+												setError(`detail[${index}].seat`, null);
+											}}
+										/>
 									)}
 								/>
 							</div>
