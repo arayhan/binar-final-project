@@ -1,5 +1,4 @@
 import { Button, TablePriceList } from '@/components/atoms';
-import Backdrop from '@/components/atoms/Backdrop/Backdrop';
 import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { TRANSACTION_STATUS } from '@/utils/constants';
@@ -7,7 +6,7 @@ import { formatRupiah, queryStringToObject } from '@/utils/helpers';
 import moment from 'moment';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
-import { BiLoaderAlt, BiZoomIn } from 'react-icons/bi';
+import { BiLoaderAlt } from 'react-icons/bi';
 import Skeleton from 'react-loading-skeleton';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -100,7 +99,7 @@ const TransactionItem = () => {
 								<div className="w-full bg-white px-8 py-20 rounded-md flex flex-col items-center justify-center space-y-5">
 									<img src={require('@/images/icons/popup_error.svg').default} alt="" />
 									<div className="font-semibold">Transaksi tidak ditemukan</div>
-									<Button variant="primary" text="Lihat List Transaksi" />
+									<Button variant="primary" text="Lihat List Transaksi" linkTo={PATH.TRANSACTION} />
 								</div>
 							)}
 

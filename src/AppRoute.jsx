@@ -10,6 +10,7 @@ import Booking from './pages/Booking/Booking';
 import Flight from './pages/Flight/Flight';
 import Home from './pages/Home/Home';
 import TransactionItem from './pages/Transaction/TransactionItem';
+import TransactionList from './pages/Transaction/TransactionList';
 
 const AppRoute = () => {
 	const location = useLocation();
@@ -44,7 +45,7 @@ const AppRoute = () => {
 				<Route element={<ProtectedRoute />}>
 					<Route path={PATH.BOOKING} element={<Booking />} />
 					<Route path={`${PATH.BOOKING}/:bookingID`} element={<Booking />} />
-					<Route path={PATH.TRANSACTION} element={<TransactionItem />} />
+					<Route path={PATH.TRANSACTION} element={<TransactionList />} />
 					<Route path={`${PATH.TRANSACTION}/detail`} element={<TransactionItem />} />
 					<Route path={`${PATH.TRANSACTION}/:transactionID`} element={<TransactionItem />} />
 				</Route>

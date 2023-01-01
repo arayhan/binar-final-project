@@ -47,6 +47,8 @@ export const TRANSACTION_STATUS = {
 	}
 };
 
+export const TRANSACTION_STATUS_OPTIONS = Object.values(TRANSACTION_STATUS);
+
 export const STORE_KEY = {
 	USER_DATA: 'USER_DATA',
 	TOKEN: 'TOKEN'
