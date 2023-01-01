@@ -27,7 +27,13 @@ export const TransactionListItem = ({ title, date, transactionID, amount, status
 						statusClassName = 'text-yellow-500';
 					}
 
-					return option.value === status && <div className={`text-right text-lg font-semibold ${statusClassName}`}>{option.label}</div>;
+					return (
+						option.value === status && (
+							<div key={option.value} className={`text-right text-lg font-semibold ${statusClassName}`}>
+								{option.label}
+							</div>
+						)
+					);
 				})}
 			</div>
 		</Link>

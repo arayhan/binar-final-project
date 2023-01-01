@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
-export const Button = ({ className, disabled, linkTo, onClick, variant, children, text }) => {
+export const Button = ({ type, className, disabled, linkTo, onClick, variant, children, text }) => {
 	const navigate = useNavigate();
 
 	const variantClasses = classNames({
@@ -21,7 +21,7 @@ export const Button = ({ className, disabled, linkTo, onClick, variant, children
 
 	return (
 		<button
-			type="button"
+			type={type || 'button'}
 			className={`inline-block text-center transition-all ${className || 'px-6 py-2 rounded-md'} ${variantClasses}`}
 			onClick={handleClick}
 			disabled={disabled}
