@@ -10,7 +10,7 @@ const GenderSelect = () => {
 	return (
 		<div>
 			<h1 className="text-gray-500 text-sm pb-2">Gender</h1>
-			<div style={{ width: '20rem' }}>
+			<div className="lg:w-[40rem]">
 				<Select options={genderOptions} placeholder="Select Gender" />
 			</div>
 		</div>

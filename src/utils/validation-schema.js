@@ -49,6 +49,6 @@ export const bookingSchema = yup.object().shape({
 });
 
 export const profilSchema = yup.object().shape({
-	name: yup.string().required('Full Name'),
-	address: yup.string().required('City of Residence')
+	name: yup.string().required(''),
+	address: yup.string().required('')
 });

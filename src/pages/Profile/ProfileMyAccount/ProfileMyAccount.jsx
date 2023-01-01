@@ -3,9 +3,9 @@ import { Button } from '@/components/atoms/Button/Button';
 import { profilSchema } from '@/utils/validation-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import Selected from './Selected';
+import SectionSelected from '@/components/molecules/Section/SectionSelected/SectionSelected';
 
-const Login = () => {
+const Account = () => {
 	const { control } = useForm({
 		resolver: yupResolver(profilSchema),
 		defaultValues: { name: '', address: '' }
@@ -15,9 +15,9 @@ const Login = () => {
 		<form>
 			<div className="space-y-6 p-2">
 				<div className="text-3xl font-bold">Arrangement</div>
-				<div className="flex justify-start space-x-6">
+				<div className="flex justify-start space-x-6 text-primary text-bold">
 					<h3>Account Information</h3>
-					<h3>Passwords and Security</h3>
+					<h3>Password and Security</h3>
 				</div>
 			</div>
 
@@ -34,7 +34,7 @@ const Login = () => {
 						control={control}
 						render={({ field, fieldState: { error } }) => <InputText {...field} label="Full Name" placeholder="" error={error} />}
 					/>
-					<Selected />
+					<SectionSelected />
 					<Controller
 						name={'address'}
 						control={control}
@@ -45,12 +45,12 @@ const Login = () => {
 				</div>
 
 				<div className="flex justify-end space-x-2">
-					<Button className={'px-4 py-3 rounded-md font-semibold'} type="submit" variant={'info'} text="Cancelled" />
-					<Button className={'px-4 py-3 rounded-md font-semibold'} type="submit" variant={'info'} text="Save" />
+					<Button className={'px-4 py-3 rounded-md font-semibold'} type="submit" variant={'cancelled'} text="Cancelled" />
+					<Button className={'px-4 py-3 rounded-md font-semibold'} type="submit" variant={'primary'} text="Save" />
 				</div>
 			</div>
 		</form>
 	);
 };
 
-export default Login;
+export default Account;

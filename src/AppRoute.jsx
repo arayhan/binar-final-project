@@ -3,14 +3,17 @@ import { Navigate, Outlet, Route, Routes as RoutesContainer, useLocation } from 
 import { AuthLayout } from './components/layouts/AuthLayout/AuthLayout';
 import { MainLayout } from './components/layouts/MainLayout/MainLayout';
 import { ProfileLayout } from './components/layouts/ProfileLayout/ProfileLayout';
-import { PATH, ROUTES } from './configs/routes';
+import { PATH } from './configs/routes';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
 import Booking from './pages/Booking/Booking';
 import Flight from './pages/Flight/Flight';
 import Home from './pages/Home/Home';
-import ProfileSidebar from './pages/Profile/ProfileSidebar';
+import ProfileMyAccount from './pages/Profile/ProfileMyAccount/ProfileMyAccount';
+import ProfilePurchaseList from './pages/Profile/ProfilePurchaseList/ProfilePurchaseList';
+import ProfileMyOrder from './pages/Profile/ProfileMyOrder/ProfileMyOrder';
+import ProfileMyBilling from './pages/Profile/ProfileMyBilling/ProfileMyBilling';
 import TransactionItem from './pages/Transaction/TransactionItem';
 import TransactionList from './pages/Transaction/TransactionList';
 
@@ -41,10 +44,6 @@ const AppRoute = () => {
 				</Route>
 			</Route>
 
-			<Route element={<ProfileLayout />}>
-				<Route path={ROUTES.PROFILE.path} element={<ProfileSidebar />} />
-			</Route>
-
 			<Route element={<MainLayout />}>
 				<Route path={PATH.HOME} element={<Home />} />
 				<Route path={PATH.FLIGHT} element={<Flight />} />
@@ -55,6 +54,14 @@ const AppRoute = () => {
 					<Route path={`${PATH.TRANSACTION}/detail`} element={<TransactionItem />} />
 					<Route path={`${PATH.TRANSACTION}/:transactionID`} element={<TransactionItem />} />
 				</Route>
+			</Route>
+
+			<Route element={<ProfileLayout />}>
+				<Route path={PATH.PROFILE} element={<ProfileMyAccount />} />
+				<Route path={PATH.PROFILE_MY_ACCOUNT} element={<ProfileMyAccount />} />
+				<Route path={PATH.PROFILE_PURCHASE_LIST} element={<ProfilePurchaseList />} />
+				<Route path={PATH.PROFILE_MY_ORDER} element={<ProfileMyOrder />} />
+				<Route path={PATH.PROFILE_MY_BILLING} element={<ProfileMyBilling />} />
 			</Route>
 		</RoutesContainer>
 	);
