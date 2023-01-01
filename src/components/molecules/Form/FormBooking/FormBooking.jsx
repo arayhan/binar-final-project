@@ -1,4 +1,4 @@
-import { Button, InputDate, InputLabel, InputText, InputUploadDirectWithModal } from '@/components/atoms';
+import { Button, InputDate, InputLabel, InputSeat, InputText, InputUploadDirectWithModal } from '@/components/atoms';
 import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { setMaxDateOfBirth } from '@/utils/helpers';
@@ -27,7 +27,7 @@ export const FormBooking = ({ bookingID }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { actionUploadDocument, actionCreateTransaction } = ACTION_TRANSACTION;
+	const { actionCreateTransaction } = ACTION_TRANSACTION;
 
 	const { control, handleSubmit, setValue, setError } = useForm({
 		defaultValues: { detail: [{ ...DEFAULT_VALUE }] },
@@ -36,6 +36,7 @@ export const FormBooking = ({ bookingID }) => {
 
 	const { append, fields, remove } = useFieldArray({ name: 'detail', control });
 
+	const { fetchingFlightItem } = useSelector((state) => state.flight);
 	const { processingCreateTransaction } = useSelector((state) => state.transaction);
 
 	const handleSubmitBooking = (values) => {
@@ -159,7 +160,7 @@ export const FormBooking = ({ bookingID }) => {
 									name={`detail[${index}].seat`}
 									control={control}
 									render={({ field, fieldState: { error } }) => (
-										<InputText {...field} label="Pilih Nomor Kursi" disabled={processingCreateTransaction} error={error} />
+										<InputSeat {...field} label="Pilih Nomor Kursi" disabled={processingCreateTransaction || fetchingFlightItem} error={error} />
 									)}
 								/>
 							</div>

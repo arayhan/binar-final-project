@@ -8,5 +8,6 @@ export * from './InputText/InputText';
 export * from './InputUpload/InputUpload';
 export * from './InputUpload/InputUploadDirectWithModal';
 export * from './InputSelect/InputSelect';
+export * from './InputSeat/InputSeat';
 export * from './Modal/Modal';
 export * from './Modal/ModalUpload';
