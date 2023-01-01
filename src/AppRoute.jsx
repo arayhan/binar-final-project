@@ -2,13 +2,15 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet, Route, Routes as RoutesContainer, useLocation } from 'react-router-dom';
 import { AuthLayout } from './components/layouts/AuthLayout/AuthLayout';
 import { MainLayout } from './components/layouts/MainLayout/MainLayout';
-import { PATH } from './configs/routes';
+import { ProfileLayout } from './components/layouts/ProfileLayout/ProfileLayout';
+import { PATH, ROUTES } from './configs/routes';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import Login from './pages/Auth/Login/Login';
 import Register from './pages/Auth/Register/Register';
 import Booking from './pages/Booking/Booking';
 import Flight from './pages/Flight/Flight';
 import Home from './pages/Home/Home';
+import ProfileSidebar from './pages/Profile/ProfileSidebar';
 import TransactionItem from './pages/Transaction/TransactionItem';
 import TransactionList from './pages/Transaction/TransactionList';
 
@@ -37,6 +39,10 @@ const AppRoute = () => {
 					<Route path={PATH.LOGIN} element={<Login />} />
 					<Route path={PATH.REGISTER} element={<Register />} />
 				</Route>
+			</Route>
+
+			<Route element={<ProfileLayout />}>
+				<Route path={ROUTES.PROFILE.path} element={<ProfileSidebar />} />
 			</Route>
 
 			<Route element={<MainLayout />}>
