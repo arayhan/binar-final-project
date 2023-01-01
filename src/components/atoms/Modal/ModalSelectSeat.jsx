@@ -20,7 +20,7 @@ export const ModalSelectSeat = ({ value, bookingID, onClose, onSubmit }) => {
 	const handleChangeSeat = (seat) => {
 		if (availableSeats.includes(seat)) setSelectedSeat(seat);
 		else {
-			notify.show('Sayangnya tempat duduk yang kamu pilih sudah diisi orang lain 😣', 'warning');
+			notify.show('Sayangnya tempat duduk yang kamu pilih sudah diisi orang lain 😣, Silakan pilih tempat duduk yang lain ya 😉', 'warning');
 		}
 	};
 
@@ -66,21 +66,19 @@ export const ModalSelectSeat = ({ value, bookingID, onClose, onSubmit }) => {
 									{row.map((seat, seatIndex) => (
 										<Fragment key={seatIndex}>
 											{seatIndex > 0 && seatIndex % 3 === 0 && <div />}
-											{availableSeats.includes(seat) && (
-												<button
-													key={seat}
-													className={`${
-														selectedSeat === seat
-															? 'bg-slate-600'
-															: availableSeats.includes(seat)
-															? 'bg-green-600 hover:bg-green-500'
-															: 'bg-red-500'
-													} p-3 rounded-md text-sm text-white transition-all font-semibold`}
-													onClick={() => handleChangeSeat(seat)}
-												>
-													{seat}
-												</button>
-											)}
+											<button
+												key={seat}
+												className={`${
+													selectedSeat === seat
+														? 'bg-slate-600'
+														: availableSeats.includes(seat)
+														? 'bg-green-600 hover:bg-green-500'
+														: 'bg-red-600'
+												} p-3 rounded-md text-sm text-white transition-all font-semibold`}
+												onClick={() => handleChangeSeat(seat)}
+											>
+												{seat}
+											</button>
 										</Fragment>
 									))}
 								</div>

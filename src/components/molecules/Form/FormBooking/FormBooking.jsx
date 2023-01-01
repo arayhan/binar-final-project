@@ -5,7 +5,6 @@ import { setMaxDateOfBirth } from '@/utils/helpers';
 import { bookingSchema } from '@/utils/validation-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
-import { BiLoaderAlt } from 'react-icons/bi';
 import { BsPlus } from 'react-icons/bs';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';

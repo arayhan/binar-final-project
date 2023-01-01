@@ -12,14 +12,39 @@ export const PERSON_TITLE = {
 	MRS: 'Mrs'
 };
 
-export const STATUS_TRANSACTION = {
-	UNPAID: 'unpaid',
-	PENDING: 'pending',
-	SETTLEMENT: 'settlement',
-	CANCEL: 'cancel',
-	EXPIRE: 'expire',
-	REFUND: 'refund',
-	FRAUD: 'fraud'
+export const TRANSACTION_STATUS = {
+	All: {
+		label: 'Semua',
+		value: ''
+	},
+	UNPAID: {
+		label: 'Unpaid',
+		value: 'unpaid'
+	},
+	PENDING: {
+		label: 'Pending',
+		value: 'pending'
+	},
+	SETTLEMENT: {
+		label: 'Settlement',
+		value: 'settlement'
+	},
+	CANCEL: {
+		label: 'Cancel',
+		value: 'cancel'
+	},
+	EXPIRE: {
+		label: 'Expire',
+		value: 'expire'
+	},
+	REFUND: {
+		label: 'Refund',
+		value: 'refund'
+	},
+	FRAUD: {
+		label: 'Fraud',
+		value: 'fraud'
+	}
 };
 
 export const STORE_KEY = {

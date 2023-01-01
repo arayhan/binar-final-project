@@ -1,0 +1,20 @@
+.transaction-pipe div {
+  position: relative;
+}
+
+.transaction-pipe div.circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 100%;
+  border: 8px solid white;
+  z-index: 1;
+}
+
+.transaction-pipe div.line {
+  position: absolute;
+  left: 0px;
+  top: 27px;
+  transform: translateX(50%);
+  width: 100%;
+  height: 2px;
+}
