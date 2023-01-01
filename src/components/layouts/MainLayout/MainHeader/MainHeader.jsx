@@ -66,11 +66,11 @@ export const MainHeader = () => {
 										<RiHomeLine size={18} />
 										<span>Home</span>
 									</button>
-									<button className={dropdownItemClasses} onClick={() => navigate('/')}>
+									<button className={dropdownItemClasses} onClick={() => navigate('/profile')}>
 										<RiUser3Line size={18} />
 										<span>Profil</span>
 									</button>
-									<button className={dropdownItemClasses} onClick={() => navigate('/')}>
+									<button className={dropdownItemClasses} onClick={() => navigate('/transaction')}>
 										<RiBillLine size={18} />
 										<span>List Transaksi</span>
 									</button>
