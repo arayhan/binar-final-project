@@ -1,4 +1,4 @@
-import { Button, InputDate, InputLabel, InputText, InputUpload } from '@/components/atoms';
+import { Button, InputDate, InputLabel, InputText, InputUploadDirectWithModal } from '@/components/atoms';
 import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { setMaxDateOfBirth } from '@/utils/helpers';
@@ -27,7 +27,7 @@ export const FormBooking = ({ bookingID }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { actionCreateTransaction } = ACTION_TRANSACTION;
+	const { actionUploadDocument, actionCreateTransaction } = ACTION_TRANSACTION;
 
 	const { control, handleSubmit, setValue, setError } = useForm({
 		defaultValues: { detail: [{ ...DEFAULT_VALUE }] },
@@ -45,14 +45,12 @@ export const FormBooking = ({ bookingID }) => {
 			detail: values.detail
 		};
 
-		console.log({ values, request });
-
-		// dispatch(
-		// 	actionCreateTransaction(request, ({ success, message, response }) => {
-		// 		if (success) navigate(`${PATH.TRANSACTION}/${response.id}`);
-		// 		notify.show(message, success ? 'success' : 'error');
-		// 	})
-		// );
+		dispatch(
+			actionCreateTransaction(request, ({ success, message, response }) => {
+				if (success) navigate(`${PATH.TRANSACTION}/${response.id}`);
+				notify.show(message, success ? 'success' : 'error');
+			})
+		);
 	};
 
 	return (
@@ -174,12 +172,12 @@ export const FormBooking = ({ bookingID }) => {
 											name={`detail[${index}].visa`}
 											control={control}
 											render={({ field, fieldState: { error } }) => (
-												<InputUpload
+												<InputUploadDirectWithModal
 													{...field}
 													label="Upload Visa"
-													onChange={({ file, formData }) => {
-														setValue(`detail[${index}].visa`, file ? { file, formData } : undefined);
-														if (file) setError(`detail[${index}].visa`, null);
+													onUploaded={(fileURL) => {
+														setValue(`detail[${index}].visa`, fileURL);
+														setError(`detail[${index}].visa`, null);
 													}}
 													disabled={processingCreateTransaction}
 													error={error}
@@ -190,12 +188,12 @@ export const FormBooking = ({ bookingID }) => {
 											name={`detail[${index}].passport`}
 											control={control}
 											render={({ field, fieldState: { error } }) => (
-												<InputUpload
+												<InputUploadDirectWithModal
 													{...field}
 													label="Upload Passport"
-													onChange={({ file, formData }) => {
-														setValue(`detail[${index}].passport`, file ? { file, formData } : undefined);
-														if (file) setError(`detail[${index}].passport`, null);
+													onUploaded={(fileURL) => {
+														setValue(`detail[${index}].passport`, fileURL);
+														setError(`detail[${index}].passport`, null);
 													}}
 													disabled={processingCreateTransaction}
 													error={error}
@@ -206,12 +204,12 @@ export const FormBooking = ({ bookingID }) => {
 											name={`detail[${index}].izin`}
 											control={control}
 											render={({ field, fieldState: { error } }) => (
-												<InputUpload
+												<InputUploadDirectWithModal
 													{...field}
 													label="Upload Izin"
-													onChange={({ file, formData }) => {
-														setValue(`detail[${index}].izin`, file ? { file, formData } : undefined);
-														if (file) setError(`detail[${index}].izin`, null);
+													onUploaded={(fileURL) => {
+														setValue(`detail[${index}].izin`, fileURL);
+														setError(`detail[${index}].izin`, null);
 													}}
 													disabled={processingCreateTransaction}
 													error={error}

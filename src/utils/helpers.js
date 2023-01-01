@@ -56,6 +56,16 @@ export const formatRupiah = (angka) => {
 export const isPDF = (file) => file.type.indexOf('pdf') > -1;
 export const isImage = (file) => file.type.indexOf('image') > -1;
 
+export const isPDFURL = (url) => {
+	const extension = url.split('.').pop();
+	return extension.indexOf('pdf') > -1;
+};
+export const isImageURL = (url) => {
+	const extensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp', 'ico', 'jfif', 'pjpeg', 'pjp', 'avif', 'apng', 'tiff', 'tif'];
+	const extension = url.split('.').pop();
+	return extensions.includes(extension);
+};
+
 export const setMaxDateOfBirth = (maxYear = 17) => {
 	const date = new Date();
 	date.setFullYear(date.getFullYear() - maxYear);

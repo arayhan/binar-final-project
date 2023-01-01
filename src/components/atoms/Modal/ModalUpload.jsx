@@ -1,6 +1,8 @@
-import { Modal } from '@/components/atoms';
+import { Button, Modal } from '@/components/atoms';
 import { ACTION_TRANSACTION } from '@/store/actions';
-import { useRef, useState } from 'react';
+import { isImage, isPDF } from '@/utils/helpers';
+import { useState } from 'react';
+import { FaFilePdf } from 'react-icons/fa';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,20 +10,24 @@ import { useDispatch, useSelector } from 'react-redux';
 export const ModalUpload = ({ name, onClose, onUploaded }) => {
 	const dispatch = useDispatch();
 
-	const formUploadRef = useRef();
-
 	const { actionUploadDocument } = ACTION_TRANSACTION;
 
 	const { processingUploadDocument } = useSelector((state) => state.transaction);
 
 	const [selectedFile, setSelectedFile] = useState(null);
-	const [selectedFileFormData, setSelectedFileFormData] = useState(null);
 	const [error, setError] = useState(null);
 
+	const handlePreview = () => {
+		if (selectedFile) {
+			const url = URL.createObjectURL(selectedFile);
+			window.open(url, '_blank');
+		}
+	};
+
 	const handleUploadFile = () => {
-		if (selectedFileFormData) {
+		if (selectedFile) {
 			dispatch(
-				actionUploadDocument(selectedFileFormData, ({ success, message, response }) => {
+				actionUploadDocument(selectedFile, ({ success, message, response }) => {
 					notify.show(message, success ? 'success' : 'error');
 					if (success) onUploaded(response.url);
 				})
@@ -30,12 +36,10 @@ export const ModalUpload = ({ name, onClose, onUploaded }) => {
 	};
 
 	const handleChangeFile = (event) => {
-		const formEl = formUploadRef.current;
-		const formData = new FormData(formEl);
 		const file = event.target.files[0];
 
-		if (file && file.type.indexOf('image') === -1) {
-			const message = 'File harus berupa gambar';
+		if (file && !isImage(file) && !isPDF(file)) {
+			const message = 'File harus berupa gambar atau pdf';
 
 			notify.show(message, 'warning');
 			setError(message);
@@ -44,8 +48,6 @@ export const ModalUpload = ({ name, onClose, onUploaded }) => {
 
 		setError(null);
 		setSelectedFile(file);
-		setSelectedFileFormData(formData);
-		handleUploadFile(formData);
 
 		event.preventDefault();
 	};
@@ -57,6 +59,7 @@ export const ModalUpload = ({ name, onClose, onUploaded }) => {
 			isLoading={processingUploadDocument}
 			onClose={onClose}
 			onSubmit={handleUploadFile}
+			submitButtonText="Upload"
 		>
 			{error && (
 				<div className="text-red-500 text-sm mb-3 flex items-center space-x-3 justify-start bg-red-50 p-2 rounded-md">
@@ -66,7 +69,7 @@ export const ModalUpload = ({ name, onClose, onUploaded }) => {
 					<span>{error}</span>
 				</div>
 			)}
-			<form ref={formUploadRef} className="space-y-4">
+			<form className="space-y-4">
 				{!selectedFile && (
 					<label
 						className="inline-block border border-dashed rounded-md w-full text-center hover:bg-gray-100 hover:cursor-pointer"
@@ -82,20 +85,30 @@ export const ModalUpload = ({ name, onClose, onUploaded }) => {
 
 				{selectedFile && (
 					<div className="flex flex-col items-center w-full space-y-4">
-						<figure className="flex flex-col items-center justify-center text-center rounded-md border border-gray-100 overflow-hidden">
-							<div className="overflow-y-scroll max-h-80 w-full border-b border-gray-100">
-								<img className="w-full" src={URL.createObjectURL(selectedFile)} alt="file" />
+						{isPDF(selectedFile) && (
+							<div className="flex flex-col items-center justify-center gap-2 text-center py-12">
+								<FaFilePdf size={24} />
+								<div className="opacity-50">{selectedFile.name}</div>
 							</div>
-							<figcaption className="w-full text-primary text-sm p-2">{selectedFile.name}</figcaption>
-						</figure>
-
-						<label className="inline-block bg-primary px-5 py-2 rounded-md text-white hover:bg-primary-400 cursor-pointer" htmlFor="file">
-							Ubah File
-						</label>
+						)}
+						{isImage(selectedFile) && (
+							<figure className="flex flex-col items-center justify-center text-center rounded-md border border-gray-100 overflow-hidden">
+								<div className="overflow-y-scroll max-h-80 w-full border-b border-gray-100">
+									<img className="w-full" src={URL.createObjectURL(selectedFile)} alt="file" />
+								</div>
+								<figcaption className="w-full text-primary text-sm p-2 whitespace-pre">{selectedFile.name}</figcaption>
+							</figure>
+						)}
+						<div className="flex justify-center gap-3">
+							<Button variant="secondary" text="Preview" onClick={handlePreview} />
+							<label className="inline-block bg-primary px-5 py-2 rounded-md text-white hover:bg-primary-400 cursor-pointer" htmlFor={name}>
+								Ubah File
+							</label>
+						</div>
 					</div>
 				)}
 
-				<input className="hidden" id={name} name="document" type="file" accept="image/*" onChange={handleChangeFile} />
+				<input className="hidden" id={name} name="document" type="file" accept="image/*, .pdf" onChange={handleChangeFile} />
 			</form>
 		</Modal>
 	);

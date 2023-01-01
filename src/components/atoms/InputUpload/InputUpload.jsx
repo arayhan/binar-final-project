@@ -7,8 +7,7 @@ import { InputError } from '../InputError/InputError';
 import { InputLabel } from '../InputLabel/InputLabel';
 
 export const InputUpload = forwardRef(({ value, name, error, label, disabled, containerClassName, onChange }, ref) => {
-	const formUploadRef = useRef();
-	const inputUploadRef = useRef();
+	const inputUploadRef = useRef(ref);
 
 	const [selectedFile, setSelectedFile] = useState(value?.file);
 	const [_error, _setError] = useState(null);
@@ -21,8 +20,6 @@ export const InputUpload = forwardRef(({ value, name, error, label, disabled, co
 	};
 
 	const handleChangeFile = (event) => {
-		const formEl = formUploadRef.current;
-		const formData = new FormData(formEl);
 		const file = event.target.files[0];
 
 		if (file && !isImage(file) && !isPDF(file)) {
@@ -35,13 +32,13 @@ export const InputUpload = forwardRef(({ value, name, error, label, disabled, co
 
 		_setError(null);
 		setSelectedFile(file);
-		onChange({ file, formData });
+		onChange(file);
 
 		event.preventDefault();
 	};
 
 	return (
-		<form ref={ref} className={`space-y-2 ${containerClassName}`}>
+		<form className={`space-y-2 ${containerClassName}`}>
 			<InputLabel text={label} />
 			{!selectedFile && (
 				<label

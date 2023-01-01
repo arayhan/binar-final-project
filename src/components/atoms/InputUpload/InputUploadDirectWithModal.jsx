@@ -1,11 +1,17 @@
 import { Button, InputError, InputLabel, ModalUpload } from '@/components/atoms';
+import { isImageURL, isPDFURL } from '@/utils/helpers';
 import { useState } from 'react';
 import { forwardRef } from 'react';
 import { BiPlusCircle } from 'react-icons/bi';
+import { FaFilePdf } from 'react-icons/fa';
 
 export const InputUploadDirectWithModal = forwardRef(({ name, error, label, disabled, containerClassName, onUploaded }, ref) => {
 	const [uploadedFileURL, setUploadedFileURL] = useState(null);
 	const [showModal, setShowModal] = useState(false);
+
+	const handlePreview = () => {
+		if (uploadedFileURL) window.open(uploadedFileURL, '_blank');
+	};
 
 	const handleUploadedFile = (fileURL) => {
 		setShowModal(false);
@@ -36,10 +42,17 @@ export const InputUploadDirectWithModal = forwardRef(({ name, error, label, disa
 
 			{uploadedFileURL && (
 				<div className="space-y-3">
-					<div className="overflow-y-scroll max-h-48 md:max-h-36 w-full border border-gray-100">
-						<img src={uploadedFileURL} alt="" />
+					<div className="flex flex-col items-center justify-center space-y-6 w-full border border-gray-100 rounded-md p-8 h-48 md:h-40">
+						{isPDFURL(uploadedFileURL) && (
+							<div className="flex flex-col items-center justify-center gap-2 text-center">
+								<FaFilePdf size={24} />
+								<div className="opacity-50">{uploadedFileURL.split('/').pop()}</div>
+							</div>
+						)}
+						{isImageURL(uploadedFileURL) && <img className="h-full object-cover" src={uploadedFileURL} alt={label} />}
 					</div>
-					<div className="flex justify-center">
+					<div className="flex justify-center gap-3">
+						<Button disabled={disabled} variant="secondary" text="Preview" onClick={handlePreview} />
 						<Button disabled={disabled} variant="primary" text="Ubah File" onClick={() => setShowModal(true)} />
 					</div>
 				</div>
