@@ -7,13 +7,10 @@ import { useEffect } from 'react';
 import { Fragment } from 'react';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router';
 import { TransactionListItem, TransactionListItemSkeleton } from './components/TransactionListItem/TransactionListItem';
 
 const TransactionList = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const location = useLocation();
 
 	const [page] = useState(0);
 	const [perPage] = useState(0);
