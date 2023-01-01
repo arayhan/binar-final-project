@@ -272,7 +272,12 @@ const TransactionItem = () => {
 
 											<TablePriceList
 												items={[
-													{ title: `${transactionItem.product.iata_from} - ${transactionItem.product.iata_to}`, value: transactionItem.total }
+													{
+														title: transactionItem.product
+															? `${transactionItem.product?.iata_from} - ${transactionItem.product?.iata_to}`
+															: transactionItem.payment_id,
+														value: transactionItem.total
+													}
 												]}
 											/>
 

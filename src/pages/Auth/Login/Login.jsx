@@ -28,6 +28,7 @@ const Login = () => {
 	});
 
 	const handleLogin = (values) => {
+		console.log({ values });
 		dispatch(
 			actionLogin(values, LOGIN_METHODS.EMAIL, ({ success, message }) => {
 				if (message) notify.show(message, success ? 'success' : 'error');
