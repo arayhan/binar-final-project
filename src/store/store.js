@@ -6,14 +6,12 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
 const bindMiddleware = (middlewares) => {
-	return process.env.NODE_ENV === 'development'
-		? composeWithDevTools(applyMiddleware(middlewares))
-		: applyMiddleware(middlewares);
+	return process.env.NODE_ENV === 'development' ? composeWithDevTools(applyMiddleware(middlewares)) : applyMiddleware(middlewares);
 };
 
 const persistConfig = {
 	key: 'root',
-	whitelist: ['auth'],
+	whitelist: [],
 	storage
 };
 

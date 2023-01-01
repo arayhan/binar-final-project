@@ -1,0 +1,12 @@
+table.price-list tbody tr td {
+  @apply p-4 pt-0 bg-gray-100;
+}
+
+table.price-list tbody tr td:last-child {
+  @apply text-right;
+}
+
+table.price-list tbody tr:first-child td,
+table.price-list tbody tr:last-child td {
+  @apply pt-4;
+}

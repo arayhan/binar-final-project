@@ -8,7 +8,7 @@
 	"endOfLine": "auto",
 	"jsxSingleQuote": false,
 	"quoteProps": "as-needed",
-	"printWidth": 120,
+	"printWidth": 145,
 	"semi": true,
 	"trailingComma": "none",
 	"singleQuote": true,

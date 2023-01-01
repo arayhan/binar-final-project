@@ -1,55 +1,54 @@
-import { API_AUTH_LOGIN, API_AUTH_REGISTER } from '../apis';
+import { APP_NAME, LOGIN_METHODS, STORE_KEY } from '@/utils/constants';
+import { API_AUTH_LOGIN, API_AUTH_REGISTER, API_AUTH_EMAIL_ACTIVATION, API_AUTH_LOGIN_WITH_GOOGLE } from '../apis';
 import { http } from '../http';
+import store from 'store';
 import {
-	AUTH_REQUEST_LOGIN,
-	AUTH_REQUEST_REGISTER,
-	AUTH_REQUEST_LOGOUT,
-	AUTH_RESPONSE_LOGIN,
-	AUTH_RESPONSE_REGISTER
+	requestEmailActivation,
+	requestLogin,
+	requestLoginWithGoogle,
+	requestLogout,
+	requestRegister,
+	responseEmailActivation,
+	responseLogin,
+	responseRegister
 } from './auth.types';
 
-// ==================================
-// DISPATCHERS
-// ==================================
-const requestLogin = () => ({
-	type: AUTH_REQUEST_LOGIN
-});
+const { GOOGLE } = LOGIN_METHODS;
 
-const requestRegister = () => ({
-	type: AUTH_REQUEST_REGISTER
-});
-
-const responseLogin = ({ success, response, error }) => ({
-	type: AUTH_RESPONSE_LOGIN,
-	payload: { success, response, error }
-});
-
-const responseRegister = ({ success, response, error }) => ({
-	type: AUTH_RESPONSE_REGISTER,
-	payload: { success, response, error }
-});
-
-const requestLogout = () => ({
-	type: AUTH_REQUEST_LOGOUT
-});
-
-// ==================================
-// ACTIONS
-// ==================================
-export const authLogin = (values) => async (dispatch) => {
+export const actionLogin = (values, method, callback) => async (dispatch) => {
 	dispatch(requestLogin());
 
-	try {
-		const request = { email: values.email, password: values.password };
-		const response = await http.post(API_AUTH_LOGIN, request);
+	if (method === GOOGLE) dispatch(requestLoginWithGoogle());
 
-		dispatch(responseLogin({ success: true, response: response.data.data }));
+	try {
+		let request, response;
+
+		switch (method) {
+			case GOOGLE:
+				request = { credential: values.credential };
+				response = await http.post(API_AUTH_LOGIN_WITH_GOOGLE, request);
+				break;
+
+			default:
+				request = { email: values.email, password: values.password };
+				response = await http.post(API_AUTH_LOGIN, request);
+				break;
+		}
+
+		store.set(STORE_KEY.USER_DATA, response.data.data);
+		store.set(STORE_KEY.TOKEN, response.data.data.token);
+
+		callback({ success: true });
+		dispatch(responseLogin({ success: true, data: response.data.data }));
 	} catch (error) {
-		dispatch(responseLogin({ success: false, error: error.response.data || error }));
+		const message = error.response?.data?.message || error.message;
+
+		callback({ success: false, message });
+		dispatch(responseLogin({ success: false, error: message }));
 	}
 };
 
-export const authRegister = (values) => async (dispatch) => {
+export const actionRegister = (values, callback) => async (dispatch) => {
 	dispatch(requestRegister());
 
 	try {
@@ -60,15 +59,39 @@ export const authRegister = (values) => async (dispatch) => {
 			username: values.username,
 			password: values.password
 		};
+
+		const message = `Terima kasih sudah mendaftar di ${APP_NAME}, Mohon cek email Anda terlebih dahulu untuk aktivasi email.`;
 		const response = await http.post(API_AUTH_REGISTER, request);
 
-		dispatch(responseRegister({ success: true, response: response.data.data }));
+		callback({ success: true, message });
+		dispatch(responseRegister({ success: true, data: response.data.data }));
 	} catch (error) {
-		dispatch(responseRegister({ success: false, error: error.response.data || error }));
+		const message = error.response.data?.message || error.message;
+
+		callback({ success: false, message });
+		dispatch(responseRegister({ success: false, error: message }));
 	}
 };
 
-export const authLogout = (callback) => (dispatch) => {
+export const actionEmailActivation = (params, callback) => async (dispatch) => {
+	dispatch(requestEmailActivation());
+
+	try {
+		const response = await http.get(`${API_AUTH_EMAIL_ACTIVATION}/${params.token}`);
+
+		callback({ success: true, message: 'Aktivasi email berhasil' });
+		dispatch(responseEmailActivation({ success: true, data: response.data.data }));
+	} catch (error) {
+		const message = error.response.data?.message || error.message;
+
+		callback({ success: false, message: 'Aktivasi email gagal' });
+		dispatch(responseEmailActivation({ success: false, error: message }));
+	}
+};
+
+export const actionLogout = (callback) => (dispatch) => {
+	store.remove(STORE_KEY.USER_DATA);
+	store.remove(STORE_KEY.TOKEN);
 	dispatch(requestLogout());
 	callback();
 };
