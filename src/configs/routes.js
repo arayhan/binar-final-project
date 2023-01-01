@@ -5,7 +5,7 @@ export const ROUTES = {
 	HOME: { path: '/', name: 'Home' },
 	FLIGHT: { path: '/flight', name: 'Flight' },
 	BOOKING: { path: '/booking', name: 'Booking' },
-	PAYMENT: { path: '/payment', name: 'Payment' },
+	TRANSACTION: { path: '/transaction', name: 'Transaction' },
 
 	ADMIN: { path: '/admin', name: 'Admin' }
 };

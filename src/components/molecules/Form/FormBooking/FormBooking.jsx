@@ -47,7 +47,7 @@ export const FormBooking = ({ bookingID }) => {
 
 		dispatch(
 			actionCreateTransaction(request, ({ success, message, response }) => {
-				if (success) navigate(`${PATH.PAYMENT}/${response.payment_id}`);
+				if (success) navigate(`${PATH.TRANSACTION}/${response.id}`);
 				notify.show(message, success ? 'success' : 'error');
 			})
 		);

@@ -27,7 +27,7 @@ export const searchFlightsSchema = yup.object().shape({
 });
 
 export const bookingSchema = yup.object().shape({
-	details: yup.array().of(
+	detail: yup.array().of(
 		yup.object().shape({
 			title: yup.string().required('Title harus diisi'),
 			passenger_name: yup.string().required('Nama lengkap harus diisi'),
