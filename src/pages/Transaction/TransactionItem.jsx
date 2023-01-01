@@ -110,7 +110,7 @@ const TransactionItem = () => {
 								<div className="w-full space-y-3">
 									{(transactionItem.status === TRANSACTION_STATUS.UNPAID.value ||
 										transactionItem.status === TRANSACTION_STATUS.PENDING.value ||
-										transactionItem.status === TRANSACTION_STATUS.SETTLEMENT) && (
+										transactionItem.status === TRANSACTION_STATUS.SETTLEMENT.value) && (
 										<div className="w-full bg-white p-8 rounded-md">
 											<TransactionPipe currentStatus={transactionItem.status} />
 										</div>

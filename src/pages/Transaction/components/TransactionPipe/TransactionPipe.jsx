@@ -22,7 +22,7 @@ const TransactionPipe = ({ currentStatus }) => {
 						<FiCheck size={16} />
 					</div>
 				)}
-				<div className="text-gray-500">Konfirmasi Pembayaran</div>
+				<div className="text-gray-500">On-Checking</div>
 				<div className={`line ${isMenungguKonfirmasi ? 'bg-primary' : 'bg-gray-300'}`} />
 			</div>
 			<div className="flex flex-1 flex-col items-center text-center text-sm">
