@@ -53,15 +53,15 @@ const AppRoute = () => {
 					<Route path={PATH.TRANSACTION} element={<TransactionList />} />
 					<Route path={`${PATH.TRANSACTION}/detail`} element={<TransactionItem />} />
 					<Route path={`${PATH.TRANSACTION}/:transactionID`} element={<TransactionItem />} />
-				</Route>
-			</Route>
 
-			<Route element={<ProfileLayout />}>
-				<Route path={PATH.PROFILE} element={<ProfileMyAccount />} />
-				<Route path={PATH.PROFILE_MY_ACCOUNT} element={<ProfileMyAccount />} />
-				<Route path={PATH.PROFILE_PURCHASE_LIST} element={<ProfilePurchaseList />} />
-				<Route path={PATH.PROFILE_MY_ORDER} element={<ProfileMyOrder />} />
-				<Route path={PATH.PROFILE_MY_BILLING} element={<ProfileMyBilling />} />
+					<Route element={<ProfileLayout />}>
+						<Route path={PATH.PROFILE} element={<ProfileMyAccount />} />
+						<Route path={PATH.PROFILE_MY_ACCOUNT} element={<ProfileMyAccount />} />
+						<Route path={PATH.PROFILE_PURCHASE_LIST} element={<ProfilePurchaseList />} />
+						<Route path={PATH.PROFILE_MY_ORDER} element={<ProfileMyOrder />} />
+						<Route path={PATH.PROFILE_MY_BILLING} element={<ProfileMyBilling />} />
+					</Route>
+				</Route>
 			</Route>
 		</RoutesContainer>
 	);

@@ -10,10 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router';
 import { TransactionListItem, TransactionListItemSkeleton } from './components/TransactionListItem/TransactionListItem';
 
-const TransactionList = () => {
+const TransactionList = ({ isShowBanner }) => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const location = useLocation();
 
 	const [page] = useState(0);
 	const [perPage] = useState(0);
@@ -34,17 +32,19 @@ const TransactionList = () => {
 
 	return (
 		<div>
-			<div className="bg-primary">
-				<div className="container py-32 text-white space-y-3">
-					<Fragment>
-						<div className="flex items-center text-4xl space-x-6">Your Transaction List</div>
-						<div className="flex items-center opacity-70 space-x-1">Lihat dan tinjau pemesanan Anda.</div>
-					</Fragment>
+			{isShowBanner && (
+				<div className="bg-primary">
+					<div className="container py-32 text-white space-y-3">
+						<Fragment>
+							<div className="flex items-center text-4xl space-x-6">Your Transaction List</div>
+							<div className="flex items-center opacity-70 space-x-1">Lihat dan tinjau pemesanan Anda.</div>
+						</Fragment>
+					</div>
 				</div>
-			</div>
+			)}
 
-			<div className="bg-gray-100">
-				<div className="container py-20 pb-36">
+			<div className="bg-secondary-100">
+				<div className="container py-14 pb-36">
 					<div className="max-w-screen-lg mx-auto">
 						{fetchingTransactionList && (
 							<div className="space-y-4">
@@ -79,6 +79,10 @@ const TransactionList = () => {
 			</div>
 		</div>
 	);
+};
+
+TransactionList.defaultProps = {
+	isShowBanner: true
 };
 
 export default TransactionList;

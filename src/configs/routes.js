@@ -3,7 +3,7 @@ export const ROUTES = {
 	REGISTER: { path: '/register', name: 'Register' },
 	ADMIN: { path: '/admin', name: 'Admin' },
 
-	PROFILE: { path: '/profile/account', name: 'Profile' },
+	PROFILE: { path: '/profile', name: 'Profile' },
 	PROFILE_MY_ACCOUNT: { path: '/profile/account', name: 'Profile Account' },
 	PROFILE_PURCHASE_LIST: { path: '/profile/purchase', name: 'Profile Purchase' },
 	PROFILE_MY_ORDER: { path: '/profile/order', name: 'Profile Order' },

@@ -1,3 +1,4 @@
+import TransactionList from '@/pages/Transaction/TransactionList';
 import { useState } from 'react';
 
 const Purchases = [
@@ -25,6 +26,9 @@ const PurchaseList = () => {
 						<div>{purchase.label}</div>
 					</button>
 				))}
+			</div>
+			<div className="rounded-md">
+				<TransactionList isShowBanner={false} />
 			</div>
 		</div>
 	);
