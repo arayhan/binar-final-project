@@ -7,6 +7,7 @@ import moment from 'moment';
 import React from 'react';
 import { useEffect } from 'react';
 import { Fragment } from 'react';
+import { BiLoaderAlt } from 'react-icons/bi';
 import Skeleton from 'react-loading-skeleton';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,7 +55,7 @@ const TransactionItem = () => {
 			</div>
 
 			<div className="bg-gray-100">
-				<div className="container py-20">
+				<div className="container py-20 pb-36">
 					<div>
 						<div className="flex items-start gap-5">
 							<div className="bg-white w-1/3 rounded-md hidden md:block">
@@ -78,6 +79,21 @@ const TransactionItem = () => {
 									</div>
 								</div>
 							</div>
+
+							{fetchingTransactionItem && (
+								<div className="w-full bg-white px-8 py-20 rounded-md flex flex-col items-center justify-center space-y-3">
+									<BiLoaderAlt className="animate-spin text-primary" size={24} />
+									<div>Loading transaction data...</div>
+								</div>
+							)}
+
+							{!fetchingTransactionItem && !transactionItem && (
+								<div className="w-full bg-white px-8 py-20 rounded-md flex flex-col items-center justify-center space-y-5">
+									<img src={require('@/images/icons/popup_error.svg').default} alt="" />
+									<div className="font-semibold">Transaksi tidak ditemukan</div>
+									<Button variant="primary" text="Lihat List Transaksi" />
+								</div>
+							)}
 
 							{!fetchingTransactionItem && transactionItem && (
 								<div className="w-full space-y-3">
@@ -160,22 +176,5 @@ const TransactionItem = () => {
 		</div>
 	);
 };
-
-const SkeletonBody = () => (
-	<div className="space-y-3">
-		<div>
-			<Skeleton baseColor="#ddd" className="w-1/2" height={28} />
-			<Skeleton baseColor="#ddd" height={120} />
-		</div>
-		<div>
-			<Skeleton baseColor="#ddd" className="w-1/2" height={28} />
-			<Skeleton baseColor="#ddd" height={120} />
-		</div>
-		<div>
-			<Skeleton baseColor="#ddd" className="w-1/2" height={28} />
-			<Skeleton baseColor="#ddd" height={120} />
-		</div>
-	</div>
-);
 
 export default TransactionItem;
