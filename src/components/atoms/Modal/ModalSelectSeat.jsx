@@ -63,9 +63,8 @@ export const ModalSelectSeat = ({ value, flightID, onClose, onSubmit, isPreview 
 					<div className="p-8 flex flex-col gap-4">
 						{seatOptions &&
 							seatOptions.map((row) => {
-								const gridClass = 'grid-cols-' + (row.length + 1);
 								return (
-									<div className={`grid ${gridClass} gap-2`} key={row}>
+									<div className={`grid grid-cols-7 gap-2`} key={row}>
 										{row.map((seat, seatIndex) => (
 											<Fragment key={seatIndex}>
 												{seatIndex > 0 && seatIndex % 3 === 0 && <div />}
