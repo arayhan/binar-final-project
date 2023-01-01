@@ -1,4 +1,3 @@
-import { Button, Modal } from '@/components/atoms';
 import { ACTION_TRANSACTION } from '@/store/actions';
 import { isImage, isPDF } from '@/utils/helpers';
 import { useState } from 'react';
@@ -6,6 +5,8 @@ import { FaFilePdf } from 'react-icons/fa';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '../Button/Button';
+import { Modal } from './Modal';
 
 export const ModalUpload = ({ name, onClose, onUploaded }) => {
 	const dispatch = useDispatch();

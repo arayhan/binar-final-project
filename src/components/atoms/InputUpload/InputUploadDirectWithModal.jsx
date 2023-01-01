@@ -1,9 +1,12 @@
-import { Button, InputError, InputLabel, ModalUpload } from '@/components/atoms';
 import { isImageURL, isPDFURL } from '@/utils/helpers';
 import { useState } from 'react';
 import { forwardRef } from 'react';
 import { BiPlusCircle } from 'react-icons/bi';
 import { FaFilePdf } from 'react-icons/fa';
+import { Button } from '../Button/Button';
+import { InputError } from '../InputError/InputError';
+import { InputLabel } from '../InputLabel/InputLabel';
+import { ModalUpload } from '../Modal/ModalUpload';
 
 export const InputUploadDirectWithModal = forwardRef(({ name, error, label, disabled, containerClassName, onUploaded }, ref) => {
 	const [uploadedFileURL, setUploadedFileURL] = useState(null);
