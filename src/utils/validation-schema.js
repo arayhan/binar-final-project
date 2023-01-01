@@ -16,3 +16,39 @@ export const registerSchema = yup.object().shape({
 		.oneOf([yup.ref('password'), null], 'Password tidak sama')
 		.required('Konfirmasi password harus diisi')
 });
+
+export const searchFlightsSchema = yup.object().shape({
+	iata_from: yup.string().required('Origin wajib diisi'),
+	iata_to: yup
+		.string()
+		.required('Destinasi wajib diisi')
+		.not([yup.ref('iata_from')], 'Departure and destination must differ'),
+	date_departure: yup.string().required('Tanggal Keberangkatan wajib diisi')
+});
+
+export const bookingSchema = yup.object().shape({
+	detail: yup.array().of(
+		yup.object().shape({
+			title: yup.string().required('Title harus diisi'),
+			passenger_name: yup.string().required('Nama lengkap harus diisi'),
+			phone: yup
+				.string()
+				.matches(/^[0-9]*$/, 'Nomor handphone tidak valid')
+				.required('Nomor handphone harus diisi'),
+			nik: yup
+				.string()
+				.matches(/^\d{16}$/, 'NIK tidak valid')
+				.required('NIK harus diisi'),
+			dob: yup.string().required('Tanggal lahir harus diisi'),
+			seat: yup.string().required('Nomor kursi harus diisi'),
+			visa: yup.mixed().required('Visa harus diisi'),
+			passport: yup.mixed().required('Passport harus diisi'),
+			izin: yup.mixed().required('Izin harus diisi')
+		})
+	)
+});
+
+export const profilSchema = yup.object().shape({
+	name: yup.string().required(''),
+	address: yup.string().required('')
+});

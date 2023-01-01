@@ -1,19 +1,22 @@
+import store from 'store';
+import { STORE_KEY } from '@/utils/constants';
 import {
 	AUTH_REQUEST_LOGIN,
+	AUTH_REQUEST_LOGIN_WITH_GOOGLE,
 	AUTH_REQUEST_REGISTER,
 	AUTH_REQUEST_LOGOUT,
 	AUTH_RESPONSE_LOGIN,
 	AUTH_RESPONSE_REGISTER,
 	AUTH_REQUEST_EMAIL_ACTIVATION,
-	AUTH_RESPONSE_EMAIL_ACTIVATION,
-	AUTH_RESPONSE_LOGIN_WITH_GOOGLE
+	AUTH_RESPONSE_EMAIL_ACTIVATION
 } from './auth.types';
 
 const initialState = {
-	user: null,
+	user: store.get(STORE_KEY.USER_DATA) || null,
 
-	isAuthenticated: false,
+	isAuthenticated: !!store.get(STORE_KEY.TOKEN) || false,
 	isProcessingLogin: false,
+	isProcessingLoginWithGoogle: false,
 	isProcessingRegister: false,
 	isProcessingEmailActivation: false
 };
@@ -26,11 +29,18 @@ export default function reducer(state = initialState, { type, payload }) {
 				isProcessingLogin: true
 			};
 
+		case AUTH_REQUEST_LOGIN_WITH_GOOGLE:
+			return {
+				...state,
+				isProcessingLoginWithGoogle: true
+			};
+
 		case AUTH_RESPONSE_LOGIN:
 			return {
 				...state,
-				user: payload.response || null,
+				user: payload.data || null,
 				isProcessingLogin: false,
+				isProcessingLoginWithGoogle: false,
 				isAuthenticated: payload.success
 			};
 
