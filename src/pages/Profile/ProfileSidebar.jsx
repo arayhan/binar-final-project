@@ -28,9 +28,7 @@ const ProfileSidebar = () => {
 						<Link
 							to={menu?.link}
 							key={i}
-							className={` ${
-								menu?.margin && 'mt-5'
-							} flex items-center gap-3.5 py-2 text-primary hover:bg-secondary-300 rounded-md`}
+							className={` ${menu?.margin && 'mt-5'} flex items-center gap-3.5 py-2 text-primary hover:bg-secondary-300 rounded-md`}
 						>
 							<div>{React.createElement(menu?.icon, { size: '24' })}</div>
 							<h2 className="whitespace-pre">{menu?.name}</h2>

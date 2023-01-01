@@ -32,9 +32,7 @@ const Login = () => {
 					<Controller
 						name={'name'}
 						control={control}
-						render={({ field, fieldState: { error } }) => (
-							<InputText {...field} label="Full Name" placeholder="" error={error} />
-						)}
+						render={({ field, fieldState: { error } }) => <InputText {...field} label="Full Name" placeholder="" error={error} />}
 					/>
 					<Selected />
 					<Controller
