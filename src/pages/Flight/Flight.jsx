@@ -64,7 +64,7 @@ const Flight = () => {
 				</div>
 			</div>
 
-			<div className="bg-gray-100">
+			<div className="bg-secondary-100">
 				<div className="container max-w-screen-lg py-20">
 					{fetchingFlightList && <SkeletonCardItem />}
 					{!fetchingFlightList && (

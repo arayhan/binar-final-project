@@ -110,16 +110,16 @@ export const ModalSelectSeat = ({ value, flightID, onClose, onSubmit, isPreview 
 							<div className="space-y-2">
 								<div className="font-bold text-lg">Metadata</div>
 								<div className="grid grid-cols-2 gap-x-4 gap-y-1 items-center">
-									<div className=" bg-gray-100 p-2">Airline</div>
+									<div className=" bg-secondary-100 p-2">Airline</div>
 									<div className="font-semibold">{flightItem.airplane.airline.name}</div>
 
-									<div className=" bg-gray-100 p-2">Flight Code</div>
+									<div className=" bg-secondary-100 p-2">Flight Code</div>
 									<div className="font-semibold">{flightItem.flightCode}</div>
 
-									<div className=" bg-gray-100 p-2">Total Kursi</div>
+									<div className=" bg-secondary-100 p-2">Total Kursi</div>
 									<div className="font-semibold">{flightItem.airplane.total_seat_row * flightItem.airplane.total_seat_column}</div>
 
-									<div className=" bg-gray-100 p-2">Kursi Tersedia</div>
+									<div className=" bg-secondary-100 p-2">Kursi Tersedia</div>
 									<div className="font-semibold text-green-600">{flightItem.stock}</div>
 								</div>
 							</div>

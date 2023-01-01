@@ -19,7 +19,7 @@ export const MainHeader = () => {
 
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-	const dropdownItemClasses = 'flex items-center space-x-3 p-3 text-left hover:bg-gray-100 text-gray-600';
+	const dropdownItemClasses = 'flex items-center space-x-3 p-3 text-left hover:bg-secondary-100 text-gray-600';
 
 	const dropdownRef = useDetectClickOutside({ onTriggered: () => setIsDropdownOpen(false) });
 
@@ -51,7 +51,7 @@ export const MainHeader = () => {
 						{isAuthenticated && (
 							<button
 								ref={dropdownRef}
-								className="flex items-center gap-2 px-6 py-3 rounded-md hover:bg-gray-100 transition-all"
+								className="flex items-center gap-2 px-6 py-3 rounded-md hover:bg-secondary-100 transition-all"
 								onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 							>
 								<FaUserCircle className="text-primary" size={22} />

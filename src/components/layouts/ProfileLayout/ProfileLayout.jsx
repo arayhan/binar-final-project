@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import { CgProfile } from 'react-icons/cg';
 import { RiFileListLine, RiFileList3Line } from 'react-icons/ri';
 import { MdPayment } from 'react-icons/md';
@@ -12,9 +12,9 @@ const menus = [
 	{ label: 'Purchase List', link: '/profile/purchase', icon: RiFileList3Line },
 	{ label: 'My Billing', link: '/profile/billing', icon: MdPayment }
 ];
+
 export const ProfileLayout = () => {
 	const [open, setOpen] = useState(true);
-	const [activeMenu, setActiveMenu] = useState(menus[0]);
 
 	return (
 		<div className="flex lg:flex-row w-full h-screen bg-secondary-100">
@@ -47,17 +47,18 @@ export const ProfileLayout = () => {
 							<div className={`flex flex-col relative ${!open && 'invisible'}`}>
 								{menus.map((menu) => (
 									<>
-										<Link
+										<NavLink
 											to={menu.link}
 											key={menu.label}
-											className={`${menu.margin && 'mt-5'} ${
-												activeMenu.label === menu.label ? 'bg-primary-700 text-white' : 'text-white hover:bg-primary-400'
-											} flex items-center gap-3.5 py-2 rounded-md`}
-											onClick={() => setActiveMenu(menu)}
+											className={({ isActive }) =>
+												`${menu.margin && 'mt-5'} ${
+													isActive ? 'bg-primary-700 text-white' : 'text-white hover:bg-primary-400'
+												} flex items-center gap-3.5 py-2 rounded-md`
+											}
 										>
 											<div className="ml-2">{React.createElement(menu.icon, { size: '24' })}</div>
 											<h2 className="whitespace-pre">{menu.label}</h2>
-										</Link>
+										</NavLink>
 									</>
 								))}
 							</div>
