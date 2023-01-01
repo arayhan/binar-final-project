@@ -12,7 +12,7 @@ export const TablePriceList = ({ items }) => {
 	return (
 		<div>
 			{items && (
-				<table className="price-list text-sm text-gray-700 w-full">
+				<table className="price-list text-gray-700 w-full">
 					<tbody>
 						{items?.map((item) => (
 							<tr key={item.title}>

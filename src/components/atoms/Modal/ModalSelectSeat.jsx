@@ -50,8 +50,8 @@ export const ModalSelectSeat = ({ value, flightID, onClose, onSubmit, isPreview 
 
 	return (
 		<Modal
-			title="Pilih Tempat Duduk"
-			description="Yuk amankan tempatmu! 😁"
+			title={isPreview ? 'My Seat' : 'Pilih Tempat Duduk'}
+			description={!isPreview && 'Yuk amankan tempatmu! 😁'}
 			isLoading={fetchingFlightItem}
 			onClose={onClose}
 			onSubmit={() => (isPreview ? onClose() : onSubmit(selectedSeat))}
@@ -90,7 +90,7 @@ export const ModalSelectSeat = ({ value, flightID, onClose, onSubmit, isPreview 
 					<div className="space-y-8">
 						<div className="space-y-2">
 							<div className="font-bold text-lg">Keterangan</div>
-							<div className="space-y-1 text-sm">
+							<div className="space-y-1">
 								<div className="flex items-center space-x-3">
 									<div className="bg-red-500 p-2 rounded-md text-xs text-white" />
 									<div>Not Available</div>
@@ -100,21 +100,27 @@ export const ModalSelectSeat = ({ value, flightID, onClose, onSubmit, isPreview 
 									<div>Available</div>
 								</div>
 								<div className="flex items-center space-x-3">
-									<div className="bg-slate-600 outline-1 outline-double outline-slate-500 outline-offset-1 p-2 rounded-md text-xs text-white" />
+									<div className="bg-slate-600 outline-2 outline-double outline-slate-500 outline-offset-2 p-2 rounded-md text-xs text-white" />
 									<div>Tempat dudukmu</div>
 								</div>
 							</div>
 						</div>
 
 						{flightItem && (
-							<div className="space-y-2 text-sm">
+							<div className="space-y-2">
 								<div className="font-bold text-lg">Metadata</div>
-								<div className="grid grid-cols-3 gap-x-4 gap-y-1 items-center">
-									<div className="col-span-2 bg-gray-100 p-2">Total Kursi</div>
-									<div className="font-semibold text-base">{flightItem.airplane.total_seat_row * flightItem.airplane.total_seat_column}</div>
+								<div className="grid grid-cols-2 gap-x-4 gap-y-1 items-center">
+									<div className=" bg-gray-100 p-2">Airline</div>
+									<div className="font-semibold">{flightItem.airplane.airline.name}</div>
 
-									<div className="col-span-2 bg-gray-100 p-2">Kursi Tersedia</div>
-									<div className="font-semibold text-base">{flightItem.stock}</div>
+									<div className=" bg-gray-100 p-2">Flight Code</div>
+									<div className="font-semibold">{flightItem.flightCode}</div>
+
+									<div className=" bg-gray-100 p-2">Total Kursi</div>
+									<div className="font-semibold">{flightItem.airplane.total_seat_row * flightItem.airplane.total_seat_column}</div>
+
+									<div className=" bg-gray-100 p-2">Kursi Tersedia</div>
+									<div className="font-semibold text-green-600">{flightItem.stock}</div>
 								</div>
 							</div>
 						)}

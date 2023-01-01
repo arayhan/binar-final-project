@@ -119,16 +119,16 @@ const TransactionItem = () => {
 									{transactionItem.status === TRANSACTION_STATUS.UNPAID.value && (
 										<>
 											<div className="w-full bg-white p-8 rounded-md">
-												<div className="text-center mb-6 text-gray-500 text-sm">Segera Lakukan Pembayaran</div>
+												<div className="text-center mb-6 text-gray-500 ">Segera Lakukan Pembayaran</div>
 												<div className="relative text-center mb-6">
 													<span className="font-semibold text-xl">
-														<span>Rp {formatRupiah(transactionItem.total).slice(0, -3)}</span>
+														<span>{formatRupiah(transactionItem.total).slice(0, -3)}</span>
 														<span className="text-red-500">{formatRupiah(transactionItem.total).slice(-3)}</span>
 													</span>
 												</div>
 												<div className="flex items-center bg-gray-100 rounded-md px-5 py-3 mb-10">
 													<img className="w-6 mr-3" src={require('@/images/icons/info.png')} alt="" />
-													<div className="text-sm">
+													<div>
 														<span className="text-red-500 font-semibold">Penting!</span> Mohon transfer tepat sampai 3 angka terakhir
 													</div>
 												</div>
@@ -139,16 +139,16 @@ const TransactionItem = () => {
 									{transactionItem.status === TRANSACTION_STATUS.SETTLEMENT.value && (
 										<div className="w-full bg-white rounded-md flex flex-col items-center p-8">
 											<img className="mb-6 w-32" src={require('@/images/icons/popup_berhasil.svg').default} alt="Menunggu konfirmasi sistem" />
-											<div className="mb-3 font-semibold">Pembayaran Berhasil</div>
-											<span className="text-sm text-gray-500">Lihat E-Ticketmu Sekarang!</span>
+											<div className="text-lg mb-3 font-semibold">Pembayaran Berhasil</div>
+											<span className="text-gray-500">Lihat E-Ticketmu Sekarang!</span>
 										</div>
 									)}
 
 									{transactionItem.status === TRANSACTION_STATUS.PENDING.value && (
 										<div className="w-full bg-white rounded-md flex flex-col items-center p-8">
 											<img className="mb-6" src={require('@/images/icons/asset_time.svg').default} alt="Menunggu konfirmasi sistem" />
-											<div className="mb-3 font-semibold">Pembayaran Sedang Diproses</div>
-											<span className="text-sm text-gray-500">Mohon tunggu, sedang proses konfirmasi sistem.</span>
+											<div className="text-lg mb-3 font-semibold">Pembayaran Sedang Diproses</div>
+											<span className=" text-gray-500">Mohon tunggu, sedang proses konfirmasi sistem.</span>
 										</div>
 									)}
 
@@ -157,13 +157,13 @@ const TransactionItem = () => {
 										transactionItem.status === TRANSACTION_STATUS.FRAUD.value) && (
 										<div className="w-full bg-white rounded-md flex flex-col items-center px-24 py-8">
 											<img className="mb-6 w-32" src={require('@/images/icons/popup_error.svg').default} alt="Pembayaran gagal" />
-											<div className="mb-3 font-semibold">
+											<div className="text-lg mb-3 font-semibold">
 												{transactionItem.status === TRANSACTION_STATUS.CANCEL.value && 'Pembayaran telah dibatalkan'}
 												{transactionItem.status === TRANSACTION_STATUS.EXPIRE.value && 'Mohon Maaf, Waktu Pembayaran Anda Sudah Habis'}
 											</div>
 											{transactionItem.status !== TRANSACTION_STATUS.CANCEL.value && (
-												<span className="text-sm text-gray-500 text-center">
-													Jika Anda merasa sudah melakukan transfer, harap hubungi customer service kami
+												<span className=" text-gray-500 text-center">
+													Jika Anda merasa sudah melakukan transfer, harap hubungi customer service kami melalui email atau chat.
 												</span>
 											)}
 										</div>
@@ -198,59 +198,61 @@ const TransactionItem = () => {
 
 											<hr />
 
-											{transactionItem?.bookingDetail?.map((passenger) => (
-												<table key={passenger.id} className="w-full">
-													<tbody>
-														<tr>
-															<td>Name</td>
-															<td className="font-semibold text-right py-[3px]">
-																{passenger.title} {passenger.passenger_name}
-															</td>
-														</tr>
-														<tr>
-															<td>Checked In</td>
-															<td className="font-semibold text-right py-[3px]">
-																<div className={`inline-block p-3 my-3 ${passenger.isCheckIn ? 'bg-green-100' : 'bg-red-100'} rounded-md`}>
-																	{passenger.isCheckIn ? '✅ SUDAH CHECK IN' : '❌ BELUM CHECK IN'}
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>Phone</td>
-															<td className="font-semibold text-right py-[3px]">{passenger.phone}</td>
-														</tr>
-														<tr>
-															<td>NIK</td>
-															<td className="font-semibold text-right py-[3px]">{passenger.nik}</td>
-														</tr>
-														<tr>
-															<td>Seat</td>
-															<td className="font-semibold text-right py-[3px]">
-																<div className="flex items-center justify-end gap-4">
-																	{showSeatPreviewModal && (
-																		<ModalSelectSeat
-																			flightID={transactionItem.product_id}
-																			value={showSeatPreviewModal}
-																			onClose={() => setShowSeatPreviewModal(false)}
-																			isPreview
-																		/>
-																	)}
-																	<span>{passenger.seat}</span>
-																	<Button variant="primary" onClick={() => setShowSeatPreviewModal(passenger.seat)}>
-																		Lihat Posisi Kursi
-																	</Button>
-																</div>
-															</td>
-														</tr>
-														<tr>
-															<td>Ticket Num</td>
-															<td className="font-semibold text-right py-[3px]">{passenger.ticketNum}</td>
-														</tr>
-													</tbody>
-												</table>
-											))}
-
-											<hr />
+											{transactionItem.status === TRANSACTION_STATUS.SETTLEMENT.value &&
+												transactionItem?.bookingDetail?.map((passenger) => (
+													<>
+														<table key={passenger.id} className="w-full">
+															<tbody>
+																<tr>
+																	<td>Name</td>
+																	<td className="font-semibold text-right py-[3px]">
+																		{passenger.title} {passenger.passenger_name}
+																	</td>
+																</tr>
+																<tr>
+																	<td>Check In Status</td>
+																	<td className="font-semibold text-right py-[3px]">
+																		<div className={`inline-block p-3 my-3 ${passenger.isCheckIn ? 'bg-green-100' : 'bg-red-100'} rounded-md`}>
+																			{passenger.isCheckIn ? '✅ SUDAH CHECK IN' : '❌ BELUM CHECK IN'}
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Phone</td>
+																	<td className="font-semibold text-right py-[3px]">{passenger.phone}</td>
+																</tr>
+																<tr>
+																	<td>NIK</td>
+																	<td className="font-semibold text-right py-[3px]">{passenger.nik}</td>
+																</tr>
+																<tr>
+																	<td>Seat</td>
+																	<td className="font-semibold text-right py-[3px]">
+																		<div className="flex items-center justify-end gap-4">
+																			{showSeatPreviewModal && (
+																				<ModalSelectSeat
+																					flightID={transactionItem.product_id}
+																					value={showSeatPreviewModal}
+																					onClose={() => setShowSeatPreviewModal(false)}
+																					isPreview
+																				/>
+																			)}
+																			<span>{passenger.seat}</span>
+																			<Button variant="primary" onClick={() => setShowSeatPreviewModal(passenger.seat)}>
+																				Lihat Posisi Kursi
+																			</Button>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<td>Ticket Num</td>
+																	<td className="font-semibold text-right py-[3px]">{passenger.ticketNum}</td>
+																</tr>
+															</tbody>
+														</table>
+														<hr />
+													</>
+												))}
 
 											<TablePriceList
 												items={[
