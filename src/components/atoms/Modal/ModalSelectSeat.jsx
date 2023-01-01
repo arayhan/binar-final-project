@@ -62,28 +62,31 @@ export const ModalSelectSeat = ({ value, flightID, onClose, onSubmit, isPreview 
 				<div className="border rounded-md flex justify-center max-h-80 md:max-h-[70vh] overflow-y-scroll md:w-8/12">
 					<div className="p-8 flex flex-col gap-4">
 						{seatOptions &&
-							seatOptions.map((row) => (
-								<div className={`grid grid-cols-${row.length + 1} gap-2`} key={row}>
-									{row.map((seat, seatIndex) => (
-										<Fragment key={seatIndex}>
-											{seatIndex > 0 && seatIndex % 3 === 0 && <div />}
-											<button
-												key={seat}
-												className={`${
-													selectedSeat === seat
-														? 'bg-slate-600 outline-2 outline-double outline-slate-500 outline-offset-2'
-														: availableSeats.includes(seat)
-														? 'bg-green-600 hover:bg-green-500'
-														: 'bg-red-600'
-												} p-3 rounded-md text-sm text-white transition-all font-semibold`}
-												onClick={() => !isPreview && handleChangeSeat(seat)}
-											>
-												{seat}
-											</button>
-										</Fragment>
-									))}
-								</div>
-							))}
+							seatOptions.map((row) => {
+								const gridClass = 'grid-cols-' + (row.length + 1);
+								return (
+									<div className={`grid ${gridClass} gap-2`} key={row}>
+										{row.map((seat, seatIndex) => (
+											<Fragment key={seatIndex}>
+												{seatIndex > 0 && seatIndex % 3 === 0 && <div />}
+												<button
+													key={seat}
+													className={`${
+														selectedSeat === seat
+															? 'bg-slate-600 outline-2 outline-double outline-slate-500 outline-offset-2'
+															: availableSeats.includes(seat)
+															? 'bg-green-600 hover:bg-green-500'
+															: 'bg-red-600'
+													} p-3 rounded-md text-sm text-white transition-all font-semibold`}
+													onClick={() => !isPreview && handleChangeSeat(seat)}
+												>
+													{seat}
+												</button>
+											</Fragment>
+										))}
+									</div>
+								);
+							})}
 					</div>
 				</div>
 				<div className="flex flex-col justify-between flex-1 space-y-8">
