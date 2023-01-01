@@ -6,6 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Skeleton from 'react-loading-skeleton';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { PATH } from '@/configs/routes';
+import { queryStringToObject } from '@/utils/helpers';
+import { notify } from 'react-notify-toast';
+import { LOGIN_METHODS } from '@/utils/constants';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -23,11 +29,28 @@ const Login = () => {
 
 	const handleLogin = (values) => {
 		dispatch(
-			actionLogin(values, ({ success, message }) => {
+			actionLogin(values, LOGIN_METHODS.EMAIL, ({ success, message }) => {
 				if (message) notify.show(message, success ? 'success' : 'error');
+				if (success) {
+					const queryParams = location.search ? queryStringToObject(location.search) : null;
+					const redirect = queryParams?.redirect || PATH.HOME;
+					window.location.href = redirect;
+				}
 			})
 		);
 	};
+
+	useEffect(() => {
+		if (location.search?.indexOf('token') !== -1 && !isProcessingEmailActivation) {
+			const { token } = queryStringToObject(location.search);
+			dispatch(
+				actionEmailActivation({ token }, ({ success, message }) => {
+					navigate(PATH.LOGIN);
+					notify.show(message, success ? 'success' : 'error');
+				})
+			);
+		}
+	}, []);
 
 	return (
 		<div className="flex flex-col justify-center items-center px-8 py-20 lg:px-20 space-y-4 lg:min-h-screen">
@@ -81,20 +104,23 @@ const Login = () => {
 							<div className="text-center opacity-70">atau</div>
 
 							{isProcessingLogin && <Skeleton containerClassName="block" height={38} />}
-							{!isProcessingLogin && (
-								<GoogleLogin
-									theme="outline"
-									logo_alignment="center"
-									text="Test"
-									onSuccess={handleGoogleLogin}
-									onError={() => {
-										console.log('Login Failed');
-									}}
-								/>
-							)}
+							{!isProcessingLogin && <ButtonLoginWithGoogle />}
+						</div>
+
+						<div className="text-center">
+							<span className="opacity-70">Belum punya akun?</span>{' '}
+							<Link className="text-primary hover:underline font-semibold" to={PATH.REGISTER}>
+								Daftar
+							</Link>
 						</div>
 					</div>
 				</form>
+			</div>
+
+			<div className="py-4">
+				<Link className="text-primary hover:underline font-semibold" to={PATH.HOME}>
+					Kembali ke Beranda
+				</Link>
 			</div>
 		</div>
 	);

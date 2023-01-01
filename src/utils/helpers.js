@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const queryStringToObject = (queryString) => {
 	const pairs = queryString.substring(1).split('&');
 
@@ -30,4 +32,42 @@ export const removeQueryParams = (url, params) => {
 	if (Object.keys(object).length > 0 && params in object) delete object[params];
 	const result = objectToQueryString(object);
 	return result;
+};
+
+export const formatRupiah = (angka) => {
+	var number_string = angka
+			.toString()
+			.replace(/[^,\d]/g, '')
+			.toString(),
+		split = number_string.split(','),
+		sisa = split[0].length % 3,
+		rupiah = split[0].substr(0, sisa),
+		ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+	if (ribuan) {
+		const separator = sisa ? '.' : '';
+		rupiah += separator + ribuan.join('.');
+	}
+
+	rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+	return 'Rp. ' + rupiah;
+};
+
+export const isPDF = (file) => file.type.indexOf('pdf') > -1;
+export const isImage = (file) => file.type.indexOf('image') > -1;
+
+export const isPDFURL = (url) => {
+	const extension = url.split('.').pop();
+	return extension.indexOf('pdf') > -1;
+};
+export const isImageURL = (url) => {
+	const extensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp', 'ico', 'jfif', 'pjpeg', 'pjp', 'avif', 'apng', 'tiff', 'tif'];
+	const extension = url.split('.').pop();
+	return extensions.includes(extension);
+};
+
+export const setMaxDateOfBirth = (maxYear = 17) => {
+	const date = new Date();
+	date.setFullYear(date.getFullYear() - maxYear);
+	return moment(date).format('YYYY-MM-DD');
 };

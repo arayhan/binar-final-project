@@ -1,0 +1,129 @@
+*{
+    font-family: 'Lucida Sans Regular', sans-serif;
+    box-sizing: border-box;
+    color: #454545;
+}
+
+.kodebooking{
+    background-color: #2db48a;
+    color: white;
+    padding: 4px;
+    width: 200px;
+    position: absolute;
+    text-align: center;
+    border-radius: 50px;
+}
+
+html, body {
+    margin: 0;
+    padding: 1rem;
+    font-family: sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+}
+.main-header {
+    background: #FFF;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #959595;
+}
+.main-header h1{
+    color: #2db48a;
+}
+.mh-logo {
+    margin: 0 0 -10px;
+}
+.main-nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+.container {
+    width: 960px;
+    max-width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+}
+.container li{
+    list-style: none;
+}
+.main-header .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: right;
+    flex-wrap: wrap;
+}
+.main-nav ul {
+    margin: 1em 0 .5em;
+    text-align: center;
+}
+.main-nav li {
+    display: inline;
+}
+
+.tabel-penumpang {
+    border:2px solid#999999;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    width: 100%;
+    table-layout: fixed;
+    
+}
+
+.tabel-penumpang th{
+    padding: 12px 15px;
+}
+
+.tabel-penumpang td {
+    padding: 12px 15px;
+}
+
+.tabel-penumpang tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.tabel-terbang {
+    border:2px solid#999999;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.tabel-terbang thead tr {
+    background-color: #2db48a;
+}
+
+.tabel-terbang thead th {
+    color: #175250;
+    text-align: left;
+}
+
+.tabel-terbang th,
+.tabel-terbang td {
+    padding: 12px 15px;
+}
+
+hr{
+    background-color: #959595;
+}
+
+@media (min-width:960px) {
+    .main-header .container {
+        justify-content: space-between;
+    }
+}

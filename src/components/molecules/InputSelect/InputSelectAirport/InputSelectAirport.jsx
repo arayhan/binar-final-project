@@ -1,37 +1,54 @@
 import { InputError, InputLabel, InputSelect } from '@/components/atoms';
-import { useCityStore } from '@/store';
-import React, { useEffect, useState, forwardRef } from 'react';
+import { ACTION_AIRPORT } from '@/store/actions';
+import { useState, forwardRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-export const InputSelectAirport = forwardRef(({ containerClassName, error, onChange, showLabel, params, ...props }, ref) => {
-	const { cityList, fetchingCityList, getCityList } = useCityStore();
+export const InputSelectAirport = forwardRef(
+	({ containerClassName, className, error, onChange, showLabel, disabled, label, placeholder, params, ...props }, ref) => {
+		const dispatch = useDispatch();
 
-	const [options, setOptions] = useState([]);
+		const { actionGetAirportList } = ACTION_AIRPORT;
 
-	useEffect(() => {
-		if (params) getCityList({ ...params });
-		else getCityList();
-	}, [params]);
+		const { airportList, fetchingAirportList } = useSelector((state) => state.airport);
 
-	useEffect(() => {
-		if (cityList?.total > 0) {
-			const mapCity = cityList.items.map((city) => ({ label: city.name, value: city.id }));
-			setOptions(mapCity);
-		}
-	}, [cityList]);
+		const [options, setOptions] = useState([]);
 
-	return (
-		<div className={`space-y-1 ${containerClassName}`}>
-			{showLabel && <InputLabel text="Pilih Kota" name={props.name} />}
-			<InputSelect ref={ref} options={options} loading={fetchingCityList} onChange={onChange} placeholder="Pilih Kota" {...props} />
-			{error && <InputError message={error.message} />}
-		</div>
-	);
-});
+		useEffect(() => {
+			dispatch(actionGetAirportList(params ? { ...params } : {}));
+		}, [params]);
+
+		useEffect(() => {
+			if (airportList?.length > 0) {
+				const mapAirport = airportList.map((airport) => ({ label: `${airport.city} (${airport.iata})`, value: airport.iata }));
+				onChange(mapAirport[0]);
+				setOptions(mapAirport);
+			}
+		}, [airportList]);
+
+		return (
+			<div className={`w-full flex flex-col gap-2 ${containerClassName}`}>
+				{showLabel && <InputLabel text={label} name={props.name} />}
+				<InputSelect
+					ref={ref}
+					options={options}
+					loading={fetchingAirportList}
+					disabled={disabled || fetchingAirportList}
+					onChange={onChange}
+					placeholder={placeholder}
+					className={`${className} ${error ? 'border-red-500' : ''}'}`}
+					{...props}
+				/>
+				{error?.message && <InputError message={error.message} />}
+			</div>
+		);
+	}
+);
 
 InputSelectAirport.displayName = 'InputSelectAirport';
 InputSelectAirport.defaultProps = {
-	name: 'city',
+	name: 'airport',
 	params: {},
 	containerClassName: '',
+	onChange: () => {},
 	showLabel: true
 };

@@ -8,14 +8,14 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { PATH } from '@/configs/routes';
-import { ROUTES } from '@/configs/routes';
+import { notify } from 'react-notify-toast';
 
 const Register = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const { actionRegister } = ACTION_AUTH;
-	const { isProcessingRegister } = useSelector((state) => state.auth);
+	const { isProcessingRegister, isProcessingLoginWithGoogle } = useSelector((state) => state.auth);
 
 	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(registerSchema),
@@ -26,7 +26,6 @@ const Register = () => {
 		dispatch(
 			actionRegister(values, ({ success, message }) => {
 				if (success) navigate(PATH.LOGIN);
-				if (success) navigate(ROUTES.LOGIN.path);
 				notify.show(message, success ? 'success' : 'error');
 			})
 		);
@@ -49,28 +48,52 @@ const Register = () => {
 								name={'phone'}
 								control={control}
 								render={({ field, fieldState: { error } }) => (
-									<InputText {...field} label="Phone" placeholder="Masukkan nomor ponsel" disabled={isProcessingRegister} error={error} />
+									<InputText
+										{...field}
+										label="Phone"
+										placeholder="Masukkan nomor ponsel"
+										disabled={isProcessingRegister || isProcessingLoginWithGoogle}
+										error={error}
+									/>
 								)}
 							/>
 							<Controller
 								name={'email'}
 								control={control}
 								render={({ field, fieldState: { error } }) => (
-									<InputText {...field} label="Email" placeholder="Masukkan email" disabled={isProcessingRegister} error={error} />
+									<InputText
+										{...field}
+										label="Email"
+										placeholder="Masukkan email"
+										disabled={isProcessingRegister || isProcessingLoginWithGoogle}
+										error={error}
+									/>
 								)}
 							/>
 							<Controller
 								name={'name'}
 								control={control}
 								render={({ field, fieldState: { error } }) => (
-									<InputText {...field} label="Name" placeholder="Masukkan nama" disabled={isProcessingRegister} error={error} />
+									<InputText
+										{...field}
+										label="Name"
+										placeholder="Masukkan nama"
+										disabled={isProcessingRegister || isProcessingLoginWithGoogle}
+										error={error}
+									/>
 								)}
 							/>
 							<Controller
 								name={'username'}
 								control={control}
 								render={({ field, fieldState: { error } }) => (
-									<InputText {...field} label="Username" placeholder="Masukkan username" disabled={isProcessingRegister} error={error} />
+									<InputText
+										{...field}
+										label="Username"
+										placeholder="Masukkan username"
+										disabled={isProcessingRegister || isProcessingLoginWithGoogle}
+										error={error}
+									/>
 								)}
 							/>
 							<Controller
@@ -82,7 +105,7 @@ const Register = () => {
 										type="password"
 										label="Password"
 										placeholder="Masukkan password"
-										disabled={isProcessingRegister}
+										disabled={isProcessingRegister || isProcessingLoginWithGoogle}
 										error={error}
 									/>
 								)}
@@ -96,7 +119,7 @@ const Register = () => {
 										type="password"
 										label="Password"
 										placeholder="Masukkan konfirmasi password"
-										disabled={isProcessingRegister}
+										disabled={isProcessingRegister || isProcessingLoginWithGoogle}
 										error={error}
 									/>
 								)}
@@ -112,20 +135,19 @@ const Register = () => {
 								className={'w-full px-4 py-3 rounded-md font-semibold'}
 								type="submit"
 								variant={'primary'}
-								disabled={isProcessingRegister}
+								disabled={isProcessingRegister || isProcessingLoginWithGoogle}
 								text="Register"
 							/>
 
 							<div className="text-center opacity-70">atau</div>
 
-							{isProcessingRegister && <Skeleton containerClassName="block" height={38} />}
-							{!isProcessingRegister && <ButtonLoginWithGoogle />}
+							{(isProcessingRegister || isProcessingLoginWithGoogle) && <Skeleton containerClassName="block" height={38} />}
+							{!isProcessingRegister && !isProcessingLoginWithGoogle && <ButtonLoginWithGoogle />}
 						</div>
 
 						<div className="text-center">
 							<span className="opacity-70">Sudah punya akun?</span>{' '}
-							<Link className="text-primary hover:underline font-semibold" to={PATH.LOGIN}></Link>
-							<Link className="text-primary hover:underline font-semibold" to={ROUTES.LOGIN.path}>
+							<Link className="text-primary hover:underline font-semibold" to={PATH.LOGIN}>
 								Login
 							</Link>
 						</div>
@@ -134,8 +156,7 @@ const Register = () => {
 			</div>
 
 			<div className="py-4">
-				<Link className="text-primary hover:underline font-semibold" to={PATH.HOME}></Link>
-				<Link className="text-primary hover:underline font-semibold" to={ROUTES.HOME.path}>
+				<Link className="text-primary hover:underline font-semibold" to={PATH.HOME}>
 					Kembali ke Beranda
 				</Link>
 			</div>

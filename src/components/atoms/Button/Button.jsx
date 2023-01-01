@@ -6,6 +6,7 @@ export const Button = ({ className, disabled, linkTo, onClick, variant, children
 
 	const variantClasses = classNames({
 		'bg-primary-500 hover:bg-primary-400 disabled:bg-primary-300 text-white': variant === 'primary',
+		'bg-secondary-500 hover:bg-secondary-400 disabled:bg-secondary-300': variant === 'secondary',
 		'bg-blue-500 hover:bg-blue-400 disabled:bg-blue-300 text-white': variant === 'info',
 		'bg-green-500 hover:bg-green-400 disabled:bg-green-300 text-white': variant === 'success',
 		'bg-yellow-500 hover:bg-yellow-400 disabled:bg-yellow-300 text-white': variant === 'warning',
@@ -19,7 +20,12 @@ export const Button = ({ className, disabled, linkTo, onClick, variant, children
 	};
 
 	return (
-		<button className={`inline-block text-center transition-all ${className} ${variantClasses}`} onClick={handleClick} disabled={disabled}>
+		<button
+			type="button"
+			className={`inline-block text-center transition-all ${className || 'px-6 py-2 rounded-md'} ${variantClasses}`}
+			onClick={handleClick}
+			disabled={disabled}
+		>
 			{children || text}
 		</button>
 	);
