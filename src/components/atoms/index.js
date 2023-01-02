@@ -14,4 +14,5 @@ export * from './InputSeat/InputSeat';
 export * from './Modal/Modal';
 export * from './Modal/ModalUpload';
 export * from './Modal/ModalSelectSeat';
+export * from './Notification/Notification';
 export * from './Table/TablePriceList/TablePriceList';
