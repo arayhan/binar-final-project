@@ -14,7 +14,13 @@ export const ROUTES = {
 	TRANSACTION: { path: '/transaction', name: 'Transaction' },
 
 	ADMIN: { path: '/admin', name: 'Admin' },
-	ADMIN_LOGIN: { path: '/admin/login', name: 'Login Admin' }
+	ADMIN_LOGIN: { path: '/admin/login', name: 'Admin Login' },
+	ADMIN_AIRPORT: { path: '/admin/airport', name: 'Admin Airport' },
+	ADMIN_PRODUCT: { path: '/admin/product', name: 'Admin Product' },
+	ADMIN_AIRLINE: { path: '/admin/airline', name: 'Admin Airline' },
+	ADMIN_AIRPLANE: { path: '/admin/airplane', name: 'Admin Airplane' },
+	ADMIN_TRANSACTION: { path: '/admin/transaction', name: 'Admin Transaction' },
+	ADMIN_NOTIFICATION: { path: '/admin/notification', name: 'Admin Notification' }
 };
 
 export const PATH = Object.keys(ROUTES).reduce((acc, key) => ({ ...acc, [key]: ROUTES[key].path }), {});

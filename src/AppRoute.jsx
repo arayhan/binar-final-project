@@ -17,6 +17,7 @@ import ProfileMyBilling from './pages/Profile/ProfileMyBilling/ProfileMyBilling'
 import TransactionItem from './pages/Transaction/TransactionItem';
 import TransactionList from './pages/Transaction/TransactionList';
 import AdminLogin from './pages/Admin/Auth/AdminLogin/AdminLogin';
+import { AdminLayout } from './components/layouts/AdminLayout/AdminLayout';
 
 const AppRoute = () => {
 	const location = useLocation();
@@ -44,7 +45,15 @@ const AppRoute = () => {
 	return (
 		<RoutesContainer>
 			<Route element={<AdminRoute />}>
-				<Route path={PATH.ADMIN} element={<Dashboard />} />
+				<Route element={<AdminLayout />}>
+					<Route path={PATH.ADMIN} element={<Dashboard />} />
+					<Route path={PATH.ADMIN_AIRPORT} element={<Dashboard />} />
+					<Route path={PATH.ADMIN_PRODUCT} element={<Dashboard />} />
+					<Route path={PATH.ADMIN_AIRLINE} element={<Dashboard />} />
+					<Route path={PATH.ADMIN_AIRPLANE} element={<Dashboard />} />
+					<Route path={PATH.ADMIN_TRANSACTION} element={<Dashboard />} />
+					<Route path={PATH.ADMIN_NOTIFICATION} element={<Dashboard />} />
+				</Route>
 			</Route>
 
 			<Route element={<AdminAuthenticationRoute />}>
