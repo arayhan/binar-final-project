@@ -78,7 +78,7 @@ const TransactionItem = () => {
 				</div>
 			</div>
 
-			<div className="bg-gray-100">
+			<div className="bg-secondary-100">
 				<div className="container py-20 pb-36">
 					<div>
 						<div className="flex items-start gap-5">
@@ -149,7 +149,7 @@ const TransactionItem = () => {
 														<span className="text-red-500">{formatRupiah(transactionItem.total).slice(-3)}</span>
 													</span>
 												</div>
-												<div className="flex items-center bg-gray-100 rounded-md px-5 py-3 mb-10">
+												<div className="flex items-center bg-secondary-100 rounded-md px-5 py-3 mb-10">
 													<img className="w-6 mr-3" src={require('@/images/icons/info.png')} alt="" />
 													<div>
 														<span className="text-red-500 font-semibold">Penting!</span> Mohon transfer tepat sampai 3 angka terakhir

@@ -24,7 +24,7 @@ export const MainHeader = () => {
 	const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 	const [hasUnread, setHasUnread] = useState(false);
 
-	const dropdownItemClasses = 'flex items-center space-x-3 p-3 text-left hover:bg-gray-100 text-gray-600';
+	const dropdownItemClasses = 'flex items-center space-x-3 p-3 text-left hover:bg-secondary-100 text-gray-600';
 
 	const dropdownRef = useDetectClickOutside({ onTriggered: () => setIsDropdownOpen(false) });
 	const notificationRef = useDetectClickOutside({ onTriggered: () => setIsNotificationOpen(false) });

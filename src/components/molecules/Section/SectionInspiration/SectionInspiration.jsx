@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const SectionInspiration = () => {
 	return (
-		<div className="bg-gray-100">
+		<div className="bg-secondary-100">
 			<div className="container py-20 space-y-8">
 				<div className="space-y-3">
 					<h1 className="text-4xl font-light">Dapatkan Inspirasimu di sini!</h1>

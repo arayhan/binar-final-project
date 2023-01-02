@@ -36,7 +36,7 @@ const Booking = () => {
 				</div>
 			</div>
 
-			<div className="bg-gray-100">
+			<div className="bg-secondary-100">
 				<div className="container py-20">
 					<div className="max-w-screen-lg mx-auto">
 						{!bookingID && <SkeletonBody />}
