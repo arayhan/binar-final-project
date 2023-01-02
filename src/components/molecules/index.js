@@ -9,3 +9,5 @@ export * from './InputSelect/InputSelectPersonTitle/InputSelectPersonTitle';
 
 export * from './Section/SectionFeatures/SectionFeatures';
 export * from './Section/SectionInspiration/SectionInspiration';
+
+export * from './Table/TableAirport/TableAirport';

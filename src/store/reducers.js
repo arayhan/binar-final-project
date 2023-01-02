@@ -6,6 +6,7 @@ import transactionReducer from './transaction/transaction.reducer';
 import notificationReducer from './notification/notification.reducer';
 
 import adminAuthReducer from './admin/auth/admin.auth.reducer';
+import adminAirportReducer from './admin/airport/admin.airport.reducer';
 
 export default combineReducers({
 	auth: authReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
 	flight: flightReducer,
 	transaction: transactionReducer,
 	notification: notificationReducer,
-	admin_auth: adminAuthReducer
+	admin_auth: adminAuthReducer,
+	admin_airport: adminAirportReducer
 });

@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet, Route, Routes as RoutesContainer, useLocation } from 'react-router-dom';
 import { AuthLayout } from './components/layouts/AuthLayout/AuthLayout';
+import { AdminLayout } from './components/layouts/AdminLayout/AdminLayout';
 import { MainLayout } from './components/layouts/MainLayout/MainLayout';
 import { ProfileLayout } from './components/layouts/ProfileLayout/ProfileLayout';
 import { PATH } from './configs/routes';
@@ -17,7 +18,7 @@ import ProfileMyBilling from './pages/Profile/ProfileMyBilling/ProfileMyBilling'
 import TransactionItem from './pages/Transaction/TransactionItem';
 import TransactionList from './pages/Transaction/TransactionList';
 import AdminLogin from './pages/Admin/Auth/AdminLogin/AdminLogin';
-import { AdminLayout } from './components/layouts/AdminLayout/AdminLayout';
+import AdminAirport from './pages/Admin/Airport/AdminAirport';
 
 const AppRoute = () => {
 	const location = useLocation();
@@ -46,13 +47,13 @@ const AppRoute = () => {
 		<RoutesContainer>
 			<Route element={<AdminRoute />}>
 				<Route element={<AdminLayout />}>
-					<Route path={PATH.ADMIN} element={<Dashboard />} />
-					<Route path={PATH.ADMIN_AIRPORT} element={<Dashboard />} />
+					<Route path={PATH.ADMIN_AIRPORT} element={<AdminAirport />} />
 					<Route path={PATH.ADMIN_PRODUCT} element={<Dashboard />} />
 					<Route path={PATH.ADMIN_AIRLINE} element={<Dashboard />} />
 					<Route path={PATH.ADMIN_AIRPLANE} element={<Dashboard />} />
 					<Route path={PATH.ADMIN_TRANSACTION} element={<Dashboard />} />
 					<Route path={PATH.ADMIN_NOTIFICATION} element={<Dashboard />} />
+					<Route path={PATH.ADMIN} element={<Dashboard />} />
 				</Route>
 			</Route>
 

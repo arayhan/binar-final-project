@@ -1,6 +1,7 @@
 export * from './Alert/Alert';
 export * from './Backdrop/Backdrop';
 export * from './Button/Button';
+export * from './Button/ButtonAction';
 export * from './Button/ButtonLoginWithGoogle';
 export * from './FullPageLoader/FullPageLoader';
 export * from './InputDate/InputDate';
@@ -14,5 +15,9 @@ export * from './InputSeat/InputSeat';
 export * from './Modal/Modal';
 export * from './Modal/ModalUpload';
 export * from './Modal/ModalSelectSeat';
+export * from './NegativeCase/NegativeCase';
 export * from './Notification/Notification';
 export * from './Table/TablePriceList/TablePriceList';
+export * from './Table/Table';
+export * from './Table/TableHeader';
+export * from './Table/TableFooter';

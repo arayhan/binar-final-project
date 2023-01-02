@@ -15,3 +15,4 @@ export const API_ETICKET = '/eticket';
 export const API_NOTIFICATION = '/notification';
 
 export const API_ADMIN_AUTH_LOGIN = '/admin/login';
+export const API_ADMIN_AIRPORT = '/admin/airport';

@@ -3,7 +3,7 @@ import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { InputLabel } from '../InputLabel/InputLabel';
 import { PER_PAGE_OPTIONS } from '@/utils/constants';
 
-export const TableFooter = ({ page, setPage, pageCount, perPage, setPerPage }) => {
+export const TableFooter = ({ page, setPage, totalPage, perPage, setPerPage }) => {
 	return (
 		<div className="flex flex-col sm:flex-row gap-6 sm:gap-4 items-center justify-between">
 			<div className="sm:w-1/2">
@@ -25,7 +25,7 @@ export const TableFooter = ({ page, setPage, pageCount, perPage, setPerPage }) =
 					previousLabel={<GrFormPrevious />}
 					nextLabel={<GrFormNext />}
 					initialPage={page - 1}
-					pageCount={pageCount}
+					pageCount={totalPage}
 					onPageChange={(item) => setPage(item.selected + 1)}
 					containerClassName="flex text-sm space-x-2 items-center justify-center"
 					activeLinkClassName="bg-gray-200 text-gray-700"

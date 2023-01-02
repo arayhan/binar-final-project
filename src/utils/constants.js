@@ -57,3 +57,27 @@ export const STORE_KEY = {
 };
 
 export const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+export const VARIANT_TYPES = {
+	LOADING: 'loading',
+	ERROR: 'error',
+	INFO: 'info',
+	SUCCESS: 'success',
+	WARNING: 'warning',
+	DANGER: 'danger'
+};
+
+export const ACTION_TYPES = {
+	CREATE: 'create',
+	SEE_DETAIL: 'see_detail',
+	UPDATE: 'update',
+	DELETE: 'delete'
+};
+
+export const NEGATIVE_CASE_TYPES = {
+	EMPTY_RESULT: 'EMPTY_RESULT',
+	EMPTY_SEARCH: 'EMPTY_SEARCH',
+	ERROR_CONNECTION: 'ERROR_CONNECTION'
+};
+
+export const PER_PAGE_OPTIONS = [5, 10, 20, 50, 100];

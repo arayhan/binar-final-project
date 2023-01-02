@@ -2,10 +2,10 @@ import { forwardRef } from 'react';
 import { InputError } from '../InputError/InputError';
 import { InputLabel } from '../InputLabel/InputLabel';
 
-export const InputText = forwardRef(({ label, helper, prefix, placeholder, error, ...props }, ref) => {
+export const InputText = forwardRef(({ label, helper, prefix, placeholder, error, showLabel, ...props }, ref) => {
 	return (
 		<div className="space-y-2 flex flex-col justify-start">
-			<InputLabel text={label} name={props.name} helper={helper} />
+			{showLabel && <InputLabel text={label} name={props.name} helper={helper} />}
 			<div className="flex items-center space-x-4">
 				{prefix && <div>{prefix}</div>}
 				<input
@@ -24,3 +24,6 @@ export const InputText = forwardRef(({ label, helper, prefix, placeholder, error
 });
 
 InputText.displayName = 'InputText';
+InputText.defaultProps = {
+	showLabel: true
+};

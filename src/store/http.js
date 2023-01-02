@@ -8,9 +8,20 @@ const getHeaders = () => {
 	return token ? { ...headers, Authorization: token } : headers;
 };
 
+const getAdminHeaders = () => {
+	const token = store.get(STORE_KEY.ADMIN_TOKEN);
+	const headers = { 'Content-Type': 'application/json' };
+	return token ? { ...headers, Authorization: token } : headers;
+};
+
 const http = axios.create({
 	baseURL: process.env.REACT_APP_API_BASE_URL,
 	headers: getHeaders()
 });
 
-export { http };
+const adminHttp = axios.create({
+	baseURL: process.env.REACT_APP_API_BASE_URL,
+	headers: getAdminHeaders()
+});
+
+export { http, adminHttp };

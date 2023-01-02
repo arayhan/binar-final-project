@@ -10,6 +10,7 @@ import { store, persistor } from '@/store/store';
 import { OAUTH_CLIENT_ID } from './utils/constants';
 
 import 'react-loading-skeleton/dist/skeleton.css';
+import 'sweetalert2/src/sweetalert2.scss';
 import '@/styles/custom-notify-toast.css';
 import '@/styles/index.css';
 
