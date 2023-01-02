@@ -16,10 +16,12 @@ import ProfileMyOrder from './pages/Profile/ProfileMyOrder/ProfileMyOrder';
 import ProfileMyBilling from './pages/Profile/ProfileMyBilling/ProfileMyBilling';
 import TransactionItem from './pages/Transaction/TransactionItem';
 import TransactionList from './pages/Transaction/TransactionList';
+import AdminLogin from './pages/Admin/Auth/AdminLogin/AdminLogin';
 
 const AppRoute = () => {
 	const location = useLocation();
 	const { isAuthenticated } = useSelector((state) => state.auth);
+	const { isAdminAuthenticated } = useSelector((state) => state.admin_auth);
 
 	const ProtectedRoute = () => {
 		const { pathname } = location;
@@ -31,10 +33,22 @@ const AppRoute = () => {
 		return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
 	};
 
+	const AdminRoute = () => {
+		return !isAdminAuthenticated ? <Navigate to={`${PATH.ADMIN_LOGIN}`} /> : <Outlet />;
+	};
+
+	const AdminAuthenticationRoute = () => {
+		return isAdminAuthenticated ? <Navigate to={PATH.ADMIN} replace /> : <Outlet />;
+	};
+
 	return (
 		<RoutesContainer>
-			<Route element={<ProtectedRoute />}>
+			<Route element={<AdminRoute />}>
 				<Route path={PATH.ADMIN} element={<Dashboard />} />
+			</Route>
+
+			<Route element={<AdminAuthenticationRoute />}>
+				<Route path={PATH.ADMIN_LOGIN} element={<AdminLogin />} />
 			</Route>
 
 			<Route element={<AuthenticationRoute />}>

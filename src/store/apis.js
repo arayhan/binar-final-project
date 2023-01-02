@@ -13,3 +13,5 @@ export const API_UPLOAD_DOCUMENT = '/transaction/upload';
 export const API_ETICKET = '/eticket';
 
 export const API_NOTIFICATION = '/notification';
+
+export const API_ADMIN_AUTH_LOGIN = '/admin/login';

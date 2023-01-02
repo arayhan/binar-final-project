@@ -52,3 +52,8 @@ export const profilSchema = yup.object().shape({
 	name: yup.string().required(''),
 	address: yup.string().required('')
 });
+
+export const adminLoginSchema = yup.object().shape({
+	username: yup.string().required('Username wajib diisi'),
+	password: yup.string().required('Password wajib diisi')
+});

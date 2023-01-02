@@ -1,7 +1,6 @@
 export const ROUTES = {
 	LOGIN: { path: '/login', name: 'Login' },
 	REGISTER: { path: '/register', name: 'Register' },
-	ADMIN: { path: '/admin', name: 'Admin' },
 
 	PROFILE: { path: '/profile', name: 'Profile' },
 	PROFILE_MY_ACCOUNT: { path: '/profile/account', name: 'Profile Account' },
@@ -12,7 +11,10 @@ export const ROUTES = {
 	HOME: { path: '/', name: 'Home' },
 	FLIGHT: { path: '/flight', name: 'Flight' },
 	BOOKING: { path: '/booking', name: 'Booking' },
-	TRANSACTION: { path: '/transaction', name: 'Transaction' }
+	TRANSACTION: { path: '/transaction', name: 'Transaction' },
+
+	ADMIN: { path: '/admin', name: 'Admin' },
+	ADMIN_LOGIN: { path: '/admin/login', name: 'Login Admin' }
 };
 
 export const PATH = Object.keys(ROUTES).reduce((acc, key) => ({ ...acc, [key]: ROUTES[key].path }), {});
