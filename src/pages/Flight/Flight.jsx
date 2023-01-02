@@ -82,7 +82,7 @@ const Flight = () => {
 										{flightList?.length > 0 &&
 											flightList?.map((flight) => (
 												<div key={flight.id} className="bg-white p-6 rounded-md shadow-md space-y-8">
-													<div className="flex items-start justify-between">
+													<div className="flex flex-col md:flex-row items-start justify-between">
 														<div className="flex items-center space-x-4">
 															{flight.airplane.airline?.logo && (
 																<img className="w-20" src={flight.airplane.airline?.logo} alt={flight.airplane.airline.name} />
@@ -94,29 +94,24 @@ const Flight = () => {
 															)}
 															<div>
 																<div className="text-2xl">{flight.airplane.airline.name}</div>
-																<div className="opacity-70">{flight.airplane.name}</div>
+																<div className="opacity-70">{flight.flightCode || '-'}</div>
 															</div>
-														</div>
-
-														<div>
-															<span>Flight Code : </span>
-															<span className="font-semibold">{flight.flightCode || '-'}</span>
 														</div>
 													</div>
 
 													<div className="flex flex-col md:flex-row gap-6 items-center justify-between">
 														<div className="flex items-center space-x-12">
 															<div className="inline-flex flex-col items-center justify-center space-y-2">
-																<div className="text-xl">{moment(flight.date_departure).format('hh:ss')}</div>
-																<div className="inline-block p-1 px-3 bg-secondary rounded-full">{flight.iata_from}</div>
+																<div className="text-base sm:text-xl">{moment(flight.date_departure).format('hh:ss')}</div>
+																<div className="text-sm sm:text-base inline-block p-1 px-3 bg-secondary rounded-full">{flight.iata_from}</div>
 															</div>
-															<div className="relative text-center w-40 sm:w-56">
+															<div className="relative text-center w-28 sm:w-56">
 																<div className="absolute top-1/2 transform -translate-y-1/2 w-full h-[1px] bg-gray-300" />
 																<div className="relative inline-block bg-white px-3 py-1">Direct</div>
 															</div>
 															<div className="inline-flex flex-col items-center justify-center space-y-2">
-																<div className="text-xl">{moment(flight.date_arrival).format('hh:ss')}</div>
-																<div className="inline-block p-1 px-3 bg-secondary rounded-full">{flight.iata_to}</div>
+																<div className="text-base sm:text-xl">{moment(flight.date_arrival).format('hh:ss')}</div>
+																<div className="text-sm sm:text-base  inline-block p-1 px-3 bg-secondary rounded-full">{flight.iata_to}</div>
 															</div>
 														</div>
 
@@ -131,7 +126,7 @@ const Flight = () => {
 
 													<hr />
 
-													<div className="flex items-center justify-end space-x-6">
+													<div className="flex flex-wrap items-center justify-end gap-3">
 														<div className="space-x-1">
 															<span className="font-bold text-xl text-primary">{formatRupiah(flight.price)}</span>
 															<span>/</span>
