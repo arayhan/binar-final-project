@@ -1,26 +1,32 @@
+import { ACTION_NOTIFICATION } from '@/store/actions';
 import React, { Fragment } from 'react';
 import { IoMdNotifications } from 'react-icons/io';
 import Skeleton from 'react-loading-skeleton';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Notification = () => {
+	const dispatch = useDispatch();
+
 	const { notificationList, fetchingNotificationList } = useSelector((state) => state.notification);
 
+	const { actionGetNotificationList, actionPutReadNotification } = ACTION_NOTIFICATION;
+
 	const fetchNotification = () => {
+		dispatch(actionGetNotificationList({ page: 1, limit: 5 }));
+	};
+
+	const handleReadNotification = (notificationID) => {
+		console.log({ notificationID });
 		dispatch(
-			actionGetNotificationList({ page: 1, limit: 5 }, ({ success, data }) => {
-				if (success) {
-					const unreadLength = data.filter((item) => item.is_read === false).length;
-					setHasUnread(unreadLength > 0);
-				}
+			actionPutReadNotification(notificationID, ({ success }) => {
+				if (success) fetchNotification();
 			})
 		);
 	};
 
 	return (
 		<div className="flex flex-col divide-y text-xs md:text-sm">
-			{fetchingNotificationList && (
+			{fetchingNotificationList && !notificationList && (
 				<Fragment>
 					<div className="p-5 gap-3">
 						<Skeleton inline />
@@ -43,7 +49,16 @@ export const Notification = () => {
 			{!fetchingNotificationList && notificationList.length > 0 && (
 				<Fragment>
 					{notificationList.map((notification) => (
-						<Link key={notification.id} className="flex items-start gap-3 p-5 hover:bg-gray-100">
+						<button
+							key={notification.id}
+							className="relative text-left flex items-start gap-3 p-5 hover:bg-gray-100"
+							onClick={() => handleReadNotification(notification.id)}
+						>
+							{!notification.is_read && (
+								<span className="absolute right-3 top-3 flex h-2 w-2">
+									<span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+								</span>
+							)}
 							<div className="bg-primary text-white rounded-full p-2">
 								<IoMdNotifications size={18} />
 							</div>
@@ -51,7 +66,7 @@ export const Notification = () => {
 								{notification.title && <div className="text-base font-semibold">{notification.title}</div>}
 								<div>{notification.body}</div>
 							</div>
-						</Link>
+						</button>
 					))}
 				</Fragment>
 			)}
