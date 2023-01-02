@@ -3,10 +3,12 @@ import authReducer from './auth/auth.reducer';
 import airportReducer from './airport/airport.reducer';
 import flightReducer from './flight/flight.reducer';
 import transactionReducer from './transaction/transaction.reducer';
+import profileReducer from './profile/profile.reducer';
 
 export default combineReducers({
 	auth: authReducer,
 	airport: airportReducer,
 	flight: flightReducer,
-	transaction: transactionReducer
+	transaction: transactionReducer,
+	profile: profileReducer
 });

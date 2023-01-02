@@ -48,7 +48,9 @@ export const bookingSchema = yup.object().shape({
 	)
 });
 
-export const profilSchema = yup.object().shape({
-	name: yup.string().required(''),
-	address: yup.string().required('')
+export const profileSchema = yup.object().shape({
+	email: yup.string().email('Email tidak valid').required('Email wajib diisi'),
+	username: yup.string().required('Username wajib diisi'),
+	name: yup.string().required('Nama wajib diisi'),
+	phone: yup.string().required('Nomor ponsel wajib diisi')
 });
