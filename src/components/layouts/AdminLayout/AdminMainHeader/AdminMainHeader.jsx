@@ -2,7 +2,7 @@ import { PATH } from '@/configs/routes';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronDown, FaUserCircle } from 'react-icons/fa';
 import { GoSignOut } from 'react-icons/go';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ACTION_ADMIN_AUTH } from '@/store/actions';
 import { useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';

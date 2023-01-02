@@ -1,14 +1,6 @@
-import { PATH } from '@/configs/routes';
+import { ADMIN_NAV_OPTIONS } from '@/configs/routes';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-const NAV_OPTIONS = [
-	{ label: 'Dashboard', path: PATH.ADMIN },
-	{ label: 'Airport', path: PATH.ADMIN_AIRPORT },
-	{ label: 'Product', path: PATH.ADMIN_PRODUCT },
-	{ label: 'Airline', path: PATH.ADMIN_AIRLINE },
-	{ label: 'Airplane', path: PATH.ADMIN_AIRPLANE }
-];
 
 export const AdminMainSidebar = () => {
 	return (
@@ -19,7 +11,7 @@ export const AdminMainSidebar = () => {
 				</div>
 			</div>
 			<div className="p-3 space-y-2">
-				{NAV_OPTIONS.map((option) => (
+				{ADMIN_NAV_OPTIONS.map((option) => (
 					<NavLink
 						key={option.label}
 						end

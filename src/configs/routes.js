@@ -24,3 +24,11 @@ export const ROUTES = {
 };
 
 export const PATH = Object.keys(ROUTES).reduce((acc, key) => ({ ...acc, [key]: ROUTES[key].path }), {});
+
+export const ADMIN_NAV_OPTIONS = [
+	{ label: 'Dashboard', path: PATH.ADMIN },
+	{ label: 'Airport', path: PATH.ADMIN_AIRPORT },
+	{ label: 'Product', path: PATH.ADMIN_PRODUCT },
+	{ label: 'Airline', path: PATH.ADMIN_AIRLINE },
+	{ label: 'Airplane', path: PATH.ADMIN_AIRPLANE }
+];
