@@ -68,7 +68,7 @@ export const MainHeader = () => {
 						)}
 						{isAuthenticated && (
 							<>
-								<div className="relative">
+								<div className="md:relative">
 									<button
 										ref={notificationRef}
 										className="relative text-secondary-600 hover:bg-gray-100 p-3 rounded-md"
