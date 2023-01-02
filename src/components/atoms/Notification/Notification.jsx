@@ -16,7 +16,6 @@ export const Notification = () => {
 	};
 
 	const handleReadNotification = (notificationID) => {
-		console.log({ notificationID });
 		dispatch(
 			actionPutReadNotification(notificationID, ({ success }) => {
 				if (success) fetchNotification();
