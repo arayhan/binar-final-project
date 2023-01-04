@@ -12,7 +12,7 @@ const TransactionPipe = ({ currentStatus }) => {
 				<div className="circle bg-primary flex items-center justify-center text-white">
 					<FiCheck size={16} />
 				</div>
-				<div className="text-gray-500">Pembayaran</div>
+				<div className="text-gray-500">Menunggu Pembayaran</div>
 				<div className={`line ${isMenungguKonfirmasi ? 'bg-primary' : 'bg-gray-300'}`} />
 			</div>
 			<div className="flex flex-1 flex-col items-center text-center text-sm">
@@ -22,7 +22,7 @@ const TransactionPipe = ({ currentStatus }) => {
 						<FiCheck size={16} />
 					</div>
 				)}
-				<div className="text-gray-500">On-Checking</div>
+				<div className="text-gray-500">Pembayaran</div>
 				<div className={`line ${isMenungguKonfirmasi ? 'bg-primary' : 'bg-gray-300'}`} />
 			</div>
 			<div className="flex flex-1 flex-col items-center text-center text-sm">
