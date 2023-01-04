@@ -1,6 +1,7 @@
 export * from './Banner/BannerHome/BannerHome';
 
 export * from './Card/CardFormSearchFlights/CardFormSearchFlights';
+export * from './Card/CardCheckIn/CardCheckIn';
 
 export * from './Form/FormBooking/FormBooking';
 export * from './Form/FormSearchFlights/FormSearchFlights';

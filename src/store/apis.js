@@ -11,6 +11,7 @@ export const API_TRANSACTION = '/transaction';
 export const API_UPLOAD_DOCUMENT = '/transaction/upload';
 
 export const API_ETICKET = '/eticket';
+export const API_CHECKIN = '/eticket/checkIn';
 
 export const API_NOTIFICATION = '/notification';
 
