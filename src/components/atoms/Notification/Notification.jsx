@@ -39,13 +39,13 @@ export const Notification = () => {
 					</div>
 				</Fragment>
 			)}
-			{!fetchingNotificationList && notificationList.length === 0 && (
+			{!fetchingNotificationList && notificationList?.length === 0 && (
 				<div className="w-full bg-white px-8 py-12 rounded-md flex flex-col items-center justify-center space-y-5">
 					<img className="w-1/3" src={require('@/images/icons/popup_error.svg').default} alt="" />
 					<div className="font-semibold">There is no notification yet</div>
 				</div>
 			)}
-			{!fetchingNotificationList && notificationList.length > 0 && (
+			{!fetchingNotificationList && notificationList?.length > 0 && (
 				<Fragment>
 					{notificationList.map((notification) => (
 						<button

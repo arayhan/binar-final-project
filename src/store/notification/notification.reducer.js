@@ -1,7 +1,7 @@
 import { REQUEST_NOTIFICATION_LIST, RESPONSE_NOTIFICATION_LIST } from './notification.types';
 
 const initialState = {
-	notificationList: null,
+	notificationList: [],
 
 	fetchingNotificationList: false
 };
@@ -17,7 +17,7 @@ export default function reducer(state = initialState, { type, payload }) {
 		case RESPONSE_NOTIFICATION_LIST:
 			return {
 				...state,
-				notificationList: payload.data || null,
+				notificationList: payload.data || [],
 				fetchingNotificationList: false
 			};
 
