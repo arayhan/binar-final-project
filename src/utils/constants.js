@@ -18,7 +18,7 @@ export const TRANSACTION_STATUS = {
 		value: ''
 	},
 	UNPAID: {
-		label: 'Unpaid',
+		label: 'Menunggu Pembayaran',
 		value: 'unpaid'
 	},
 	PENDING: {
@@ -26,15 +26,15 @@ export const TRANSACTION_STATUS = {
 		value: 'pending'
 	},
 	SETTLEMENT: {
-		label: 'Settlement',
+		label: 'Berhasil',
 		value: 'settlement'
 	},
 	CANCEL: {
-		label: 'Cancel',
+		label: 'Dibatalkan',
 		value: 'cancel'
 	},
 	EXPIRE: {
-		label: 'Expire',
+		label: 'Kedaluwarsa',
 		value: 'expire'
 	},
 	REFUND: {

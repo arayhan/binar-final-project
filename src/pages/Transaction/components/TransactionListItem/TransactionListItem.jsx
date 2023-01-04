@@ -23,7 +23,7 @@ export const TransactionListItem = ({ title, date, transactionID, amount, status
 
 					if (status === TRANSACTION_STATUS.CANCEL.value || status === TRANSACTION_STATUS.EXPIRE.value) {
 						statusClassName = 'text-red-500';
-					} else if (status === TRANSACTION_STATUS.UNPAID.value) {
+					} else if (status === TRANSACTION_STATUS.UNPAID.value || status === TRANSACTION_STATUS.PENDING.value) {
 						statusClassName = 'text-yellow-500';
 					}
 
