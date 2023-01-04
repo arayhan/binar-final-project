@@ -1,7 +1,6 @@
 import { Button, FullPageLoader, InputDate, InputLabel, InputSeat, InputText, InputUploadDirectWithModal } from '@/components/atoms';
 import { PATH } from '@/configs/routes';
 import { ACTION_TRANSACTION } from '@/store/actions';
-import { setMaxDateOfBirth } from '@/utils/helpers';
 import { bookingSchema } from '@/utils/validation-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
@@ -147,13 +146,7 @@ export const FormBooking = ({ bookingID }) => {
 									name={`detail[${index}].dob`}
 									control={control}
 									render={({ field, fieldState: { error } }) => (
-										<InputDate
-											{...field}
-											label="Tanggal Lahir"
-											maxDate={setMaxDateOfBirth(17)}
-											disabled={processingCreateTransaction}
-											error={error}
-										/>
+										<InputDate {...field} label="Tanggal Lahir" disabled={processingCreateTransaction} error={error} />
 									)}
 								/>
 
