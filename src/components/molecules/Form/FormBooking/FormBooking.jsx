@@ -47,7 +47,7 @@ export const FormBooking = ({ bookingID }) => {
 
 		dispatch(
 			actionCreateTransaction(request, ({ success, message, response }) => {
-				if (success) navigate(`${PATH.TRANSACTION}/${response.id}`);
+				if (success) navigate(`${PATH.TRANSACTION}/${response.payment_id}`);
 				notify.show(message, success ? 'success' : 'error');
 			})
 		);
@@ -229,7 +229,14 @@ export const FormBooking = ({ bookingID }) => {
 				</div>
 			))}
 
-			<div className="flex justify-end">
+			<div className="flex justify-between">
+				<button
+					className="flex items-center transition-all bg-red-500 hover:bg-red-400 text-white px-5 py-3 rounded-md gap-2"
+					onClick={() => navigate(-1)}
+				>
+					<span>Kembali ke Pencarian</span>
+				</button>
+
 				<button
 					className="flex items-center transition-all bg-primary hover:bg-primary-400 text-white px-5 py-3 rounded-md gap-2"
 					onClick={handleSubmit(handleSubmitBooking)}
