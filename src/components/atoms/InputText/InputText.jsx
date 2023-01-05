@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { InputError } from '../InputError/InputError';
 import { InputLabel } from '../InputLabel/InputLabel';
 
-export const InputText = forwardRef(({ label, helper, prefix, placeholder, error, showLabel, ...props }, ref) => {
+export const InputText = forwardRef(({ label, helper, prefix, placeholder, suffix, error, showLabel, ...props }, ref) => {
 	return (
 		<div className="space-y-2 flex flex-col justify-start">
 			{showLabel && <InputLabel text={label} name={props.name} helper={helper} />}
@@ -17,6 +17,7 @@ export const InputText = forwardRef(({ label, helper, prefix, placeholder, error
 					placeholder={placeholder}
 					id={props.name}
 				/>
+				{suffix && <div>{suffix}</div>}
 			</div>
 			{error && <InputError message={error.message} />}
 		</div>

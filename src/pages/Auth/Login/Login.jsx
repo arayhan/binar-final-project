@@ -6,12 +6,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Skeleton from 'react-loading-skeleton';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { PATH } from '@/configs/routes';
 import { queryStringToObject } from '@/utils/helpers';
 import { notify } from 'react-notify-toast';
 import { LOGIN_METHODS } from '@/utils/constants';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -21,6 +22,8 @@ const Login = () => {
 	const { actionLogin, actionEmailActivation } = ACTION_AUTH;
 
 	const { isProcessingLogin, isProcessingEmailActivation } = useSelector((state) => state.auth);
+
+	const [isShowPassword, setIsShowPassword] = useState(false);
 
 	const { control, handleSubmit } = useForm({
 		resolver: yupResolver(loginSchema),
@@ -79,10 +82,15 @@ const Login = () => {
 								render={({ field, fieldState: { error } }) => (
 									<InputText
 										{...field}
-										type="password"
+										type={isShowPassword ? 'text' : 'password'}
 										label="Password"
 										placeholder="Masukkan password"
 										disabled={isProcessingLogin}
+										suffix={
+											<Button className="p-3 rounded-md" variant="primary" onClick={() => setIsShowPassword(!isShowPassword)}>
+												{isShowPassword ? <FaEyeSlash /> : <FaEye />}
+											</Button>
+										}
 										error={error}
 									/>
 								)}
