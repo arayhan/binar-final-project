@@ -53,13 +53,22 @@ export const profilSchema = yup.object().shape({
 	address: yup.string().required('')
 });
 
+export const checkinSchema = yup.object().shape({
+	flightCode: yup.string().required('Flight Code is required'),
+	ticketNum: yup.string().required('Ticket Num is required'),
+	passenger_name: yup.string().required('Passenger Name is required')
+});
+
 export const adminLoginSchema = yup.object().shape({
 	username: yup.string().required('Username is required'),
 	password: yup.string().required('Password is required')
 });
 
-export const checkinSchema = yup.object().shape({
-	flightCode: yup.string().required('Flight Code is required'),
-	ticketNum: yup.string().required('Ticket Num is required'),
-	passenger_name: yup.string().required('Passenger Name is required')
+export const formAdminAirportSchema = yup.object().shape({
+	iata: yup.string().required('IATA is required'),
+	name: yup.string().required('Name is required'),
+	city: yup.string().required('City is required'),
+	country: yup.string().required('Country is required'),
+	latitude: yup.string().required('Latitude is required'),
+	longitude: yup.string().required('Longitude is required')
 });

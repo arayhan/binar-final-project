@@ -24,7 +24,7 @@ export const TableAirport = ({
 
 	const { airportList, fetchingAirportList } = useSelector((state) => state.admin_airport);
 
-	const { actionGetAdminAirportList } = ACTION_ADMIN_AIRPORT;
+	const { actionGetAdminAirportList, actionDeleteAdminAirport } = ACTION_ADMIN_AIRPORT;
 
 	const [page, setPage] = useState(1);
 	const [totalPage, setTotalPage] = useState(1);
@@ -69,11 +69,6 @@ export const TableAirport = ({
 				Cell: (row) => {
 					return (
 						<div className="grid grid-cols-3 gap-2">
-							<ButtonAction
-								className="min-w-[100px] w-full"
-								action={ACTION_TYPES.SEE_DETAIL}
-								linkTo={`${PATH.ADMIN_AIRPORT}${row.row.original.id}`}
-							/>
 							<ButtonAction action={ACTION_TYPES.UPDATE} linkTo={`${PATH.ADMIN_AIRPORT}/update/${row.row.original.id}`} />
 							<ButtonAction action={ACTION_TYPES.DELETE} onClick={() => deleteAirport(row.row.original.id)} />
 						</div>
@@ -86,7 +81,7 @@ export const TableAirport = ({
 
 	const deleteAirport = (id) => {
 		dispatch(
-			ACTION_ADMIN_AIRPORT.actionDeleteAdminAirport(id, ({ success, message }) => {
+			actionDeleteAdminAirport(id, ({ success, message }) => {
 				notify.show(message, success ? 'success' : 'error');
 				if (success) dispatch(actionGetAdminAirportList({ ...params, page }));
 			})
@@ -121,6 +116,7 @@ export const TableAirport = ({
 					title={title || 'List Airport'}
 					description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium animi dolorum eveniet."
 					isReadonly={isReadonly}
+					showButtonCreate
 					showButtonSeeAll={isShowButtonSeeAll}
 				/>
 			</div>
@@ -163,5 +159,7 @@ TableAirport.defaultProps = {
 	params: {},
 	onClickRow: null,
 	isShowFilter: true,
-	isShowFooter: true
+	isShowFooter: true,
+	isReadonly: false,
+	showButtonCreate: true
 };

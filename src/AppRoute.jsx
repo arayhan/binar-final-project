@@ -19,6 +19,7 @@ import TransactionItem from './pages/Transaction/TransactionItem';
 import TransactionList from './pages/Transaction/TransactionList';
 import AdminLogin from './pages/Admin/Auth/AdminLogin/AdminLogin';
 import AdminAirport from './pages/Admin/Airport/AdminAirport';
+import AdminAirportForm from './pages/Admin/Airport/AdminAirportForm';
 
 const AppRoute = () => {
 	const location = useLocation();
@@ -47,6 +48,8 @@ const AppRoute = () => {
 		<RoutesContainer>
 			<Route element={<AdminRoute />}>
 				<Route element={<AdminLayout />}>
+					<Route path={`${PATH.ADMIN_AIRPORT}/update/:airportID`} element={<AdminAirportForm />} />
+					<Route path={`${PATH.ADMIN_AIRPORT}/create`} element={<AdminAirportForm />} />
 					<Route path={PATH.ADMIN_AIRPORT} element={<AdminAirport />} />
 					<Route path={PATH.ADMIN_PRODUCT} element={<Dashboard />} />
 					<Route path={PATH.ADMIN_AIRLINE} element={<Dashboard />} />
