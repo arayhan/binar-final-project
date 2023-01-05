@@ -6,7 +6,7 @@ import { AdminMainSidebar } from './AdminMainSidebar/AdminMainSidebar';
 export const AdminLayout = () => {
 	return (
 		<div className="flex">
-			<div className="bg-primary-100 h-screen w-60">
+			<div className="bg-primary-100 h-screen min-w-[200px]">
 				<AdminMainSidebar />
 			</div>
 			<div className="flex-1 bg-gray-100">

@@ -1,4 +1,4 @@
-import { ADMIN_NAV_OPTIONS } from '@/configs/routes';
+import { ADMIN_NAV_OPTIONS, PATH } from '@/configs/routes';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export const AdminMainSidebar = () => {
 				{ADMIN_NAV_OPTIONS.map((option) => (
 					<NavLink
 						key={option.label}
-						end
+						end={option.path === PATH.ADMIN}
 						className={({ isActive }) =>
 							`inline-block p-3 ${
 								isActive ? 'bg-primary text-white' : 'bg-primary-200 hover:bg-primary-300'

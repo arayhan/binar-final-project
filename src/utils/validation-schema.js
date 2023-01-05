@@ -72,3 +72,14 @@ export const formAdminAirportSchema = yup.object().shape({
 	latitude: yup.string().required('Latitude is required'),
 	longitude: yup.string().required('Longitude is required')
 });
+
+export const formAdminProductSchema = yup.object().shape({
+	iata_from: yup.string().required('IATA from is required'),
+	iata_to: yup.string().required('IATA to is required'),
+	date_departure: yup.string().required('Date Departure is required'),
+	date_arrival: yup.string().required('Date Arrival is required'),
+	est_time: yup.string().matches(/^\d+$/, 'Est harus berupa angka').required('Est Time is required'),
+	price: yup.string().matches(/^\d+$/, 'Price harus berupa angka').required('Price is required'),
+	gate: yup.string().matches(/^\d+$/, 'Gate harus berupa angka').required('Gate is required'),
+	airplane_id: yup.string().matches(/^\d+$/, 'Airplane harus berupa angka').required('Airplane is required')
+});

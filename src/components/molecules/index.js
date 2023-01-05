@@ -12,3 +12,4 @@ export * from './Section/SectionFeatures/SectionFeatures';
 export * from './Section/SectionInspiration/SectionInspiration';
 
 export * from './Table/TableAirport/TableAirport';
+export * from './Table/TableProduct/TableProduct';

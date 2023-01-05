@@ -7,3 +7,4 @@ export * as ACTION_ETICKET from './eticket/eticket.actions';
 
 export * as ACTION_ADMIN_AUTH from './admin/auth/admin.auth.actions';
 export * as ACTION_ADMIN_AIRPORT from './admin/airport/admin.airport.actions';
+export * as ACTION_ADMIN_PRODUCT from './admin/product/admin.product.actions';
