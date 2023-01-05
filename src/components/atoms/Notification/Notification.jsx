@@ -50,7 +50,9 @@ export const Notification = () => {
 					{notificationList.map((notification) => (
 						<button
 							key={notification.id}
-							className="relative text-left flex items-start gap-3 p-5 hover:bg-gray-100"
+							className={`relative text-left flex items-start gap-3 p-5 ${
+								!notification.is_read ? 'bg-green-100 bg-opacity-50 hover:bg-opacity-80' : 'hover:bg-gray-100'
+							}`}
 							onClick={() => handleReadNotification(notification.id)}
 						>
 							{!notification.is_read && (
