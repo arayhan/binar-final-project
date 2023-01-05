@@ -4,6 +4,7 @@ import { ACTION_ADMIN_AIRPORT } from '@/store/actions';
 import { ACTION_TYPES } from '@/utils/constants';
 import { addQueryParams, queryStringToObject, removeQueryParams } from '@/utils/helpers';
 import { useEffect, useState, useMemo } from 'react';
+import { notify } from 'react-notify-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -82,6 +83,15 @@ export const TableAirport = ({
 		],
 		[perPage, page]
 	);
+
+	const deleteAirport = (id) => {
+		dispatch(
+			ACTION_ADMIN_AIRPORT.actionDeleteAdminAirport(id, ({ success, message }) => {
+				notify.show(message, success ? 'success' : 'error');
+				if (success) dispatch(actionGetAdminAirportList({ ...params, page }));
+			})
+		);
+	};
 
 	const handleSetFilter = (key, _params) => {
 		const updatedParams = _params ? addQueryParams(location.search, _params) : removeQueryParams(location.search, key);
